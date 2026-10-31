@@ -14,8 +14,13 @@ function encaixar() {
   });
 }
 
+const secoes = [...document.querySelectorAll('[data-slide]')].map((botao) => ({ botao, inicio: slides.findIndex((s) => s.getAttribute('aria-label') === botao.dataset.slide) }));
+secoes.forEach(({ botao, inicio }) => botao.addEventListener('click', () => ir(inicio)));
+
 function ir(n) {
   atual = Math.min(Math.max(n, 0), slides.length - 1);
+  const secao = secoes.filter((s) => s.inicio <= atual).pop();
+  secoes.forEach((s) => (s === secao ? s.botao.setAttribute('aria-current', 'true') : s.botao.removeAttribute('aria-current')));
   slides.forEach((s, i) => s.classList.toggle('atual', i === atual));
   contador.textContent = `${atual + 1} de ${slides.length}`;
   anterior.disabled = atual === 0;
@@ -26,13 +31,13 @@ function ir(n) {
 
 anterior.addEventListener('click', () => ir(atual - 1));
 proximo.addEventListener('click', () => ir(atual + 1));
-// Menu de links: fecha com Esc ou ao clicar fora, e o teclado não troca de slide enquanto está em foco.
+// Menu de links: fecha com Esc ou ao clicar fora.
 const menuLinks = document.querySelector('.deck-links');
 document.addEventListener('click', (e) => { if (!menuLinks.contains(e.target)) menuLinks.open = false; });
 
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') menuLinks.open = false;
-  if (e.target.closest('.deck-links')) return;
+  if (e.key === ' ' && e.target.closest('button, summary, a')) return;
   if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(atual + 1); }
   if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); ir(atual - 1); }
   if (e.key === 'Home') ir(0);
@@ -51,10 +56,13 @@ document.addEventListener('fullscreenchange', () => {
 });
 // O palco é sempre wide, 1440 por 810; a tela só define a escala.
 function escalar() {
-  document.documentElement.style.setProperty('--escala', Math.min(innerWidth / 1440, innerHeight / 810));
+  const topo = document.fullscreenElement ? 0 : document.querySelector('.deck-topo').offsetHeight;
+  document.documentElement.style.setProperty('--topo', `${topo}px`);
+  document.documentElement.style.setProperty('--escala', Math.min(innerWidth / 1440, (innerHeight - topo) / 810));
 }
 escalar();
 window.addEventListener('resize', escalar);
+document.addEventListener('fullscreenchange', escalar);
 window.addEventListener('resize', encaixar);
 ir(Number(location.hash.slice(1)) - 1 || 0);
 

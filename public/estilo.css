@@ -173,7 +173,7 @@ body:not(:has(.home)) .ds-lado { background: var(--color-paper); }
 
 /* apresentação */
 .deck { height: 100dvh; overflow: hidden; background: var(--color-demo-ink); }
-.palco { position: fixed; top: 50%; left: 50%; width: 1440px; height: 810px; overflow: hidden; background: var(--color-paper); transform: translate(-50%, -50%) scale(var(--escala, 1)); }
+.palco { position: fixed; top: calc(50% + var(--topo, 0px) / 2); left: 50%; width: 1440px; height: 810px; overflow: hidden; background: var(--color-paper); transform: translate(-50%, -50%) scale(var(--escala, 1)); }
 .slide { display: flex; flex-direction: column; justify-content: center; gap: 1.25rem; padding: 3rem max(1.25rem, calc(50% - 38rem)) 5rem; background: var(--color-paper); color: var(--color-ink); font-size: 1.125rem; }
 .slide h1, .slide h2 { margin: 0; max-width: 24ch; font-family: var(--font-display); font-weight: 800; line-height: 1.08; text-wrap: balance; }
 .slide h1 { font-size: clamp(2.5rem, 101px, 5.5rem); }
@@ -210,6 +210,8 @@ body:not(:has(.home)) .ds-lado { background: var(--color-paper); }
 .slide-assinatura { position: absolute; top: 1rem; right: max(1.25rem, calc(50% - 38rem)); display: block; width: 5.5rem; height: auto; }
 .slide-corpo { max-width: 58ch; font-size: clamp(1.125rem, 27px, 1.5rem); line-height: 1.4; }
 .slide-largo { max-width: 46ch; }
+.slide-largo-corpo { max-width: 100%; }
+.tabela-slide.compacta th, .tabela-slide.compacta td { padding: 0.5rem 1.25rem; }
 .slide.escuro .slide-corpo { color: var(--color-paper); }
 .fecho { max-width: 26ch; }
 .qr-slide { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; }
@@ -220,9 +222,14 @@ body:not(:has(.home)) .ds-lado { background: var(--color-paper); }
 .qr-botao { display: flex; align-items: center; justify-content: center; min-height: 48px; margin-top: auto; padding: 0.25rem 1rem; border-radius: var(--radius); background: var(--color-accent); color: var(--color-ink); font-weight: 800; text-decoration: none; transition: background-color 180ms; }
 .slide .qr-botao { color: var(--color-ink); text-decoration: none; }
 .qr-botao:hover { background: var(--color-destaque); }
-.equipe-links { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
-.equipe-links .qr-botao { flex: 1 1 7rem; font-size: 1rem; }
-.equipe-links .qr-botao:hover { background: var(--color-card); }
+.palco { letter-spacing: -0.01em; }
+.equipe article { gap: 0.125rem; padding: 1.25rem; }
+.equipe h3 { font-size: 1.25rem; white-space: nowrap; }
+.equipe p { font-size: 1rem; white-space: nowrap; }
+.equipe-links { display: flex; gap: 0.25rem; margin: 0.625rem 0 0 -0.625rem; }
+.icone-link { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; color: var(--color-ink); transition: background-color 180ms; }
+a.icone-link:hover { background: var(--color-card); }
+.icone-link.vazio { color: var(--color-rule); }
 .fecho-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
 .fecho-links a { text-decoration: none; }
 .identidade { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; }
@@ -281,12 +288,17 @@ body:not(:has(.home)) .ds-lado { background: var(--color-paper); }
 .deck-controles { position: fixed; z-index: 4; right: 1rem; bottom: 1rem; display: none; align-items: center; gap: 0.25rem; padding: 0.25rem; border-radius: var(--radius); background: var(--color-card); color: var(--color-ink); box-shadow: var(--sombra); font-size: var(--text-sm); font-weight: 600; font-variant-numeric: tabular-nums; }
 .deck-controles button { width: 44px; height: 44px; display: grid; place-items: center; border: 0; border-radius: var(--radius); background: none; color: var(--color-ink); transition: background-color 180ms; }
 .deck-controles button:hover:not(:disabled) { background: var(--color-destaque); }
-.deck-links summary { min-height: 44px; display: flex; align-items: center; padding: 0 0.75rem; border-radius: var(--radius); color: var(--color-ink); font-weight: 800; cursor: pointer; list-style: none; transition: background-color 180ms; }
+.deck-links summary { min-height: 44px; display: flex; align-items: center; padding: 0 0.75rem; border-radius: var(--radius); color: var(--color-paper); font-weight: 800; cursor: pointer; list-style: none; transition: background-color 180ms; }
 .deck-links summary::-webkit-details-marker { display: none; }
-.deck-links summary:hover, .deck-links[open] summary { background: var(--color-destaque); }
-.deck-links-lista { position: absolute; right: 0; bottom: calc(100% + 0.75rem); display: flex; flex-direction: column; gap: 0.125rem; width: min(19rem, calc(100vw - 2rem)); padding: 0.25rem; border-radius: var(--radius); background: var(--color-card); box-shadow: var(--sombra); }
+.deck-links summary:hover, .deck-links[open] summary { background: var(--color-destaque); color: var(--color-ink); }
+.deck-links-lista { position: absolute; right: 0.5rem; top: calc(100% + 0.25rem); display: flex; flex-direction: column; gap: 0.125rem; width: min(19rem, calc(100vw - 2rem)); padding: 0.25rem; border-radius: var(--radius); background: var(--color-card); box-shadow: var(--sombra); }
 .deck-links-lista a { min-height: 44px; display: flex; align-items: center; padding: 0.25rem 0.75rem; border-radius: var(--radius); color: var(--color-ink); font-weight: 600; text-decoration: none; transition: background-color 180ms; }
 .deck-links-lista a:hover { background: var(--color-destaque); }
+.deck-topo { position: fixed; z-index: 5; inset: 0 0 auto 0; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 0.25rem 0.5rem; background: var(--color-demo-ink); color: var(--color-paper); }
+html:fullscreen .deck-topo { display: none; }
+.deck-secoes { display: flex; gap: 0.125rem; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+.deck-secoes button { flex: none; min-height: 44px; padding: 0 0.75rem; border: 0; border-radius: var(--radius); background: none; color: var(--color-paper); font-weight: 600; transition: background-color 180ms, color 180ms; }
+.deck-secoes button:hover, .deck-secoes button[aria-current] { background: var(--color-destaque); color: var(--color-ink); }
 .deck-controles button[hidden] { display: none; }
 .deck-controles button:disabled { background: var(--color-paper-2); color: var(--color-muted); cursor: not-allowed; }
 
