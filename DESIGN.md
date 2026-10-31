@@ -22,7 +22,7 @@ Inclua `estilo.css` na página e use os tokens. Cor, fonte e raio nunca são esc
 - Fonte Proxima Nova, com Montserrat de reserva. A Proxima é licenciada e não vai para o repositório.
 - Raio `--radius`, de 14px. Círculo só em orb, avatar, atalho e marco do rastreio.
 - O logo aparece na abertura e na barra do desktop. No celular, depois da abertura, fica só o orb. Abertura: as sementes giram no centro e deslizam para revelar o nome. Na interface fica o texto "Caqui".
-- Ações importantes (falar com uma pessoa, reclamar, encerrar, golpe e bloqueio) mostram as sementes em looping por 1 segundo.
+- Ações importantes (reclamar, encerrar, golpe e bloqueio) mostram as sementes em looping por 1 segundo.
 - O chat se chama caquIA, sempre com essa grafia.
 - Ícones em linha, de uma cor, com `currentColor` ou máscara. Nada que imite marca real.
 
