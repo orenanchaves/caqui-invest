@@ -259,7 +259,7 @@ a.atalho { text-decoration: none; }
 .fonte { background: none; border: 0; padding: 0; min-height: 28px; color: var(--color-ink); text-decoration: underline; text-decoration-color: var(--color-azul); text-underline-offset: 2px; text-align: left; }
 .artigo { border-left: 2px solid var(--color-rule); padding-left: 0.75rem; font-size: var(--text-sm); }
 
-.chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.chips { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
 .chip { min-height: 40px; padding: 0.25rem 0.75rem; background: var(--color-card); color: var(--color-ink); border: 1px solid var(--color-rule); border-radius: var(--radius); transition: background-color var(--dur), border-color var(--dur); }
 .chip { max-width: 100%; font-size: 0.875rem; font-weight: 600; line-height: 1.25; text-align: left; text-wrap: wrap; touch-action: manipulation; -webkit-tap-highlight-color: transparent; transition: background-color 180ms, border-color 180ms, transform var(--dur); }
 .chip:hover { background: var(--color-destaque); border-color: var(--color-accent); }

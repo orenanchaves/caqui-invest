@@ -2,6 +2,8 @@
 
 Fonte única do front-end: [public/tokens.css](public/tokens.css), importado por [public/estilo.css](public/estilo.css). Referência visual: `/design-system.html`.
 
+Para implementar, leia [PARA-DEVS.md](PARA-DEVS.md). Os tokens em JSON estão em [design-system/tokens.json](design-system/tokens.json).
+
 ## Como usar
 
 Inclua `estilo.css` na página e use os tokens. Cor, fonte e raio nunca são escritos direto em componente.
@@ -43,7 +45,7 @@ Inclua `estilo.css` na página e use os tokens. Cor, fonte e raio nunca são esc
 | --- | --- | --- |
 | Ação principal | `.primario` | Uma por bloco |
 | Ação de segurança | `.botao-forte` | Só em golpe |
-| Pergunta sugerida | `.chip` | Envia a pergunta ao motor. Tom claro ao passar o mouse, laranja suave ao tocar e `.escolhido` depois |
+| Pergunta sugerida | `.chip` | Sempre uma embaixo da outra. Envia a pergunta ao motor. Tom claro ao passar o mouse, laranja suave ao tocar e `.escolhido` depois |
 | Atalho | `.atalho` | Quatro por linha |
 | Caixinha | `.quadro` | Ficam lado a lado, e a aberta alarga e empurra as outras |
 | Faixa de demonstração | `.demo-faixa` | Ferramenta de teste, em azul, fora do app. Abre para trocar cliente e horário |
