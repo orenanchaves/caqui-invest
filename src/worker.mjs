@@ -50,6 +50,21 @@ async function mensagem(req, env) {
   return json({ texto: corpo, textoCompleto: res.textoCompleto, acao, fontes, cartoes, sugestoes, resolvida, entrega, estado: novo });
 }
 
+// Conversa entre cliente e equipe depois da entrega, guardada à parte do caso.
+async function conversaCaso(req, env, protocolo) {
+  if (!env.CASOS || !(await env.CASOS.get('caso:' + protocolo))) return json({ erro: 'não existe' }, 404);
+  const chave = 'conversa:' + protocolo;
+  const lista = JSON.parse((await env.CASOS.get(chave)) || '[]');
+  if (req.method !== 'POST') return json(lista);
+  const c = await req.json().catch(() => ({}));
+  const texto = mascarar(String(c.texto ?? '').trim().slice(0, 800));
+  if (!texto) return json({ erro: 'mensagem inválida' }, 400);
+  lista.push({ de: c.de === 'equipe' ? 'equipe' : 'cliente', texto });
+  await env.CASOS.put(chave, JSON.stringify(lista.slice(-200)), { expirationTtl: VALIDADE_CASO });
+  console.log(JSON.stringify({ protocolo, acao: 'mensagem_conversa' }));
+  return json(lista);
+}
+
 async function casos(env) {
   if (!env.CASOS) return json([]);
   const { keys } = await env.CASOS.list({ prefix: 'caso:', limit: 50 });
@@ -74,6 +89,8 @@ export default {
     const art = p.match(/^\/api\/artigo\/(KB-\d{3})$/);
     if (art) { const a = artigoPublico(art[1]); return a ? json(a) : json({ erro: 'não existe' }, 404); }
     if (p === '/api/casos') return casos(env);
+    const fala = p.match(/^\/api\/casos\/(CQ-\d{8}-[A-F0-9]{4})\/conversa$/);
+    if (fala) return conversaCaso(req, env, fala[1]);
     const caso = p.match(/^\/api\/casos\/(CQ-\d{8}-[A-F0-9]{4})$/);
     if (caso) {
       const v = await env.CASOS?.get('caso:' + caso[1]);

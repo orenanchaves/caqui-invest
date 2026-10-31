@@ -58,6 +58,7 @@ A partir de 60rem, a home tem barra no topo com busca, menu e perfil; faixa de s
 | Pedido em destaque | `.destaque` | Faixa "Resgate em andamento" em laranja suave, logo abaixo do topo, com botão de fechar |
 | Gráfico de setores | `.setores` | Carteira por classe, sempre com legenda em texto |
 | Carregamento da resposta | `.pensando` | Sementes em looping na conversa até a resposta sair, por pelo menos 900ms |
+| Conversa com uma pessoa | `.cartao-entrega`, `.bolha.equipe` | No mesmo chat, o topo troca para o nome de quem atende. Cartão com espera e protocolo, aguardo com sementes e mensagens da equipe em creme forte |
 | Microfone | `.microfone` | Transcreve no campo, e o cliente confere antes de enviar |
 | Rastreio de entrega | `.rastreio` | Etapas `feita` e `agora`, com data em cada uma |
 | Orb | `.orb` | Fica na barra de menu, pulsa e abre a caquIA. O ícone do navegador usa só as sementes |

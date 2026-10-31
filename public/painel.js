@@ -32,8 +32,40 @@ async function abrir(protocolo) {
       <div class="coluna"><h3 class="secao">Conversa até aqui</h3>
         ${c.historico.map((t) => `<p class="turno"><b>${t.de === 'cliente' ? 'Cliente' : 'caquIA'}:</b> ${esc(t.texto)}</p>`).join('')}</div>
       <div class="coluna"><h3 class="secao">Dados conferidos</h3>${f.cartoes.map(cartao).join('')}</div>
-    </div>`;
+    </div>
+    <section class="resposta" aria-label="Conversa com o cliente"><h3 class="secao">Conversa com o cliente</h3>
+      <div id="turnos" class="turnos" aria-live="polite"></div>
+      <form id="responder" class="responder"><label class="so-leitor" for="resposta">Resposta para o cliente</label><textarea id="resposta" rows="2" placeholder="Responder ao cliente"></textarea><button class="primario" type="submit">Enviar</button></form>
+    </section>`;
+  lerConversa(protocolo);
 }
+
+function desenhar(lista) {
+  const area = document.querySelector('#turnos');
+  if (!area) return;
+  area.innerHTML = lista.length
+    ? lista.map((m) => `<p class="turno ${m.de === 'equipe' ? 'minha' : ''}"><b>${m.de === 'equipe' ? 'Jonas' : 'Cliente'}:</b> ${esc(m.texto)}</p>`).join('')
+    : '<p class="vazio">O cliente está aguardando a primeira resposta.</p>';
+  area.scrollTop = area.scrollHeight;
+}
+
+async function lerConversa(protocolo) {
+  const r = await fetch(`/api/casos/${encodeURIComponent(protocolo)}/conversa`).catch(() => null);
+  if (r?.ok && location.hash.slice(1) === protocolo) desenhar(await r.json());
+}
+
+document.addEventListener('submit', async (e) => {
+  if (e.target.id !== 'responder') return;
+  e.preventDefault();
+  const campo = document.querySelector('#resposta');
+  const texto = campo.value.trim();
+  if (!texto) return;
+  campo.value = '';
+  const r = await fetch(`/api/casos/${encodeURIComponent(location.hash.slice(1))}/conversa`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ de: 'equipe', texto }) }).catch(() => null);
+  if (r?.ok) desenhar(await r.json());
+  else campo.value = texto;
+  campo.focus();
+});
 
 document.addEventListener('click', (e) => {
   const b = e.target.closest('[data-caso]');
@@ -44,3 +76,4 @@ window.addEventListener('hashchange', () => { abrir(location.hash.slice(1)); car
 await carregarLista();
 abrir(location.hash.slice(1));
 setInterval(carregarLista, 8000);
+setInterval(() => { if (location.hash.length > 1) lerConversa(location.hash.slice(1)); }, 3000);

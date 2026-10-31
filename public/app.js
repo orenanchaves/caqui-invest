@@ -13,17 +13,64 @@ const ATALHOS = [
   ['rendimento', 'Comparar poupança', 'Meu CDB rendeu menos que a poupança?'],
   ['extrato', 'Extrato', ''],
 ];
-const sessao = { cliente: null, agora: null, estado: {}, historico: [] };
+const sessao = { cliente: null, agora: null, estado: {}, historico: [], pessoa: null };
 
 const SIMBOLO = $('#chat-simbolo').innerHTML;
 const QUEM = { seguranca: 'Segurança Caqui' };
+const nomeEquipe = (e) => QUEM[e.fila] || 'Jonas';
 
 // O topo do chat mostra quem está com o cliente: caquIA ou a equipe.
 function atendimento(entrega) {
   $('#chat').classList.toggle('humano', !!entrega);
   $('#chat').classList.toggle('seguranca', entrega?.fila === 'seguranca');
-  $('#chat-nome').textContent = entrega ? QUEM[entrega.fila] || 'Equipe Caqui' : 'caquIA';
+  const nome = entrega ? nomeEquipe(entrega) : 'caquIA';
+  const trocou = $('#chat-nome').textContent !== nome;
+  $('#chat-nome').textContent = nome;
+  $('#chat-papel').textContent = entrega?.fila === 'seguranca' ? 'Atendimento sem fila' : 'Equipe Caqui';
+  $('#chat-papel').hidden = !entrega;
+  if (trocou && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    [$('#chat-quem'), $('#chat-simbolo')].forEach((el) => el.animate([{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { duration: 320, easing: 'ease-out' }));
+  }
   $('#chat-simbolo').innerHTML = entrega ? ICONES.pessoa : SIMBOLO;
+  campo.placeholder = entrega ? `Escreva para ${nome}` : 'Fale aqui';
+}
+
+// Depois da entrega, o que a pessoa escreve vai para a equipe, e a resposta chega pela conversa do caso.
+const SEMENTES = () => $('#aguarde').innerHTML;
+function comecarPessoa(protocolo) {
+  pararPessoa();
+  const nome = $('#chat-nome').textContent;
+  adicionar(`<p class="passagem">${esc(nome === 'Jonas' ? 'Jonas, da equipe Caqui, entrou na conversa' : `${nome} entrou na conversa`)}</p>`);
+  const espera = adicionar(`<div class="aguardando" role="status"><div class="pensando">${SEMENTES()}</div><span>${esc(nome)} já está vendo o seu caso</span><button class="chip" data-voltar-caquia>Voltar para a caquIA</button></div>`);
+  sessao.pessoa = { protocolo, vistas: 0, espera, relogio: setInterval(lerPessoa, 3000) };
+}
+function pararPessoa() {
+  if (!sessao.pessoa) return;
+  clearInterval(sessao.pessoa.relogio);
+  sessao.pessoa.espera?.remove();
+  sessao.pessoa = null;
+}
+async function lerPessoa() {
+  const p = sessao.pessoa;
+  if (!p) return;
+  const r = await fetch(`/api/casos/${p.protocolo}/conversa`).catch(() => null);
+  if (!r?.ok || sessao.pessoa !== p) return;
+  const lista = await r.json();
+  lista.slice(p.vistas).filter((m) => m.de === 'equipe').forEach((m) => {
+    p.espera?.remove();
+    p.espera = null;
+    adicionar(`<span class="bolha-nome">${esc($('#chat-nome').textContent)}</span><p>${esc(m.texto)}</p>`, 'equipe');
+  });
+  p.vistas = Math.max(p.vistas, lista.length);
+}
+async function falarPessoa(texto) {
+  adicionar(`<p>${esc(texto)}</p>`, 'cliente');
+  campo.value = '';
+  sessao.pessoa.espera && fio.append(sessao.pessoa.espera);
+  rolar();
+  const r = await fetch(`/api/casos/${sessao.pessoa.protocolo}/conversa`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ de: 'cliente', texto }) }).catch(() => null);
+  if (!r?.ok) return adicionar('<div class="aviso">Sua mensagem não chegou à equipe. Tente de novo.</div>');
+  sessao.pessoa.vistas = (await r.json()).length;
 }
 
 function conversa(aberta) {
@@ -55,12 +102,14 @@ function blocoFontes(fontes) {
 
 function blocoEntrega(e) {
   if (!e) return '';
-  const linhas = [['Protocolo', e.protocolo], ['Com quem fica', FILAS[e.fila]]];
-  if (e.espera > 0) linhas.push(['Espera, valor simulado', `${e.espera} min`]);
-  if (e.retorno) linhas.push(['Retorno a partir de', `8h de ${e.retorno.split('-').reverse().join('/')}`]);
-  const tabela = linhas.map(([a, b]) => `<tr><td>${esc(a)}</td><td>${esc(b)}</td></tr>`).join('');
-  return `<article class="ficha"><h3>Seu caso está registrado</h3><table class="tabela">${tabela}</table>
-    <a href="/atendente.html#${esc(e.protocolo)}" target="_blank" rel="noopener">Ver como a equipe recebe este caso</a></article>`;
+  const OK = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+  const fora = !!e.retorno;
+  const titulo = fora ? 'Seu caso está registrado' : e.fila === 'seguranca' ? 'A segurança já está com você' : 'Uma pessoa já está vindo';
+  const espera = fora ? `O retorno começa às 8h de ${e.retorno.split('-').reverse().join('/')}.` : e.espera > 0 ? `Espera de cerca de ${e.espera} minutos, valor simulado.` : 'Sem fila.';
+  return `<article class="cartao-entrega"><h3>${OK}${esc(titulo)}</h3><p>${esc(espera)}</p>
+    <p class="notas">Quem atende já vê o seu caso. Você não vai precisar repetir nada.</p>
+    <p class="notas">Protocolo ${esc(e.protocolo)}. ${esc(FILAS[e.fila])}.</p>
+    <a class="notas" href="/atendente.html#${esc(e.protocolo)}" target="_blank" rel="noopener">Abrir o painel da equipe</a></article>`;
 }
 
 function blocoGolpe(res) {
@@ -109,6 +158,7 @@ async function falar(texto) {
   texto = texto.trim();
   if (!texto) return;
   conversa(true);
+  if (sessao.pessoa) return falarPessoa(texto);
   adicionar(`<p>${esc(texto)}</p>`, 'cliente');
   campo.value = '';
   enviar.disabled = true;
@@ -126,6 +176,7 @@ async function falar(texto) {
     if (res.entrega) atendimento(res.entrega);
     sessao.historico.push({ de: 'cliente', texto }, { de: 'caqui', texto: res.textoCompleto });
     mostrar(res);
+    if (res.entrega?.protocolo && !res.entrega.retorno) comecarPessoa(res.entrega.protocolo);
   } catch {
     pensando.remove();
     adicionar('<div class="aviso">Não consegui responder agora. Sua mensagem não foi perdida: tente de novo ou ligue para a Caqui.</div>');
@@ -157,6 +208,7 @@ async function iniciar() {
   try { sessionStorage.setItem('demo-escolha', JSON.stringify([sessao.cliente, sessao.agora])); } catch {}
   sessao.estado = {};
   sessao.historico = [];
+  pararPessoa();
   fio.innerHTML = '';
   atendimento(null);
   adicionar(`<div class="corpo"><p>Como posso ajudar?</p></div>${chipsSugestoes()}`);
@@ -248,6 +300,11 @@ document.addEventListener('click', async (e) => {
     b.setAttribute('aria-pressed', oculto);
     b.setAttribute('aria-label', oculto ? 'Mostrar valores' : 'Ocultar valores');
     try { localStorage.setItem('valores', oculto ? 'ocultos' : 'visiveis'); } catch {}
+  }
+  if ('voltarCaquia' in b.dataset) {
+    pararPessoa();
+    atendimento(null);
+    adicionar('<div class="corpo"><p>Você voltou para a caquIA. Seu protocolo continua aberto.</p></div>');
   }
   if ('ok' in b.dataset) {
     b.closest('.chips').innerHTML = '<span class="horario">Obrigado. Se precisar, é só escrever.</span>';

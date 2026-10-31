@@ -100,6 +100,8 @@ Preferências em `localStorage`: `vista`, `valores` e `demo`. Em `sessionStorage
 | `GET /api/artigo/KB-006` | Artigo da base |
 | `GET /api/casos` | Fila do painel do atendente |
 | `GET /api/casos/:protocolo` | Um caso |
+| `GET /api/casos/:protocolo/conversa` | Mensagens entre cliente e equipe |
+| `POST /api/casos/:protocolo/conversa` | Envia `{ de, texto }` para a conversa |
 
 `POST /api/mensagem` recebe `{ cliente, agora, estado, historico, texto }` e devolve o novo `estado`. Quando devolve `acao: "seguranca_imediata"`, o front abre o aviso de golpe.
 
