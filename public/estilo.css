@@ -281,6 +281,12 @@ body:not(:has(.home)) .ds-lado { background: var(--color-paper); }
 .deck-controles { position: fixed; z-index: 4; right: 1rem; bottom: 1rem; display: none; align-items: center; gap: 0.25rem; padding: 0.25rem; border-radius: var(--radius); background: var(--color-card); color: var(--color-ink); box-shadow: var(--sombra); font-size: var(--text-sm); font-weight: 600; font-variant-numeric: tabular-nums; }
 .deck-controles button { width: 44px; height: 44px; display: grid; place-items: center; border: 0; border-radius: var(--radius); background: none; color: var(--color-ink); transition: background-color 180ms; }
 .deck-controles button:hover:not(:disabled) { background: var(--color-destaque); }
+.deck-links summary { min-height: 44px; display: flex; align-items: center; padding: 0 0.75rem; border-radius: var(--radius); color: var(--color-ink); font-weight: 800; cursor: pointer; list-style: none; transition: background-color 180ms; }
+.deck-links summary::-webkit-details-marker { display: none; }
+.deck-links summary:hover, .deck-links[open] summary { background: var(--color-destaque); }
+.deck-links-lista { position: absolute; right: 0; bottom: calc(100% + 0.75rem); display: flex; flex-direction: column; gap: 0.125rem; width: min(19rem, calc(100vw - 2rem)); padding: 0.25rem; border-radius: var(--radius); background: var(--color-card); box-shadow: var(--sombra); }
+.deck-links-lista a { min-height: 44px; display: flex; align-items: center; padding: 0.25rem 0.75rem; border-radius: var(--radius); color: var(--color-ink); font-weight: 600; text-decoration: none; transition: background-color 180ms; }
+.deck-links-lista a:hover { background: var(--color-destaque); }
 .deck-controles button[hidden] { display: none; }
 .deck-controles button:disabled { background: var(--color-paper-2); color: var(--color-muted); cursor: not-allowed; }
 

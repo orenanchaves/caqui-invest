@@ -26,7 +26,13 @@ function ir(n) {
 
 anterior.addEventListener('click', () => ir(atual - 1));
 proximo.addEventListener('click', () => ir(atual + 1));
+// Menu de links: fecha com Esc ou ao clicar fora, e o teclado não troca de slide enquanto está em foco.
+const menuLinks = document.querySelector('.deck-links');
+document.addEventListener('click', (e) => { if (!menuLinks.contains(e.target)) menuLinks.open = false; });
+
 document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') menuLinks.open = false;
+  if (e.target.closest('.deck-links')) return;
   if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(atual + 1); }
   if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); ir(atual - 1); }
   if (e.key === 'Home') ir(0);
