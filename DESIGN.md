@@ -21,7 +21,7 @@ Inclua `estilo.css` na página e use os tokens. Cor, fonte e raio nunca são esc
 - Azul só em foco e sublinhado, porque texto azul não passa no contraste sobre o creme.
 - Fonte Proxima Nova, com Montserrat de reserva. A Proxima é licenciada e não vai para o repositório.
 - Raio `--radius`, de 14px. Círculo só em orb, avatar, atalho e marco do rastreio.
-- O logo aparece só na abertura: as sementes giram no centro e deslizam para revelar o nome. Na interface fica o texto "Caqui".
+- No produto, o logo aparece só na abertura: as sementes giram no centro e deslizam para revelar o nome. Na interface fica o texto "Caqui".
 - Ações importantes (falar com uma pessoa, reclamar, encerrar, golpe e bloqueio) mostram as sementes em looping por 1 segundo.
 - O chat se chama caquIA, sempre com essa grafia.
 - Ícones em linha, de uma cor, com `currentColor` ou máscara. Nada que imite marca real.
@@ -56,6 +56,7 @@ A partir de 60rem, a home tem barra no topo com busca, menu e perfil; faixa de s
 | Lista | `.linha-dinheiro` | Mostra cada investimento com o rastreio aberto |
 | Pedido em destaque | `.destaque` | Faixa "Resgate em andamento" em laranja suave, logo abaixo do topo, com botão de fechar |
 | Gráfico de setores | `.setores` | Carteira por classe, sempre com legenda em texto |
+| Carregamento da resposta | `.pensando` | Sementes em looping na conversa até a resposta sair, por pelo menos 900ms |
 | Microfone | `.microfone` | Transcreve no campo, e o cliente confere antes de enviar |
 | Rastreio de entrega | `.rastreio` | Etapas `feita` e `agora`, com data em cada uma |
 | Orb | `.orb` | Fica na barra de menu, pulsa e abre a caquIA. O ícone do navegador usa só as sementes |

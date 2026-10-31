@@ -112,19 +112,22 @@ async function falar(texto) {
   adicionar(`<p>${esc(texto)}</p>`, 'cliente');
   campo.value = '';
   enviar.disabled = true;
+  const pensando = adicionar(`<div class="pensando" role="status" aria-label="A caquIA está respondendo">${$('#aguarde').innerHTML}</div>`);
   try {
-    const r = await fetch('/api/mensagem', {
+    const [r] = await Promise.all([fetch('/api/mensagem', {
       method: 'POST', headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ cliente: sessao.cliente, agora: sessao.agora, estado: sessao.estado, historico: sessao.historico, texto }),
-    });
+    }), espera(900)]);
     if (!r.ok) throw new Error(r.status);
     const res = await r.json();
+    pensando.remove();
     sessao.estado = res.estado;
     if (res.acao === 'seguranca_imediata') { $('#pare').hidden = false; $('.pare-botao').focus(); }
     if (res.entrega) atendimento(res.entrega);
     sessao.historico.push({ de: 'cliente', texto }, { de: 'caqui', texto: res.textoCompleto });
     mostrar(res);
   } catch {
+    pensando.remove();
     adicionar('<div class="aviso">Não consegui responder agora. Sua mensagem não foi perdida: tente de novo ou ligue para a Caqui.</div>');
   } finally {
     enviar.disabled = false;

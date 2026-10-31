@@ -64,7 +64,7 @@ button.botao-contorno:active { transform: scale(0.97); }
 .bento-item .valor { font-weight: 800; }
 .orb.ds-orb { position: relative; right: auto; bottom: auto; display: block; }
 .ds-secao { display: flex; flex-direction: column; gap: 1rem; scroll-margin-top: 4.5rem; }
-.ds-nav { position: sticky; top: 0; z-index: 2; display: flex; gap: 0.25rem; margin: 0 -1rem; padding: 0.5rem 1rem; overflow-x: auto; scrollbar-width: none; background: var(--color-paper); }
+.ds-nav { display: flex; gap: 0.25rem; margin: 0 -1rem; padding: 0.5rem 1rem; overflow-x: auto; scrollbar-width: none; background: var(--color-paper); }
 .ds-nav a { flex: none; display: inline-flex; align-items: center; min-height: 40px; padding: 0 0.875rem; border: 1px solid var(--color-rule); border-radius: var(--radius); background: var(--color-card); color: var(--color-ink); font-size: var(--text-sm); font-weight: 600; text-decoration: none; transition: background-color 200ms, border-color 200ms, transform var(--dur); }
 .ds-nav a:hover { background: var(--color-paper-2); border-color: var(--color-accent); }
 .ds-nav a:active { transform: scale(0.97); }
@@ -94,7 +94,17 @@ html { scroll-behavior: smooth; }
 
 /* página do design system */
 .ds .ds-nav { position: static; flex-direction: column; flex-wrap: nowrap; gap: 1rem; margin: 0; padding: 0.5rem 0 0; overflow: visible; background: none; }
-.ds-indice { padding: 0.75rem 1rem; border-radius: var(--radius); background: var(--color-paper); }
+.ds-logo-topo { display: block; width: auto; height: 3.5rem; }
+.ds-logos { display: flex; flex-wrap: wrap; gap: 1rem; align-items: stretch; }
+.ds-logos figure { flex: 1 1 16rem; display: flex; flex-direction: column; gap: 0.5rem; min-width: 0; margin: 0; font-size: var(--text-sm); color: var(--color-muted); }
+.ds-logo-fundo { display: grid; place-items: center; min-height: 12rem; padding: 1.5rem; border-radius: var(--radius); background: var(--color-ink); }
+.ds-logo-fundo img { display: block; width: min(100%, 20rem); height: auto; }
+.ds-logo-fundo.claro { background: var(--color-paper); }
+.ds-logo-fundo.claro img { width: 6rem; }
+.ds-lado { position: sticky; top: 0; z-index: 5; display: flex; flex-direction: column; gap: 0.5rem; padding: 0.5rem 0; background: var(--color-card); }
+.ds-busca { width: 100%; min-height: 44px; padding: 0 0.875rem; border: 1px solid var(--color-rule); border-radius: var(--radius); background: var(--color-card); color: var(--color-ink); font: inherit; }
+.ds-sem-item { display: none; font-size: var(--text-sm); color: var(--color-muted); }
+.ds-indice { max-height: calc(100vh - 6rem); overflow-y: auto; padding: 0.75rem 1rem; border-radius: var(--radius); background: var(--color-paper); }
 .ds-indice summary { min-height: 32px; display: flex; align-items: center; cursor: pointer; font-weight: 800; color: var(--color-ink); }
 .ds-indice-grupo { display: flex; flex-direction: column; gap: 0.125rem; }
 .ds-indice-grupo b { color: var(--color-ink); }
@@ -106,6 +116,8 @@ html { scroll-behavior: smooth; }
 .ds-grupo { margin: 1rem 0 -1rem; padding-bottom: 0.75rem; border-bottom: 2px solid var(--color-ink); font-size: var(--text-xl) !important; }
 .ds-secao h3 { font-family: var(--font-display); font-weight: 800; font-size: var(--text-lg); color: var(--color-ink); }
 .ds-secao h4 { margin-top: 0.5rem; font-size: var(--text-base); font-weight: 800; color: var(--color-ink); }
+body:not(:has(.home)) .ds-lado { background: var(--color-paper); }
+@media (min-width: 60rem) { body:not(:has(.home)) .ds-lado { background: var(--color-card); } }
 .ds-amostra { max-width: 375px; display: flex; flex-direction: column; gap: 0.75rem; padding: 0.75rem; border-radius: var(--radius); background: var(--color-paper); }
 .ds-amostra-larga { max-width: none; }
 .ds-amostra .menu-base, .ds-amostra .pare { position: static; left: auto; width: 100%; transform: none; }
@@ -153,6 +165,11 @@ html { scroll-behavior: smooth; }
 .ds-largo { width: 100%; }
 .ds-largo .ds-moldura { aspect-ratio: 1440 / 900; }
 .ds-moldura iframe[data-largura] { position: absolute; top: 0; left: 0; transform-origin: 0 0; }
+
+.pensando { display: inline-flex; padding: 0.25rem 0; }
+.pensando svg { display: block; width: 2.25rem; height: auto; }
+.pensando .sementes { transform: none; transition: none; }
+.pensando .sementes path { fill: var(--color-ink); }
 
 /* menu inferior */
 .menu-base { position: fixed; z-index: 3; inset: auto 0 0 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); padding: 0.25rem 0.25rem calc(0.25rem + env(safe-area-inset-bottom)); background: var(--color-card); box-shadow: 0 -6px 20px -14px var(--color-ink); }
@@ -441,8 +458,10 @@ a.atalho { text-decoration: none; }
 
 @media (min-width: 60rem) {
   .ds { max-width: 76rem; padding: 2rem 1.5rem 4rem; }
+  body:has(.ds-layout) .topo-dentro { max-width: 76rem; padding-inline: 1.5rem; }
   .ds-layout { display: grid; grid-template-columns: 15rem minmax(0, 1fr); gap: 3rem; align-items: start; }
-  .ds-indice { position: sticky; top: 1rem; max-height: calc(100vh - 2rem); overflow-y: auto; padding: 1rem; }
+  .ds-lado { top: 0; padding-top: 1rem; }
+  .ds-indice { padding: 1rem; }
   .ds-indice summary { display: none; }
   .ds-grupo:first-child { margin-top: 0; }
   #status .ds-amostra { max-width: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr)); }

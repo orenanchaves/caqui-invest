@@ -35,3 +35,30 @@ const ajustar = () => { indice.open = largo.matches; };
 ajustar();
 largo.addEventListener('change', ajustar);
 indice.addEventListener('click', (e) => { if (e.target.closest('a') && !largo.matches) indice.open = false; });
+
+// Busca no índice: procura no nome e no conteúdo de cada item.
+const busca = document.querySelector('#ds-busca');
+const semItem = document.querySelector('#ds-sem-item');
+const normal = (t) => t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+const achados = () => links.filter((a) => !a.hidden);
+busca.addEventListener('input', () => {
+  const termo = normal(busca.value.trim());
+  links.forEach((a) => {
+    const alvo = document.querySelector(a.getAttribute('href'));
+    a.hidden = Boolean(termo) && !normal(`${a.textContent} ${alvo.textContent}`).includes(termo);
+  });
+  document.querySelectorAll('.ds-indice-grupo').forEach((g) => { g.hidden = !g.querySelector('a:not([hidden])'); });
+  document.querySelectorAll('.ds-indice-grupo > span').forEach((s) => {
+    let prox = s.nextElementSibling, tem = false;
+    while (prox && prox.tagName === 'A') { tem ||= !prox.hidden; prox = prox.nextElementSibling; }
+    s.hidden = !tem;
+  });
+  semItem.style.display = achados().length ? 'none' : 'block';
+  indice.open = largo.matches || Boolean(termo);
+});
+busca.addEventListener('keydown', (e) => {
+  if (e.key !== 'Enter' || !achados().length) return;
+  e.preventDefault();
+  const termo = normal(busca.value.trim());
+  (achados().find((a) => normal(a.textContent).includes(termo)) || achados()[0]).click();
+});
