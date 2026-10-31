@@ -31,3 +31,15 @@ document.addEventListener('keydown', (e) => {
 });
 window.addEventListener('resize', encaixar);
 ir(Number(location.hash.slice(1)) - 1 || 0);
+
+// Abertura com o logo completo, igual à do app, só ao começar do primeiro slide.
+const abertura = document.querySelector('#carregando');
+const espera = (ms) => new Promise((pronto) => setTimeout(pronto, ms));
+if (atual > 0) abertura.remove();
+else {
+  await espera(900);
+  abertura.classList.add('pronto');
+  await espera(2000);
+  abertura.classList.add('fim');
+  setTimeout(() => abertura.remove(), 900);
+}

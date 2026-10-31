@@ -12,125 +12,182 @@
 <link rel="stylesheet" href="estilo.css">
 </head>
 <body class="deck">
+<div class="carregando" id="carregando"><svg viewBox="0 0 658.11 271.66" role="img" aria-label="Caqui"><g class="sementes"><path style="--n: 0" d="M186.63,51.69c-2.17.86-36.49,41.76-33.88,51.76,2.85,10.93,34.38-36.79,34.59-37.21,1.56-3.18,10.1-18.82-.71-14.55Z"/><path style="--n: 1" d="M218.02,83.69c-2.33.17-47.28,28.98-47.78,39.3-.54,11.28,43.79-24.86,44.12-25.2,2.44-2.57,15.25-14.95,3.66-14.1Z"/><path style="--n: 2" d="M218.02,187.97c-2.33-.17-47.28-28.98-47.78-39.3-.54-11.28,43.79,24.86,44.12,25.2,2.44,2.57,15.25,14.95,3.66,14.1Z"/><path style="--n: 3" d="M186.63,219.97c-2.17-.86-36.49-41.76-33.88-51.76,2.85-10.93,34.38,36.79,34.59,37.21,1.56,3.18,10.1,18.82-.71,14.55Z"/><path style="--n: 4" d="M93.73,219.97c2.17-.86,36.49-41.76,33.88-51.76-2.85-10.93-34.38,36.79-34.59,37.21-1.56,3.18-10.1,18.82.71,14.55Z"/><path style="--n: 5" d="M62.34,187.97c2.33-.17,47.28-28.98,47.78-39.3.54-11.28-43.79,24.86-44.12,25.2-2.44,2.57-15.25,14.95-3.66,14.1Z"/><path style="--n: 6" d="M62.34,83.69c2.33.17,47.28,28.98,47.78,39.3.54,11.28-43.79-24.86-44.12-25.2-2.44-2.57-15.25-14.95-3.66-14.1Z"/><path style="--n: 7" d="M93.73,51.69c2.17.86,36.49,41.76,33.88,51.76-2.85,10.93-34.38-36.79-34.59-37.21-1.56-3.18-10.1-18.82.71-14.55Z"/></g><g class="nome"><path d="M284.11,167.99c-27.9,0-35.32-14.13-35.32-27.67v-9.3c0-14.72,7.3-28.61,35.32-28.61,23.54,0,33.43,6.12,33.43,20.37,0,3.65-.24,7.06-.35,8.24l-24.49-.94c.24-1.18.47-2.35.47-3.65,0-3.18-1.88-4.83-5.89-4.83-4.71,0-7.06,2.59-7.06,7.53v12.36c0,5.65,3.06,7.3,7.18,7.3,3.53,0,5.77-1.53,5.77-4.83,0-1.53-.12-2.47-.35-3.65l24.49-.94c.24,1.41.47,4,.47,8.24,0,14.6-10.83,20.37-33.67,20.37Z"/><path d="M370.17,166.58c-.47-1.77-.94-4.24-1.06-5.89h-.82c-4.36,3.65-11.42,7.18-23.43,7.18-14.83,0-21.31-5.3-21.31-16.6s8.48-16.48,24.72-20.37l16.48-4v-2.47c0-3.3-1.88-5.18-6.36-5.18-4.24,0-6.59,1.88-6.59,4.47,0,1.18.12,2.12.35,3.06l-25.43,1.06c-.24-1.29-.47-3.3-.47-5.3,0-10.71,10.01-20.13,32.37-20.13,30.37,0,37.55,13.77,37.55,28.14v27.78c0,3.18.82,6.59,1.88,8.24h-27.9ZM364.75,138.68l-5.06,1.53c-3.88,1.18-6,2.59-6,6.12,0,2.59,1.41,4.71,5.3,4.71,4.12,0,5.77-3.06,5.77-6.12v-6.24Z"/><path d="M477.06,190.12h-31.43v-26.6h-.71c-3.53,2.47-7.77,4.47-15.77,4.47-17.78,0-25.9-9.77-25.9-23.43v-16.72c0-14.6,12.24-25.43,31.43-25.43,12.83,0,20.25,4.47,24.6,8.24h.94l4.59-6.95h12.24v86.41ZM445.63,125.96c0-3.77-1.41-6.12-5.42-6.12-3.53,0-5.42,1.77-5.42,5.3v20.37c0,3.41,1.65,5.18,5.42,5.18,3.53,0,5.42-2.24,5.42-5.3v-19.42Z"/><path d="M532.51,166.58c-.35-1.18-1.18-5.18-1.29-6.71h-1.06c-4.36,4.12-9.65,8.12-19.78,8.12-19.54,0-25.07-12.71-25.07-24.25v-40.03h31.55v37.79c0,4,1.88,5.65,5.53,5.65,4.24,0,5.53-2.83,5.53-6.12v-37.32h31.67v54.5c0,3.53.71,6.47,1.65,8.36h-28.72Z"/><path d="M600.55,95.71h-31.55v-18.6h31.55v18.6ZM600.55,166.58h-31.55v-62.86h31.55v62.86Z"/></g></svg></div>
+<noscript><style>.carregando { display: none; }</style></noscript>
 <main>
-  <section class="slide escuro capa" aria-label="Título">
+  <section class="slide escuro capa" aria-label="Capa">
     <img class="capa-logo" src="logo/caqui-02.svg" alt="Caqui">
     <h1>Onde está meu dinheiro?</h1>
-    <p class="slide-grande">O atendimento que responde antes de a pessoa perguntar.</p>
-    <p>Renan Chaves, Hands On com IA da Avenue, 31/10/2026</p>
+    <p class="slide-grande">A pergunta central que movimentou o projeto</p>
+    <p>Hands On com IA da Avenue, 31/10/2026</p>
   </section>
 
-  <section class="slide" aria-label="O desafio">
-    <h2>Cinco vezes mais clientes, sem perder a confiança</h2>
-    <div class="numeros">
-      <div><strong>400 mil para 2 milhões</strong><span>clientes em 18 meses</span></div>
-      <div><strong>62 para 100</strong><span>pessoas no atendimento</span></div>
-      <div><strong>5x</strong><span>a base, com um time 1,6x maior</span></div>
-    </div>
-    <p class="slide-nota">A Caqui Invest é uma corretora fictícia, e todos os dados são sintéticos.</p>
-  </section>
-
-  <section class="slide" aria-label="O problema escolhido">
-    <h2>Escolhi a pergunta que mais chega</h2>
-    <div class="duas">
-      <div class="numeros numeros-coluna">
-        <div><strong>12.960</strong><span>contatos por mês, 27% do total</span></div>
-        <div><strong>34%</strong><span>de recontato no case, 44% nas 81 conversas da amostra</span></div>
+  <section class="slide" aria-label="Identidade visual">
+    <h2>Identidade visual</h2>
+    <div class="identidade">
+      <div class="identidade-marca">
+        <img src="favicon.svg" alt="" width="120" height="120">
+        <p class="slide-grande">A semente é o que você planta hoje, o que colhemos amanhã.</p>
       </div>
-      <ul class="slide-lista">
-        <li>A resposta é calculável: status, corte das 16h, calendário e prazo estão nos dados.</li>
-        <li>O erro de hoje é mecânico: 16 conversas têm o bot ignorando o corte e o fim de semana.</li>
-        <li>Persona central: Dona Marta, que vem da poupança e tem medo de ter perdido dinheiro.</li>
-      </ul>
+      <div class="identidade-dados">
+        <ul class="paleta" aria-label="Paleta">
+          <li><span style="background: var(--color-ink)"></span>Marrom</li>
+          <li><span style="background: var(--color-paper)"></span>Creme</li>
+          <li><span style="background: var(--color-accent)"></span>Laranja</li>
+          <li><span style="background: var(--color-ambar)"></span>Âmbar</li>
+          <li><span style="background: var(--color-ciano)"></span>Ciano</li>
+          <li><span style="background: var(--color-vermelho)"></span>Vermelho</li>
+        </ul>
+        <p class="identidade-fonte">Proxima Nova</p>
+      </div>
     </div>
   </section>
 
-  <section class="slide laranja" aria-label="A solução">
-    <h2>Três alavancas</h2>
-    <ol class="alavancas">
-      <li><strong>Evitar o contato</strong><span>Ao abrir o app, a pessoa já vê o pedido com a data calculada.</span></li>
-      <li><strong>Resolver sem humano</strong><span>Prazo, imposto, líquido contra poupança e conceitos, com cálculo ou trecho da base.</span></li>
-      <li><strong>O humano rende mais</strong><span>O caso chega com protocolo, histórico, operação e motivo.</span></li>
-    </ol>
+  <section class="slide" aria-label="O problema">
+    <h2>Resolvido no custo, aberto na confiança</h2>
+    <div class="numeros cinco">
+      <div><strong>48 mil</strong><span>contatos com humano por mês</span></div>
+      <div><strong>62 → 100</strong><span>atendentes possíveis</span></div>
+      <div><strong>400 mil → 2 mi</strong><span>clientes em 18 meses</span></div>
+      <div><strong>41%</strong><span>digitam “atendente” na 1ª mensagem</span></div>
+      <div><strong>2,1 × 4,3</strong><span>satisfação do bot × humano</span></div>
+    </div>
+    <p class="slide-corpo">Na conta linear, 2 milhões de clientes pediriam 310 atendentes. Com 100, dois terços da demanda precisa ser evitada ou resolvida sem humano.</p>
   </section>
 
-  <section class="slide" aria-label="Produto rodando">
-    <h2>O produto rodando</h2>
-    <div class="duas produto">
-      <div class="ds-moldura moldura-largo"><iframe src="/" title="Home da Caqui no desktop" loading="lazy" data-largura="1440" width="1440" height="900"></iframe></div>
-      <ol class="slide-lista">
-        <li>A home mostra quando o dinheiro cai.</li>
-        <li>A faixa muda de cor com o status.</li>
-        <li>A caquIA responde com data e fonte.</li>
-        <li>Golpe abre "Pare agora.".</li>
-        <li>Uma pessoa recebe o caso pronto.</li>
-      </ol>
+  <section class="slide escuro" aria-label="O recorte">
+    <h2>Atacamos um motivo de contato só</h2>
+    <div class="numeros quatro">
+      <div><strong>12.960</strong><span>contatos por mês</span></div>
+      <div><strong>27%</strong><span>de todo o atendimento</span></div>
+      <div><strong>1.728 h</strong><span>de atendente por mês</span></div>
+      <div><strong>34%</strong><span>voltam em 7 dias</span></div>
     </div>
-    <p class="slide-nota"><a href="https://caqui.pages.dev">caqui.pages.dev</a></p>
+    <p class="slide-grande slide-largo">“Resgatei ontem e não caiu. Sumiu?”</p>
+    <p class="slide-corpo">É o maior volume, a maior taxa de recontato e o mais fácil de resolver sem humano, porque a resposta já está nos dados da conta.</p>
   </section>
 
-  <section class="slide" aria-label="Confiança">
-    <h2>A confiança aparece na tela</h2>
-    <div class="cartoes-slide">
-      <article><h3>Sem invenção</h3><p>Modelo de linguagem nunca escreve prazo, taxa ou valor.</p></article>
-      <article><h3>Com fonte</h3><p>Toda resposta factual cita o artigo da base ou o dado da conta.</p></article>
-      <article><h3>Com uma pessoa</h3><p>"Falar com uma pessoa" fica sempre visível no chat.</p></article>
-      <article><h3>Com cuidado</h3><p>Só dados sintéticos, com CPF sempre mascarado no log.</p></article>
+  <section class="slide" aria-label="Como a confiança aparece">
+    <h2>Cinco obrigações, em toda tela</h2>
+    <div class="cartoes-slide cinco">
+      <article><b>1</b><h3>Prazo calculado</h3><p>A data, com o corte das 16h e o feriado já na conta.</p></article>
+      <article><b>2</b><h3>Fonte à vista</h3><p>Todo número factual mostra o artigo: KB-006, KB-010, KB-012.</p></article>
+      <article><b>3</b><h3>Valor líquido</h3><p>O IR aparece nominal: R$ 775,89 de rendimento, R$ 174,58 de imposto.</p></article>
+      <article><b>4</b><h3>Saída para humano</h3><p>Visível em qualquer passo. Fora das 8h às 20h, protocolo e prazo.</p></article>
+      <article><b>5</b><h3>Sem repetir</h3><p>Quem recebe o caso já vê o histórico e o protocolo.</p></article>
     </div>
   </section>
 
-  <section class="slide" aria-label="Quanto isso move">
-    <h2>Quanto isso move</h2>
-    <div class="numeros">
-      <div><strong>4.026 h</strong><span>por mês, cerca de 42% das 9.560 horas de hoje</span></div>
-      <div><strong>68%</strong><span>é o corte necessário com 5 vezes a base</span></div>
+  <section class="slide escuro" aria-label="O produto">
+    <h2>O que a Dona Marta vê</h2>
+    <div class="telas-slide">
+      <figure><img src="telas/home.jpg" alt="Tela inicial com o resgate em andamento" width="492" height="1064"><figcaption>Home: onde o dinheiro está e o que está se movendo</figcaption></figure>
+      <figure><img src="telas/ativo.jpg" alt="Investimento aberto com o valor líquido linha a linha" width="494" height="1064"><figcaption>Ativo aberto: a conta inteira, linha a linha</figcaption></figure>
+      <figure><img src="telas/caquia.jpg" alt="caquIA com as cinco perguntas mais feitas" width="492" height="1064"><figcaption>caquIA: as cinco perguntas mais feitas</figcaption></figure>
+      <figure><img src="telas/golpe.jpg" alt="Tela Pare agora, de suspeita de golpe" width="494" height="1064"><figcaption>Golpe: interrompe tudo, inclusive animação em curso</figcaption></figure>
     </div>
-    <p class="slide-nota">É hipótese: as taxas de contenção e os 2 minutos salvos por contato ainda precisam de validação. O restante precisa vir de outras frentes.</p>
+  </section>
+
+  <section class="slide" aria-label="A conta aparece inteira">
+    <h2>O número não chega pronto. Chega explicado.</h2>
+    <div class="conta-slide">
+      <dl class="conta-linhas">
+        <div><dt>Resgate pedido ontem, 19h40</dt><dd>R$ 40.000,00</dd></div>
+        <div><dt>Rendimento dentro do resgate</dt><dd>R$ 775,89</dd></div>
+        <div><dt>IR 22,5%, 63 dias</dt><dd>− R$ 174,58</dd></div>
+        <div class="total"><dt>Você recebe hoje</dt><dd>R$ 39.825,42</dd></div>
+        <div><dt>Continua aplicado no CDB</dt><dd>R$ 791,24</dd></div>
+      </dl>
+      <article class="cartao-laranja"><h3>O erro que quase passou</h3><p>Tratamos o resgate como total: R$ 40.613,21. Os dados diziam R$ 40.000,00 sobre posição de R$ 40.791,24, é parcial.</p><p>O IR é proporcional ao rendimento resgatado. É a armadilha da regra 2.</p></article>
+    </div>
+  </section>
+
+  <section class="slide escuro" aria-label="Mobile e desktop">
+    <h2>A largura muda a decisão, não só o layout</h2>
+    <div class="largas-slide">
+      <figure><img src="telas/desktop-home.jpg" alt="Home no desktop com investimentos em tabela" width="838" height="518"><figcaption>No mobile, investimentos é carrossel. No desktop volta a ser tabela: com 824px de coluna você compara CDB e LCI num movimento de olho.</figcaption></figure>
+      <figure><img src="telas/desktop-chat.jpg" alt="Chat no desktop com a lista de perguntas fixa" width="838" height="518"><figcaption>No chat, a lista de perguntas vira trilho permanente. No celular você navega; no desktop você vê onde está e o que mais existe.</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="slide" aria-label="As frentes">
+    <h2>Três frentes, um contrato entre elas</h2>
+    <div class="cartoes-slide tres">
+      <article><small>Sistema</small><h3>Design system</h3><p>Paleta, tipografia, raio, ícones e as regras de marca. Página em código, com tokens em JSON para os devs.</p><strong>caqui.pages.dev/design-system</strong></article>
+      <article><small>Base</small><h3>Base de conhecimento</h3><p>Os 30 artigos cruzados com 8 arquivos de dados, por script. O que sustenta resposta e o que não sustenta.</p><strong>8 contradições, 11 ambiguidades</strong></article>
+      <article><small>API</small><h3>API e avaliação</h3><p>POST /questions e /batch, CPF mascarado antes de enviar e de logar, artigo vigente sobre o obsoleto.</p><strong>44 casos, 13 regras</strong></article>
+    </div>
+  </section>
+
+  <section class="slide escuro" aria-label="A base não sustenta sozinha">
+    <h2>A base não sustenta resposta única</h2>
+    <p class="slide-corpo">30 artigos cruzados por script com 8 arquivos de dados. O KB-006 bateu com as 237 operações que têm liquidação prevista: zero divergência. Os problemas estão fora dele.</p>
+    <div class="cartoes-slide quatro">
+      <article><small>Regra 5</small><h3>Golpe é circular</h3><p>KB-019 manda falar com a segurança pelo app. KB-020 bloqueia a sessão em todos os aparelhos. KB-021 exige biometria para voltar. 11 dos 50 clientes preferem telefone, a Dona Marta entre eles.</p></article>
+      <article><small>Regra 12</small><h3>Dois prazos de retorno</h3><p>KB-025 diz “a partir das 8h”. KB-026 diz “até 7 dias corridos”. “Urgente” não é definido em lugar nenhum.</p></article>
+      <article><small>Regra 2</small><h3>IR sem data final</h3><p>KB-010 não diz se a contagem termina no pedido, no dia-base ou na liquidação. Na borda 180/181 isso muda a alíquota.</p></article>
+      <article><small>Dados</small><h3>KB-023 contrariado</h3><p>7 posições e 15 operações do CDB 110 em clientes diretos, a mais antiga de 20/05/2024, dois anos antes do primeiro cliente da parceria. E 15 aplicações abaixo do mínimo.</p></article>
+    </div>
   </section>
 
   <section class="slide escuro" aria-label="Onde a IA errou">
     <h2>Onde a IA errou</h2>
-    <div class="numeros">
-      <div><strong>40/40</strong><span>nas frases que a IA já tinha lido. Parecia pronto.</span></div>
-      <div><strong>46/70</strong><span>no teste cego, escrito sem acesso ao código</span></div>
-      <div><strong>37/50</strong><span>é a nota limpa em frases novas</span></div>
+    <div class="numeros tres">
+      <div><strong>PT-44</strong><span>a piada contada depois da orientação de golpe</span></div>
+      <div><strong>R$ 178,03</strong><span>o IR do resgate inteiro, num resgate parcial</span></div>
+      <div><strong>#F0462E</strong><span>o token de alerta usado como cor de marca</span></div>
     </div>
-    <p class="slide-grande">"o rapaz da caqui disse que é só falar os 6 números" caía em "não entendi".</p>
-    <p>Percebi testando com frases novas. O próximo passo é um classificador, porque regra por palavra não generaliza.</p>
+    <p class="slide-grande slide-largo">“Obedecer ao pedido antigo depois de uma interrupção de segurança é falha de prioridade, não de conteúdo.”</p>
+    <p class="slide-corpo">Nenhum dos três apareceu lendo a resposta. Apareceram conferindo contra a fonte: o checker caso a caso, o operacoes.csv e o estilo.css. A correção do IR virou R$ 39.825,42; a da cor subiu o contraste de 4,87:1 para 6,71:1.</p>
   </section>
 
-  <section class="slide" aria-label="Como usei IA">
-    <h2>Como usei IA</h2>
-    <div class="cartoes-slide">
-      <article><h3>Claude Code</h3><p>Leitura do case, spec, código, testes e interface.</p></article>
-      <article><h3>Subagentes</h3><p>Escreveram os testes cegos sem acesso ao código.</p></article>
-      <article><h3>Hook de commit</h3><p>Barra CPF sem máscara e chave de API.</p></article>
-      <article><h3>Verificado na mão</h3><p>40 respostas lidas, valores conferidos centavo a centavo e fluxo na tela.</p></article>
-    </div>
+  <section class="slide" aria-label="Costuras pendentes">
+    <h2>O que ainda não casa entre as frentes</h2>
+    <div class="tabela-rolagem"><table class="tabela-slide">
+      <thead><tr><th>Item</th><th>Design system</th><th>Telas</th></tr></thead>
+      <tbody>
+        <tr><th>Tipografia</th><td>Proxima Nova, Montserrat de reserva</td><td>Fraunces nas manchetes, resolvido nesta apresentação</td></tr>
+        <tr><th>Logo</th><td>Só na abertura; dentro ficam as sementes</td><td>Wordmark em todo header e símbolo no FAB de 17 telas</td></tr>
+        <tr><th>Raio</th><td>14px fixo</td><td>Escala 12 / 16 / 20 / total</td></tr>
+        <tr><th>Nome do chat</th><td>caquIA</td><td>“Ajuda da Caqui”</td></tr>
+        <tr><th>Faixa de status</th><td>Cinco estados, com botão de fechar</td><td>Quatro estados, sem fechar, falta “recusado”</td></tr>
+      </tbody>
+    </table></div>
+    <p class="slide-corpo">A tipografia já foi resolvida: esta apresentação roda no KV do Renan. As outras quatro precisam de uma decisão só antes do deploy.</p>
   </section>
 
-  <section class="slide" aria-label="Design">
-    <h2>Design system em código</h2>
-    <div class="duas produto">
-      <div class="ds-moldura moldura-largo"><iframe src="/design-system" title="Design system da Caqui" loading="lazy" data-largura="1440" width="1440" height="900"></iframe></div>
-      <ul class="slide-lista">
-        <li>Celular primeiro, com formato próprio no desktop.</li>
-        <li>A cada versão, o que não ajudava saiu da tela.</li>
-        <li>Telas reais, componentes, movimento e guia para devs.</li>
-      </ul>
+  <section class="slide escuro" aria-label="Escopo e próximo passo">
+    <h2>O que ficou de fora, e o que vem</h2>
+    <div class="escopo-slide">
+      <article><h3>Fora do escopo de hoje</h3><ul>
+        <li>Nenhuma recomendação de investimento, regra 4, sem exceção.</li>
+        <li>Painel do atendente: Jonas e os 38 contratados ficam para a próxima frente.</li>
+        <li>Cancelamento, que a própria base deixa travado em até 730 dias.</li>
+        <li>Vencimento de produto: não existe artigo nenhum sobre isso.</li>
+      </ul></article>
+      <article class="cartao-laranja"><h3>Para a Caqui colocar no ar</h3><ul>
+        <li>Tirar o KB-007 do índice, não só filtrar por data: num RAG ele continua competindo.</li>
+        <li>Resolver o fluxo circular de golpe antes de qualquer deploy, é a regra 5.</li>
+        <li>Definir a data final da contagem do IR e um prazo único de retorno.</li>
+        <li>Regra determinística contra conteúdo não relacionado depois de segurança, e rerodar PT-41 a PT-44.</li>
+      </ul></article>
     </div>
-    <p class="slide-nota"><a href="/design-system">caqui.pages.dev/design-system</a></p>
   </section>
 
   <section class="slide escuro capa" aria-label="Fechamento">
     <img class="capa-logo" src="logo/caqui-02.svg" alt="Caqui">
-    <h2>Quem pergunta onde está o dinheiro quer uma data, a fonte e uma pessoa por perto.</h2>
-    <p class="slide-grande"><a href="https://caqui.pages.dev">caqui.pages.dev</a></p>
+    <h2 class="fecho">Confiança não vem de promessa. Vem de prazo calculado, fonte à vista e uma pessoa a um toque.</h2>
+    <div class="qr-slide">
+      <a class="qr-item" href="https://caqui.pages.dev"><img src="qr/produto.svg" alt="QR code para caqui.pages.dev" width="168" height="168"><span>Produto</span></a>
+      <a class="qr-item" href="https://caqui.pages.dev/atendente"><img src="qr/atendente.svg" alt="QR code para caqui.pages.dev/atendente" width="168" height="168"><span>Painel do atendente</span></a>
+      <a class="qr-item" href="https://caqui.pages.dev/design-system"><img src="qr/design-system.svg" alt="QR code para caqui.pages.dev/design-system" width="168" height="168"><span>Design system</span></a>
+    </div>
+    <p class="fecho-links"><a href="https://caqui.pages.dev"><strong>caqui.pages.dev</strong></a><span>avenue-community/caqui-invest</span><span>31/10/2026</span></p>
   </section>
 </main>
 <nav class="deck-controles" aria-label="Slides">
   <button type="button" id="anterior" aria-label="Slide anterior"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
-  <span id="contador" aria-live="polite">1 de 11</span>
+  <span id="contador" aria-live="polite">1 de 14</span>
   <button type="button" id="proximo" aria-label="Próximo slide"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
 </nav>
 <script type="module" src="apresentacao.js"></script>
