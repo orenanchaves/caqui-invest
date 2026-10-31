@@ -229,7 +229,7 @@ body:not(:has(.home)) .ds-lado { background: var(--color-paper); }
 .paleta { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin: 0; padding: 0; list-style: none; }
 .paleta li { display: flex; flex-direction: column; gap: 0.5rem; }
 .paleta span { display: block; aspect-ratio: 3 / 2; border-radius: var(--radius); box-shadow: inset 0 0 0 1px var(--color-rule); }
-.identidade-frase { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 800; line-height: 1.15; }
+.identidade-frase { font-family: var(--font-display); font-size: clamp(1.75rem, 3.6vw, 3.25rem); font-weight: 800; line-height: 1.15; }
 .identidade-lista { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.875rem; margin: 0; }
 .identidade-lista dt { font-weight: 800; }
 .identidade-lista dd { margin: 0; line-height: 1.3; text-wrap: balance; }
@@ -599,7 +599,7 @@ a.atalho { text-decoration: none; }
   .slide:not(.capa) { padding-top: 2.5rem; }
   .slide-assinatura { top: 1.75rem; width: 9rem; }
   .logo-versoes { grid-template-columns: repeat(4, minmax(0, 1fr)); font-size: 1.125rem; }
-  .identidade { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 4rem; align-items: center; }
+  .identidade { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 4rem; align-items: center; }
   .paleta { grid-template-columns: repeat(6, minmax(0, 1fr)); font-size: 1rem; }
   .paleta span { aspect-ratio: 2 / 1; }
   .identidade-lista { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 1.5rem; font-size: 1.125rem; }
