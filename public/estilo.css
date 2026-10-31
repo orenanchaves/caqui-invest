@@ -328,7 +328,14 @@ a.atalho { text-decoration: none; }
 .chat-fechar:hover { background: var(--color-paper-2); }
 .chat-base { display: flex; flex-direction: column; gap: 0.25rem; padding: 0.5rem 1rem calc(0.25rem + env(safe-area-inset-bottom)); }
 .mais { font-size: var(--text-sm); color: var(--color-muted); }
-.mais summary { min-height: 32px; display: flex; align-items: center; cursor: pointer; }
+.mais summary { min-height: 44px; display: flex; align-items: center; gap: 0.25rem; cursor: pointer; list-style: none; }
+.mais summary::-webkit-details-marker { display: none; }
+.mais summary:hover { color: var(--color-ink); }
+.mais-fechar, .mais[open] .mais-abrir { display: none; }
+.mais[open] .mais-fechar { display: inline; }
+.mais-seta { transition: transform 180ms; }
+.mais[open] .mais-seta { transform: rotate(180deg); }
+.mais[open] > :not(summary) { animation: entra 200ms ease-out both; }
 .chat .ficha { box-shadow: none; border-radius: var(--radius); }
 .chat .fio { scrollbar-width: thin; }
 .campo { display: flex; gap: 0.5rem; }
@@ -387,7 +394,7 @@ a.atalho { text-decoration: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .home-corpo > *, .ds > *, .ds-secao, .chat, .bolha, .orb-disco::before { animation: none; }
+  .home-corpo > *, .ds > *, .ds-secao, .chat, .bolha, .orb-disco::before, .mais[open] > :not(summary) { animation: none; }
   .orb-disco::before { opacity: 0; }
   .sementes path { animation: none; opacity: 1; }
   .sementes, .nome { transition: none; }
