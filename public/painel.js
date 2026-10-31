@@ -9,7 +9,7 @@ async function carregarLista() {
     const casos = await fetch('/api/casos').then((r) => { if (!r.ok) throw 0; return r.json(); });
     casos.sort((a, b) => peso(a) - peso(b));
     lista.innerHTML = casos.length
-      ? casos.map((c) => `<button class="item ${c.fila === 'seguranca' ? 'seguranca' : ''}" data-caso="${esc(c.protocolo)}" ${location.hash === '#' + c.protocolo ? 'aria-current="true"' : ''}>
+      ? casos.map((c) => `<button class="item ${c.fila === 'seguranca' ? 'seguranca' : c.prioridade ? 'prioridade' : ''}" data-caso="${esc(c.protocolo)}" ${location.hash === '#' + c.protocolo ? 'aria-current="true"' : ''}>
           <span>${esc(c.cliente)}${c.prioridade ? ', prioridade' : ''}</span><small>${esc(FILAS[c.fila])}. ${esc(c.motivo)}</small><small>${esc(c.protocolo)}</small></button>`).join('')
       : '<p class="vazio">Nenhum caso na fila. Peça uma pessoa na conversa e ele aparece aqui.</p>';
   } catch {
