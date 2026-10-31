@@ -267,13 +267,6 @@ body:not(:has(.home)) .ds-lado { background: var(--color-paper); }
 .guia-tela .guia-carregando { position: absolute; z-index: 0; inset: 0; display: grid; place-items: center; background: var(--color-ink); opacity: 0; pointer-events: none; transition: opacity 260ms ease-in-out; }
 .guia-tela.trocando .guia-carregando { opacity: 1; }
 .guia-tela .guia-carregando svg { width: 5rem; }
-.deck-capa { position: fixed; z-index: 8; inset: 0; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 1rem; padding: 2rem max(1.5rem, calc(50% - 38rem)); background: var(--color-ink); color: var(--color-paper); transition: opacity 500ms ease-in-out; }
-.deck-capa.fim { opacity: 0; pointer-events: none; }
-.deck-capa img { display: block; width: min(100%, 24rem); height: auto; margin-left: -1rem; }
-.deck-capa h1 { margin: 0; max-width: 18ch; font-family: var(--font-display); font-size: clamp(2.5rem, 7vw, 5.5rem); font-weight: 800; line-height: 1.08; text-wrap: balance; }
-.deck-capa p { margin: 0; font-size: clamp(1.125rem, 2vw, 1.5rem); text-wrap: balance; }
-.deck-capa button { min-height: 52px; margin-top: 1rem; padding: 0.25rem 2rem; border: 0; border-radius: var(--radius); background: var(--color-accent); color: var(--color-ink); font: inherit; font-size: 1.125rem; font-weight: 800; transition: background-color 180ms; }
-.deck-capa button:hover { background: var(--color-destaque); }
 .equipe-links { display: flex; gap: 0.25rem; margin: 0.625rem 0 0 -0.625rem; }
 .icone-link { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; color: var(--color-ink); transition: background-color 180ms; }
 a.icone-link:hover { background: var(--color-card); }

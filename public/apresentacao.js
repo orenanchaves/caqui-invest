@@ -59,20 +59,7 @@ function abrirMenuMovel(aberto) {
 botaoMenu.addEventListener('click', () => abrirMenuMovel(!topoDeck.classList.contains('menu-aberto')));
 secoes.forEach(({ botao }) => botao.addEventListener('click', () => { if (movel.matches) abrirMenuMovel(false); }));
 
-// Capa de abertura: some ao começar, e o link direto para um slide pula a capa.
-const capaDeck = document.querySelector('#deck-capa');
-function comecar() {
-  capaDeck.classList.add('fim');
-  setTimeout(() => capaDeck.remove(), 520);
-}
-document.querySelector('#comecar').addEventListener('click', comecar);
-if (!abriuDoInicio) capaDeck.remove();
-
 document.addEventListener('keydown', (e) => {
-  if (capaDeck.isConnected && !capaDeck.classList.contains('fim')) {
-    if (['Enter', ' ', 'ArrowRight'].includes(e.key)) { e.preventDefault(); comecar(); }
-    return;
-  }
   if (e.key === 'Escape') menuLinks.open = false;
   if (e.key === ' ' && e.target.closest('button, summary, a')) return;
   if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(atual + 1); }
