@@ -8,6 +8,8 @@ const DEMO = [
   ['C-0003', 'Camila', 'Herança na conta'],
   ['C-0041', 'Cliente com atraso', 'Resgate passou da data'],
   ['C-0011', 'Cliente do CDB 85', 'CDB contra poupança'],
+  ['C-0030', 'Cliente com resgate concluído', 'Resgate caiu ontem'],
+  ['C-0028', 'Cliente com resgate recusado', 'Resgate não liberado'],
 ];
 const HORARIOS = ['2026-11-18T10:00', '2026-11-18T14:00', '2026-11-18T23:00'];
 const VALIDADE_CASO = 60 * 60 * 48;

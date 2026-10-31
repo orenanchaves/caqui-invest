@@ -15,49 +15,6 @@ const ATALHOS = [
 ];
 const sessao = { cliente: null, agora: null, estado: {}, historico: [] };
 
-function iniciarOrb() {
-  const orb = $('.orb');
-  let toque = null, arrastou = false;
-  const colocar = (x, y) => {
-    const margem = 8;
-    orb.style.left = `${Math.min(Math.max(x, margem), window.innerWidth - orb.offsetWidth - margem)}px`;
-    orb.style.top = `${Math.min(Math.max(y, margem), window.innerHeight - orb.offsetHeight - margem)}px`;
-    orb.style.right = 'auto';
-    orb.style.bottom = 'auto';
-  };
-  try {
-    const salvo = JSON.parse(localStorage.getItem('orb'));
-    if (salvo) colocar(salvo.x, salvo.y);
-  } catch {}
-  orb.addEventListener('pointerdown', (e) => {
-    const r = orb.getBoundingClientRect();
-    toque = { dx: e.clientX - r.left, dy: e.clientY - r.top, x: e.clientX, y: e.clientY };
-    arrastou = false;
-    orb.setPointerCapture(e.pointerId);
-  });
-  orb.addEventListener('pointermove', (e) => {
-    if (!toque || (!arrastou && Math.hypot(e.clientX - toque.x, e.clientY - toque.y) < 6)) return;
-    arrastou = true;
-    colocar(e.clientX - toque.dx, e.clientY - toque.dy);
-  });
-  orb.addEventListener('pointerup', () => {
-    toque = null;
-    if (!arrastou) return;
-    const r = orb.getBoundingClientRect();
-    try { localStorage.setItem('orb', JSON.stringify({ x: r.left, y: r.top })); } catch {}
-  });
-  orb.addEventListener('click', (e) => {
-    if (!arrastou) return;
-    e.stopPropagation();
-    arrastou = false;
-  });
-  window.addEventListener('resize', () => {
-    if (!orb.style.left) return;
-    const r = orb.getBoundingClientRect();
-    colocar(r.left, r.top);
-  });
-}
-
 const SIMBOLO = $('#chat-simbolo').innerHTML;
 const QUEM = { seguranca: 'Segurança Caqui' };
 
@@ -71,8 +28,7 @@ function atendimento(entrega) {
 
 function conversa(aberta) {
   $('#chat').hidden = !aberta;
-  $('[data-abrir]').hidden = aberta;
-  $('[data-abrir]').setAttribute('aria-expanded', aberta);
+  $('.orb').setAttribute('aria-expanded', aberta);
   if (aberta) campo.focus({ preventScroll: true });
 }
 
@@ -131,6 +87,14 @@ async function aguardar(tarefa) {
   }
 }
 
+function ir(destino) {
+  document.querySelectorAll('.menu-base [data-ir]').forEach((x) => (x.dataset.ir === destino ? x.setAttribute('aria-current', 'page') : x.removeAttribute('aria-current')));
+  if (destino === 'caquia') return conversa(true);
+  conversa(false);
+  if (destino === 'inicio') window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (destino === 'dinheiro') home.querySelector('.carteira').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
 // Aplicar e Resgatar orientam com o artigo da base: a demonstração não executa operações.
 async function guia(rotulo) {
   conversa(true);
@@ -156,6 +120,7 @@ async function falar(texto) {
     if (!r.ok) throw new Error(r.status);
     const res = await r.json();
     sessao.estado = res.estado;
+    if (res.acao === 'seguranca_imediata') { $('#pare').hidden = false; $('.pare-botao').focus(); }
     if (res.entrega) atendimento(res.entrega);
     sessao.historico.push({ de: 'cliente', texto }, { de: 'caqui', texto: res.textoCompleto });
     mostrar(res);
@@ -167,9 +132,17 @@ async function falar(texto) {
   }
 }
 
+// O rótulo acompanha o gênero do pedido: "Resgate atrasado", "Aplicação atrasada".
+const SITUACOES = { andamento: ['em andamento', 'em andamento'], analise: ['em análise', 'em análise'], atrasado: ['atrasado', 'atrasada'], concluido: ['concluído', 'concluída'], recusado: ['recusado', 'recusada'] };
+function rotuloSituacao(c) {
+  const palavra = c.titulo.split(' ')[0];
+  return `${palavra} ${SITUACOES[c.situacao][palavra.endsWith('ção') ? 1 : 0]}`;
+}
+
 async function iniciar() {
   sessao.cliente = $('#cliente').value;
   sessao.agora = $('#hora').value;
+  $('#menu-extrato').href = `extrato.html?cliente=${encodeURIComponent(sessao.cliente)}&agora=${encodeURIComponent(sessao.agora)}`;
   try { sessionStorage.setItem('demo-escolha', JSON.stringify([sessao.cliente, sessao.agora])); } catch {}
   sessao.estado = {};
   sessao.historico = [];
@@ -187,19 +160,22 @@ async function iniciar() {
     if (!fala) return `<a class="atalho" href="extrato.html?cliente=${encodeURIComponent(sessao.cliente)}&agora=${encodeURIComponent(sessao.agora)}">${miolo}</a>`;
     return `<button class="atalho${i ? '' : ' principal'}" data-fala="${esc(fala)}">${miolo}</button>`;
   }).join('');
-  home.classList.remove('oculto');
-  const [primeiro, ...demais] = r.pedidos;
+  let ocultos = false;
+  try { ocultos = localStorage.getItem('valores') === 'ocultos'; } catch {}
+  home.classList.toggle('oculto', ocultos);
+  const [aberto, ...demais] = r.pedidos;
+  const primeiro = aberto || r.recentes[0];
   const vistas = r.investimentos.length ? `<div data-painel="caixinhas"><div class="quadros">${r.investimentos.map(caixinha).join('')}</div></div>
       <div data-painel="lista">${r.investimentos.map(linhaDinheiro).join('')}</div>
       <div data-painel="grafico">${setores(r.setores)}</div>` : '';
   home.innerHTML = `<div class="home-topo"><div class="home-dentro">
-      <div class="home-linha"><span class="avatar">${ICONES.pessoa}</span><h1 class="home-ola">${esc(r.cliente.nome)}</h1><button class="icone" data-valores aria-pressed="false" aria-label="Ocultar valores">${ICONES.olho}</button></div>
+      <div class="home-linha"><a class="avatar" href="configuracoes.html?cliente=${encodeURIComponent(sessao.cliente)}&agora=${encodeURIComponent(sessao.agora)}" aria-label="Abrir configurações">${ICONES.pessoa}</a><h1 class="home-ola">${esc(r.cliente.nome)}</h1><button class="icone" data-valores aria-pressed="${ocultos}" aria-label="${ocultos ? 'Mostrar valores' : 'Ocultar valores'}">${ICONES.olho}</button></div>
       <p class="topo-rotulo">Seu dinheiro na Caqui</p>
       <p class="topo-total"><span class="valor">${esc(r.total)}</span></p>
       <div class="modelo-acoes"><button class="botao-contorno" data-guia="Aplicar">Aplicar</button><button class="botao-contorno" data-guia="Resgatar">Resgatar</button></div>
     </div></div>
     <div class="home-dentro home-corpo">
-      ${primeiro ? `<div class="destaque"><div class="destaque-topo"><strong>${esc(primeiro.titulo.split(' ')[0])} ${primeiro.atrasada ? 'atrasado' : 'em andamento'}</strong><button class="destaque-fechar" data-fechar-destaque aria-label="Fechar aviso"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>${cartao(primeiro)}</div>` : ''}
+      ${primeiro ? `<div class="destaque" data-situacao="${esc(primeiro.situacao)}"><div class="destaque-topo"><strong>${esc(rotuloSituacao(primeiro))}</strong><button class="destaque-fechar" data-fechar-destaque aria-label="Fechar aviso"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>${cartao(primeiro)}</div>` : ''}
       <div class="carteira" data-vista="${vista}"><div class="carteira-titulo"><h2 class="caixinhas-titulo">Onde está meu dinheiro</h2>${r.investimentos.length ? `<select class="vista-seletor" id="vista" aria-label="Forma de ver">${VISTAS.map(([id, rotulo]) => `<option value="${id}"${id === vista ? ' selected' : ''}>${rotulo}</option>`).join('')}</select>` : ''}</div>${vistas}<p class="carteira-total"><span>Total investido, antes do imposto</span><span class="valor">${esc(r.carteira)}</span></p><p class="carteira-total"><span>Disponível na conta</span><span class="valor">${esc(r.conta)}</span></p><span class="notas">Fonte: posições da sua conta em ${esc(r.data)}</span></div>
       <div class="atalhos">${atalhos}</div>
       <div class="perguntas"><h2 class="caixinhas-titulo">Dúvidas comuns</h2>${chipsSugestoes()}</div>
@@ -228,6 +204,11 @@ document.addEventListener('click', async (e) => {
     try { localStorage.setItem('demo', oculta ? 'oculta' : 'visivel'); } catch {}
   }
   if ('fecharDestaque' in b.dataset) b.closest('.destaque').remove();
+  if (b.dataset.ir) ir(b.dataset.ir);
+  if (b.dataset.pare) {
+    $('#pare').hidden = true;
+    if (b.dataset.pare === 'voltar') conversa(false);
+  }
   if (b.dataset.guia) guia(b.dataset.guia);
   if ('abrir' in b.dataset) conversa(true);
   if ('fechar' in b.dataset) conversa(false);
@@ -235,6 +216,7 @@ document.addEventListener('click', async (e) => {
     const oculto = home.classList.toggle('oculto');
     b.setAttribute('aria-pressed', oculto);
     b.setAttribute('aria-label', oculto ? 'Mostrar valores' : 'Ocultar valores');
+    try { localStorage.setItem('valores', oculto ? 'ocultos' : 'visiveis'); } catch {}
   }
   if ('ok' in b.dataset) {
     b.closest('.chips').innerHTML = '<span class="horario">Obrigado. Se precisar, é só escrever.</span>';
@@ -309,7 +291,7 @@ try {
   if (hora) $('#hora').value = hora;
 } catch {}
 await Promise.all([iniciar(), espera(1920)]);
-iniciarOrb();
+if (location.hash === '#dinheiro' || location.hash === '#caquia') ir(location.hash.slice(1));
 const abertura = $('#carregando');
 abertura.classList.add('pronto');
 await espera(1700);

@@ -48,12 +48,16 @@ Inclua `estilo.css` na página e use os tokens. Cor, fonte e raio nunca são esc
 | Caixinha | `.quadro` | Ficam lado a lado, e a aberta alarga e empurra as outras |
 | Faixa de demonstração | `.demo-faixa` | Ferramenta de teste, em azul, fora do app. Abre para trocar cliente e horário |
 | Extrato | `.lista-extrato` | Página própria, fora do chat |
+| Menu inferior | `.menu-base` | Início, Meu dinheiro, Extrato e o orb, sempre visível |
+| Cor por status | `data-situacao` | Andamento laranja suave, análise rosa, atrasado laranja forte, concluído creme, recusado salmão. Sempre com botão de fechar |
+| Aviso de golpe | `.pare` | Tela inteira "Pare agora." quando a caquIA detecta golpe, sem logo |
+| Configurações | `configuracoes.html` | Abre pelo perfil: nome, valores ocultos e forma de ver |
 | Formas de ver | `.vista-seletor` | Ao lado do título: Caixinhas, Lista e Gráfico, com a escolha salva |
 | Lista | `.linha-dinheiro` | Mostra cada investimento com o rastreio aberto |
 | Pedido em destaque | `.destaque` | Faixa "Resgate em andamento" em laranja suave, logo abaixo do topo, com botão de fechar |
 | Gráfico de setores | `.setores` | Carteira por classe, sempre com legenda em texto |
 | Microfone | `.microfone` | Transcreve no campo, e o cliente confere antes de enviar |
 | Rastreio de entrega | `.rastreio` | Etapas `feita` e `agora`, com data em cada uma |
-| Orb | `.orb` | Flutua, pulsa, pode ser arrastado e abre a caquIA. O ícone do navegador usa só as sementes |
+| Orb | `.orb` | Fica na barra de menu, pulsa e abre a caquIA. O ícone do navegador usa só as sementes |
 | Chat | `.chat` | Popup no centro da tela, com o símbolo e o nome caquIA no topo. Ao passar para a equipe, `.humano` troca símbolo, nome e fundo |
 | Aviso | `.aviso` | Interrompe o fluxo em golpe |

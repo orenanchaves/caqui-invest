@@ -126,3 +126,5 @@ Itens de "O que vale para qualquer caminho" que não se aplicam: nenhum.
 | 31/10 | Medir com teste cego escrito por um agente que não viu o código | 40/40 no teste oficial não dizia nada: a primeira rodada cega deu 46/70, com golpes passando |
 | 31/10 | Última nota limpa: 37/50 em frases novas, zero falso alarme em 10 inocentes | Depois disso as regras foram ajustadas de novo, então qualquer nota posterior nesses arquivos está contaminada |
 | 31/10 | Classificador com modelo de linguagem sobe de item futuro para o próximo passo | Regra por palavra não generaliza. O cálculo e a citação ficam no motor; o modelo só escolheria a rota |
+| 31/10 | Faixa da home muda de cor com o status: pendente aparece como "em análise", e pedido concluído ou recusado fica na faixa por um dia | Mesma leitura das telas do Figma, usando só os status que existem nos dados |
+| 31/10 | Orb deixa de flutuar e vira item da barra de menu | A barra já é o caminho fixo, e o orb flutuante competia com ela |

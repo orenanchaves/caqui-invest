@@ -105,3 +105,11 @@ test('painel inicial só traz o próprio cliente e pedidos em aberto', () => {
 test('encerramento não retém', () => {
   assert.ok(!/certeza|antes de sair|fique|oferta/i.test(fala('Quero encerrar minha conta').texto));
 });
+
+test('faixa da home muda com o status do pedido', () => {
+  assert.equal(painelInicial('C-0001', '2026-11-18T10:00').pedidos[0].situacao, 'andamento');
+  assert.equal(painelInicial('C-0002', '2026-11-18T10:00').pedidos[0].situacao, 'analise');
+  assert.equal(painelInicial('C-0041', '2026-11-18T10:00').pedidos[0].situacao, 'atrasado');
+  assert.equal(painelInicial('C-0030', '2026-11-18T10:00').recentes[0].situacao, 'concluido');
+  assert.equal(painelInicial('C-0028', '2026-11-18T10:00').recentes[0].situacao, 'recusado');
+});

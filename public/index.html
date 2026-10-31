@@ -26,6 +26,23 @@
     </div>
   </aside>
   <section class="home" id="home" aria-label="Início"></section>
+  <nav class="menu-base" aria-label="Menu principal">
+    <button type="button" data-ir="inicio" aria-current="page"><span class="icone-pacote" style="--icone: url(icones/inicio.svg)"></span><span>Início</span></button>
+    <button type="button" data-ir="dinheiro"><span class="icone-pacote" style="--icone: url(icones/carteira.svg)"></span><span>Meu dinheiro</span></button>
+    <a id="menu-extrato" href="extrato.html"><span class="icone-pacote" style="--icone: url(icones/extrato.svg)"></span><span>Extrato</span></a>
+    <button class="orb" type="button" data-ir="caquia" aria-label="Abrir conversa com a caquIA" aria-expanded="false" aria-controls="base-aberta"><span class="orb-disco"><svg viewBox="-63 -67.2 406 406" width="40" height="40" aria-hidden="true"><circle cx="140" cy="135.8" r="203" fill="currentColor"/><g class="orb-raios"><path d="M218.02,187.97c-2.33-.17-47.28-28.98-47.78-39.3-.54-11.28,43.79,24.86,44.12,25.2,2.44,2.57,15.25,14.95,3.66,14.1Z"/><path d="M186.63,219.97c-2.17-.86-36.49-41.76-33.88-51.76,2.85-10.93,34.38,36.79,34.59,37.21,1.56,3.18,10.1,18.82-.71,14.55Z"/><path d="M62.34,187.97c2.33-.17,47.28-28.98,47.78-39.3.54-11.28-43.79,24.86-44.12,25.2-2.44,2.57-15.25,14.95-3.66,14.1Z"/><path d="M93.73,219.97c2.17-.86,36.49-41.76,33.88-51.76-2.85-10.93-34.38,36.79-34.59,37.21-1.56,3.18-10.1,18.82.71,14.55Z"/><path d="M218.02,83.69c-2.33.17-47.28,28.98-47.78,39.3-.54,11.28,43.79-24.86,44.12-25.2,2.44-2.57,15.25-14.95,3.66-14.1Z"/><path d="M186.63,51.69c-2.17.86-36.49,41.76-33.88,51.76,2.85,10.93,34.38-36.79,34.59-37.21,1.56-3.18,10.1-18.82-.71-14.55Z"/><path d="M62.34,83.69c2.33.17,47.28,28.98,47.78,39.3.54,11.28-43.79-24.86-44.12-25.2-2.44-2.57-15.25-14.95-3.66-14.1Z"/><path d="M93.73,51.69c2.17.86,36.49,41.76,33.88,51.76-2.85,10.93-34.38-36.79-34.59-37.21-1.56-3.18-10.1-18.82.71-14.55Z"/></g></svg></span><span>caquIA</span></button>
+  </nav>
+  <section class="pare" id="pare" role="alertdialog" aria-modal="true" aria-labelledby="pare-titulo" hidden>
+    <div class="pare-dentro">
+      <svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7.5 2.8v5.4c0 4.6-3 8-7.5 9.8-4.5-1.8-7.5-5.2-7.5-9.8V5.8L12 3Z"/><path d="M12 8.5v4.5M12 16.2h.01"/></svg>
+      <h2 id="pare-titulo">Pare agora.</h2>
+      <p class="pare-forte">A Caqui nunca liga, manda mensagem ou e-mail pedindo código, senha ou transferência.</p>
+      <p>Se alguém pediu isso agora, não envie nada e não desligue por conta própria.</p>
+      <p>Bloqueamos sua sessão por precaução. Segurança atende 24 horas, inclusive fora do horário de atendimento.</p>
+      <p class="notas">Fontes: KB-019 e KB-020</p>
+      <div class="pare-acoes"><button class="pare-botao" type="button" data-pare="seguranca">Falar com segurança agora</button><button class="pare-sair" type="button" data-pare="voltar">Não era golpe, voltar ao app</button></div>
+    </div>
+  </section>
   <section class="chat" id="chat" role="dialog" aria-label="Conversa com a caquIA" hidden>
     <header class="chat-topo">
       <span class="chat-simbolo" id="chat-simbolo"><svg viewBox="-63 -67.2 406 406" width="32" height="32" aria-hidden="true"><circle cx="140" cy="135.8" r="203" fill="currentColor"/><g class="orb-raios"><path d="M218.02,187.97c-2.33-.17-47.28-28.98-47.78-39.3-.54-11.28,43.79,24.86,44.12,25.2,2.44,2.57,15.25,14.95,3.66,14.1Z"/><path d="M186.63,219.97c-2.17-.86-36.49-41.76-33.88-51.76,2.85-10.93,34.38,36.79,34.59,37.21,1.56,3.18,10.1,18.82-.71,14.55Z"/><path d="M62.34,187.97c2.33-.17,47.28-28.98,47.78-39.3.54-11.28-43.79,24.86-44.12,25.2-2.44,2.57-15.25,14.95-3.66,14.1Z"/><path d="M93.73,219.97c2.17-.86,36.49-41.76,33.88-51.76-2.85-10.93-34.38,36.79-34.59,37.21-1.56,3.18-10.1,18.82.71,14.55Z"/><path d="M218.02,83.69c-2.33.17-47.28,28.98-47.78,39.3-.54,11.28,43.79-24.86,44.12-25.2,2.44-2.57,15.25-14.95,3.66-14.1Z"/><path d="M186.63,51.69c-2.17.86-36.49,41.76-33.88,51.76,2.85,10.93,34.38-36.79,34.59-37.21,1.56-3.18,10.1-18.82-.71-14.55Z"/><path d="M62.34,83.69c2.33.17,47.28,28.98,47.78,39.3.54,11.28-43.79-24.86-44.12-25.2-2.44-2.57-15.25-14.95-3.66-14.1Z"/><path d="M93.73,51.69c2.17.86,36.49,41.76,33.88,51.76-2.85,10.93-34.38-36.79-34.59-37.21-1.56-3.18-10.1-18.82.71-14.55Z"/></g></svg></span>
@@ -53,7 +70,6 @@
       </details>
     </div>
   </section>
-  <button class="orb" type="button" data-abrir aria-label="Abrir conversa" aria-expanded="false" aria-controls="base-aberta"><svg viewBox="-63 -67.2 406 406" width="60" height="60" aria-hidden="true"><circle cx="140" cy="135.8" r="203" fill="currentColor"/><g class="orb-raios"><path d="M218.02,187.97c-2.33-.17-47.28-28.98-47.78-39.3-.54-11.28,43.79,24.86,44.12,25.2,2.44,2.57,15.25,14.95,3.66,14.1Z"/><path d="M186.63,219.97c-2.17-.86-36.49-41.76-33.88-51.76,2.85-10.93,34.38,36.79,34.59,37.21,1.56,3.18,10.1,18.82-.71,14.55Z"/><path d="M62.34,187.97c2.33-.17,47.28-28.98,47.78-39.3.54-11.28-43.79,24.86-44.12,25.2-2.44,2.57-15.25,14.95-3.66,14.1Z"/><path d="M93.73,219.97c2.17-.86,36.49-41.76,33.88-51.76-2.85-10.93-34.38,36.79-34.59,37.21-1.56,3.18-10.1,18.82.71,14.55Z"/><path d="M218.02,83.69c-2.33.17-47.28,28.98-47.78,39.3-.54,11.28,43.79-24.86,44.12-25.2,2.44-2.57,15.25-14.95,3.66-14.1Z"/><path d="M186.63,51.69c-2.17.86-36.49,41.76-33.88,51.76,2.85,10.93,34.38-36.79,34.59-37.21,1.56-3.18,10.1-18.82-.71-14.55Z"/><path d="M62.34,83.69c2.33.17,47.28,28.98,47.78,39.3.54,11.28-43.79-24.86-44.12-25.2-2.44-2.57-15.25-14.95-3.66-14.1Z"/><path d="M93.73,51.69c2.17.86,36.49,41.76,33.88,51.76-2.85,10.93-34.38-36.79-34.59-37.21-1.56-3.18-10.1-18.82.71-14.55Z"/></g></svg></button>
 </div>
 <script type="module" src="app.js"></script>
 <noscript><p>O atendimento precisa de JavaScript para conversar. Pessoas atendem das 8h às 20h.</p></noscript>

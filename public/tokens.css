@@ -22,6 +22,8 @@
   --color-card: #fffbf6;
   --color-alerta: #f0462e;
   --color-alerta-fundo: #fcdcd6;
+  --color-status-atraso: #f0883e;
+  --color-status-recusado: #f4a99c;
   --font-display: "Proxima Nova", "Montserrat", system-ui, sans-serif;
   --font-body: "Proxima Nova", "Montserrat", system-ui, sans-serif;
   --text-sm: 0.875rem;

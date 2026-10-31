@@ -215,7 +215,7 @@ export function cartaoCaminho(op, hoje) {
   const notas = calc ? pulados(op.pedido_em.slice(0, 10), prevista) : [];
   return {
     tipo: 'caminho', id: op.id_operacao, titulo: `${TIPOS[op.tipo]} ${nomeProd(op.produto)}`, valor: brl(op.valor_brl),
-    status: STATUS[op.status], atrasada: !!atrasada, previsto: prevista ? dataBR(prevista) : null, etapas, notas,
+    status: STATUS[op.status], situacao: op.status === 'liquidada' ? 'concluido' : op.status === 'recusada' ? 'recusado' : atrasada ? 'atrasado' : op.status === 'pendente' ? 'analise' : 'andamento', atrasada: !!atrasada, previsto: prevista ? dataBR(prevista) : null, etapas, notas,
   };
 }
 
@@ -553,6 +553,11 @@ export function painelInicial(idCliente, agora = AGORA_PADRAO) {
       return { nome: nomeProd(p.produto), valor: brl(p.saldo_bruto_brl), taxa: p.taxa_contratada === 'n/a' ? '' : p.taxa_contratada, etapas, andamento };
     }),
     pedidos: abertas.map((o) => cartaoCaminho(o, hoje)),
+    recentes: D.operacoes
+      .filter((o) => o.id_cliente === idCliente && o.pedido_em.slice(0, 16) <= agora)
+      .filter((o) => (o.status === 'liquidada' && o.liquidacao_prevista && diasEntre(o.liquidacao_prevista, hoje) <= 1) || (o.status === 'recusada' && diasEntre(o.pedido_em.slice(0, 10), hoje) <= 1))
+      .sort((a, b) => b.pedido_em.localeCompare(a.pedido_em))
+      .map((o) => cartaoCaminho(o, hoje)),
   };
 }
 
