@@ -23,6 +23,12 @@ Inclua `estilo.css` na página e use os tokens. Cor, fonte e raio nunca são esc
 - O chat se chama caquIA, sempre com essa grafia.
 - Ícones em linha, de uma cor, com `currentColor` ou máscara. Nada que imite marca real.
 
+## Layouts da tela inicial
+
+- **Lista:** topo escuro com busca e total, faixa laranja do pedido e linhas com ícone, valor e seta.
+- **Bento:** os mesmos dados em blocos de duas colunas sobre o creme forte.
+- Referência em `/design-system.html#layouts`.
+
 ## Movimento e texto
 
 - Entrada suave com `entra`: sobe 16px e aparece, em até 420ms. Respeita `prefers-reduced-motion`.
@@ -48,5 +54,5 @@ Inclua `estilo.css` na página e use os tokens. Cor, fonte e raio nunca são esc
 | Microfone | `.microfone` | Transcreve no campo, e o cliente confere antes de enviar |
 | Rastreio de entrega | `.rastreio` | Etapas `feita` e `agora`, com data em cada uma |
 | Orb | `.orb` | Flutua, pulsa, pode ser arrastado e abre a caquIA. Também é o ícone do navegador |
-| Chat | `.chat` | Popup no centro da tela, com "Falar com uma pessoa" no topo |
+| Chat | `.chat` | Popup no centro da tela, com o símbolo e o nome caquIA no topo. Ao passar para a equipe, `.humano` troca símbolo, nome e fundo |
 | Aviso | `.aviso` | Interrompe o fluxo em golpe |

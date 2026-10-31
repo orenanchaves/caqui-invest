@@ -61,7 +61,7 @@ Total: **cerca de 4.026 h por mês, 42% das 9.560 h**.
 - **Caminho do dinheiro:** rastreio no formato de entrega com pedido, dia-base, cotização e pagamento, com as datas e o motivo de cada salto ("depois das 16h", "02/11 é feriado").
 - **Fonte em toda resposta:** artigo com data de revisão, ou operação da conta. Tocar na fonte abre o artigo.
 - **Nada gerado:** resposta factual sai de cálculo ou de trecho literal da base. Não há modelo de linguagem em produção, portanto não há como inventar prazo.
-- **Saída fixa na tela:** "Falar com uma pessoa" fica no topo do chat, que o orb abre em um toque. "Reclamar", "Encerrar", "Suspeita de golpe" e o horário ficam a um toque, no orb que abre o chat em popup. Dentro do chat, "Falar com uma pessoa" fica no topo. Golpe escrito na conversa interrompe o fluxo do mesmo jeito.
+- **Saída fixa na tela:** "Falar com uma pessoa" fica no topo do chat, que o orb abre em um toque. "Reclamar", "Encerrar", "Suspeita de golpe" e o horário ficam em "Mais opções", no chat aberto pelo orb. Dentro do chat, "Falar com uma pessoa" fica no topo. Golpe escrito na conversa interrompe o fluxo do mesmo jeito.
 - **Diz quando não sabe:** e na segunda vez já oferece uma pessoa.
 
 ## 5. O que fica de fora?

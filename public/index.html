@@ -28,7 +28,8 @@
   <section class="home" id="home" aria-label="Início"></section>
   <section class="chat" id="chat" role="dialog" aria-label="Conversa com a caquIA" hidden>
     <header class="chat-topo">
-      <h2>caquIA</h2>
+      <span class="chat-simbolo" id="chat-simbolo"><svg viewBox="-63 -67.2 406 406" width="32" height="32" aria-hidden="true"><circle cx="140" cy="135.8" r="203" fill="currentColor"/><g class="orb-raios"><path d="M218.02,187.97c-2.33-.17-47.28-28.98-47.78-39.3-.54-11.28,43.79,24.86,44.12,25.2,2.44,2.57,15.25,14.95,3.66,14.1Z"/><path d="M186.63,219.97c-2.17-.86-36.49-41.76-33.88-51.76,2.85-10.93,34.38,36.79,34.59,37.21,1.56,3.18,10.1,18.82-.71,14.55Z"/><path d="M62.34,187.97c2.33-.17,47.28-28.98,47.78-39.3.54-11.28-43.79,24.86-44.12,25.2-2.44,2.57-15.25,14.95-3.66,14.1Z"/><path d="M93.73,219.97c2.17-.86,36.49-41.76,33.88-51.76-2.85-10.93-34.38,36.79-34.59,37.21-1.56,3.18-10.1,18.82.71,14.55Z"/><path d="M218.02,83.69c-2.33.17-47.28,28.98-47.78,39.3-.54,11.28,43.79-24.86,44.12-25.2,2.44-2.57,15.25-14.95,3.66-14.1Z"/><path d="M186.63,51.69c-2.17.86-36.49,41.76-33.88,51.76,2.85,10.93,34.38-36.79,34.59-37.21,1.56-3.18,10.1-18.82-.71-14.55Z"/><path d="M62.34,83.69c2.33.17,47.28,28.98,47.78,39.3.54,11.28-43.79-24.86-44.12-25.2-2.44-2.57-15.25-14.95-3.66-14.1Z"/><path d="M93.73,51.69c2.17.86,36.49,41.76,33.88,51.76-2.85,10.93-34.38-36.79-34.59-37.21-1.56-3.18-10.1-18.82.71-14.55Z"/></g></svg></span>
+      <h2 id="chat-nome">caquIA</h2>
       <button class="base-pessoa" type="button" data-fala="Quero falar com uma pessoa" data-importante>Falar com uma pessoa</button>
       <button class="chat-fechar" type="button" data-fechar aria-label="Fechar conversa"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     </header>
@@ -39,12 +40,15 @@
         <button class="microfone" id="microfone" type="button" aria-label="Falar por áudio" aria-pressed="false" hidden><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15a3.5 3.5 0 0 0 3.5-3.5v-5a3.5 3.5 0 1 0-7 0v5A3.5 3.5 0 0 0 12 15Z"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3"/></svg></button>
           <button class="primario" id="enviar" type="submit">Enviar</button>
       </form>
-      <nav class="saidas" aria-label="Saídas do atendimento">
-        <button type="button" data-fala="Quero fazer uma reclamação" data-importante>Reclamar</button>
-        <button type="button" data-fala="Quero encerrar minha conta" data-importante>Encerrar</button>
-        <button type="button" data-fala="Acho que é golpe" data-importante>Suspeita de golpe</button>
-      </nav>
-      <p class="horario" id="horario"></p>
+      <details class="mais">
+        <summary>Mais opções</summary>
+        <nav class="saidas" aria-label="Saídas do atendimento">
+          <button type="button" data-fala="Quero fazer uma reclamação" data-importante>Reclamar</button>
+          <button type="button" data-fala="Quero encerrar minha conta" data-importante>Encerrar</button>
+          <button type="button" data-fala="Acho que é golpe" data-importante>Suspeita de golpe</button>
+        </nav>
+        <p class="horario" id="horario"></p>
+      </details>
     </div>
   </section>
   <button class="orb" type="button" data-abrir aria-label="Abrir conversa" aria-expanded="false" aria-controls="base-aberta"><svg viewBox="-63 -67.2 406 406" width="60" height="60" aria-hidden="true"><circle cx="140" cy="135.8" r="203" fill="currentColor"/><g class="orb-raios"><path d="M218.02,187.97c-2.33-.17-47.28-28.98-47.78-39.3-.54-11.28,43.79,24.86,44.12,25.2,2.44,2.57,15.25,14.95,3.66,14.1Z"/><path d="M186.63,219.97c-2.17-.86-36.49-41.76-33.88-51.76,2.85-10.93,34.38,36.79,34.59,37.21,1.56,3.18,10.1,18.82-.71,14.55Z"/><path d="M62.34,187.97c2.33-.17,47.28-28.98,47.78-39.3.54-11.28-43.79,24.86-44.12,25.2-2.44,2.57-15.25,14.95-3.66,14.1Z"/><path d="M93.73,219.97c2.17-.86,36.49-41.76,33.88-51.76-2.85-10.93-34.38,36.79-34.59,37.21-1.56,3.18-10.1,18.82.71,14.55Z"/><path d="M218.02,83.69c-2.33.17-47.28,28.98-47.78,39.3-.54,11.28,43.79-24.86,44.12-25.2,2.44-2.57,15.25-14.95,3.66-14.1Z"/><path d="M186.63,51.69c-2.17.86-36.49,41.76-33.88,51.76,2.85,10.93,34.38-36.79,34.59-37.21,1.56-3.18,10.1-18.82-.71-14.55Z"/><path d="M62.34,83.69c2.33.17,47.28,28.98,47.78,39.3.54,11.28-43.79-24.86-44.12-25.2-2.44-2.57-15.25-14.95-3.66-14.1Z"/><path d="M93.73,51.69c2.17.86,36.49,41.76,33.88,51.76-2.85,10.93-34.38-36.79-34.59-37.21-1.56-3.18-10.1-18.82.71-14.55Z"/></g></svg></button>

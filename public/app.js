@@ -58,6 +58,17 @@ function iniciarOrb() {
   });
 }
 
+const SIMBOLO = $('#chat-simbolo').innerHTML;
+const QUEM = { seguranca: 'Segurança Caqui' };
+
+// O topo do chat mostra quem está com o cliente: caquIA ou a equipe.
+function atendimento(entrega) {
+  $('#chat').classList.toggle('humano', !!entrega);
+  $('#chat').classList.toggle('seguranca', entrega?.fila === 'seguranca');
+  $('#chat-nome').textContent = entrega ? QUEM[entrega.fila] || 'Equipe Caqui' : 'caquIA';
+  $('#chat-simbolo').innerHTML = entrega ? ICONES.pessoa : SIMBOLO;
+}
+
 function conversa(aberta) {
   $('#chat').hidden = !aberta;
   $('[data-abrir]').hidden = aberta;
@@ -78,10 +89,12 @@ function adicionar(html, classe = '') {
 
 function blocoFontes(fontes) {
   if (!fontes?.length) return '';
+  const nome = (f) => (f.tipo === 'kb' ? `${f.id}, revisado em ${f.revisado}` : f.rotulo);
   const itens = fontes.map((f) => (f.tipo === 'kb'
-    ? `<button class="fonte" data-artigo="${esc(f.id)}">${esc(f.id)}, revisado em ${esc(f.revisado)}</button>`
-    : `<span>${esc(f.rotulo)}</span>`)).join('');
-  return `<div class="fontes"><span>Fonte:</span>${itens}</div>`;
+    ? `<button class="fonte" data-artigo="${esc(f.id)}">${esc(nome(f))}</button>`
+    : `<span>${esc(nome(f))}</span>`)).join('');
+  const resumo = `Fonte: ${esc(nome(fontes[0]))}${fontes.length > 1 ? ` e mais ${fontes.length - 1}` : ''}`;
+  return `<details class="fontes"><summary>${resumo}</summary><div class="fontes-lista">${itens}</div></details>`;
 }
 
 function blocoEntrega(e) {
@@ -133,6 +146,7 @@ async function falar(texto) {
     if (!r.ok) throw new Error(r.status);
     const res = await r.json();
     sessao.estado = res.estado;
+    if (res.entrega) atendimento(res.entrega);
     sessao.historico.push({ de: 'cliente', texto }, { de: 'caqui', texto: res.textoCompleto });
     mostrar(res);
   } catch {
@@ -149,6 +163,7 @@ async function iniciar() {
   sessao.estado = {};
   sessao.historico = [];
   fio.innerHTML = '';
+  atendimento(null);
   adicionar(`<div class="corpo"><p>Como posso ajudar?</p></div>${chipsSugestoes()}`);
   conversa(false);
   const r = await fetch(`/api/inicio?cliente=${sessao.cliente}&agora=${sessao.agora}`).then((x) => x.json());
@@ -279,6 +294,6 @@ await Promise.all([iniciar(), espera(1920)]);
 iniciarOrb();
 const abertura = $('#carregando');
 abertura.classList.add('pronto');
-await espera(1300);
+await espera(1700);
 abertura.classList.add('fim');
-setTimeout(() => abertura.remove(), 300);
+setTimeout(() => abertura.remove(), 900);
