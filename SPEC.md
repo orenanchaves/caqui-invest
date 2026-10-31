@@ -112,6 +112,8 @@ Itens de "O que vale para qualquer caminho" que não se aplicam: nenhum.
 | 31/10 | Motor no servidor (Cloudflare Worker), não no navegador | Num site estático todos os clientes iriam para o navegador. Regra 10: só sai a conta da sessão |
 | 31/10 | Zero tentativa de retenção | A regra permite uma. Em encerramento, mostrar o que trava o saque ajuda mais que reter |
 | 31/10 | KB-007 fora do índice, por lista e por teste | Artigo de 2024 com corte de 15h, superado pelo KB-006 |
+| 31/10 | Tela inicial com saldo, atalhos e pedidos antes da conversa | O cliente vê a data sem precisar perguntar. Os atalhos enviam a mesma pergunta ao motor, sem caminho novo de resposta |
+| 31/10 | Identidade da Caqui com o logo oficial e Montserrat no lugar da Proxima Nova | A Proxima Nova é licenciada e não há arquivo da fonte no projeto. Basta servir o arquivo para ela assumir, porque já é a primeira da lista |
 | 31/10 | Medir com teste cego escrito por um agente que não viu o código | 40/40 no teste oficial não dizia nada: a primeira rodada cega deu 46/70, com golpes passando |
 | 31/10 | Última nota limpa: 37/50 em frases novas, zero falso alarme em 10 inocentes | Depois disso as regras foram ajustadas de novo, então qualquer nota posterior nesses arquivos está contaminada |
 | 31/10 | Classificador com modelo de linguagem sobe de item futuro para o próximo passo | Regra por palavra não generaliza. O cálculo e a citação ficam no motor; o modelo só escolheria a rota |

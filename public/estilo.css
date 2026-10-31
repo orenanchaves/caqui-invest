@@ -1,24 +1,28 @@
 /* Hallmark v2.0.0 | scope: app | theme: Atelier (dealt 3/3, seed atendimento-corretora-calmo-confi-1a75) | genre: editorial | signature: o caminho do dinheiro, linha do tempo com a data calculada */
+/* waive F5: atalhos redondos pedidos pelo autor da marca */
 /* critique: uma ficha de papel por pedido; a data final é a coisa maior da tela; nada pisca, porque quem lê está com medo */
 
 :root {
-  --color-paper: #f1ece6;
-  --color-paper-2: #e9e3db;
-  --color-ink: #120a05;
-  --color-ink-2: #382e28;
-  --color-muted: #59514b;
+  --color-paper: #fff4e9;
+  --color-paper-2: #fbe6d3;
+  --color-ink: #2b0b09;
+  --color-ink-2: #3d1f1b;
+  --color-muted: #5e4a43;
   --color-rule: #9b7051;
-  --color-accent: #2e79f0;
-  --color-accent-ink: #120a05;
+  --color-accent: #ef7f2e;
+  --color-accent-ink: #2b0b09;
   --color-ciano: #2edff0;
+  --color-azul: #2e79f0;
+  --color-ambar: #e59f1c;
+  --color-vermelho: #f0462e;
   --color-atraso: #ef7f2e;
   --color-atraso-fundo: #fce3cf;
   --color-focus: #2e79f0;
-  --color-card: #f9f7f2;
+  --color-card: #fffbf6;
   --color-alerta: #f0462e;
   --color-alerta-fundo: #fcdcd6;
-  --font-display: "Sentient", Georgia, serif;
-  --font-body: "Hanken Grotesk", system-ui, sans-serif;
+  --font-display: "Proxima Nova", "Montserrat", system-ui, sans-serif;
+  --font-body: "Proxima Nova", "Montserrat", system-ui, sans-serif;
   --text-sm: 0.875rem;
   --text-base: 1rem;
   --text-lg: 1.25rem;
@@ -40,38 +44,64 @@ body.calmo { font-size: 1.125rem; }
 h1, h2, h3, p { margin: 0; text-wrap: balance; }
 button, select, textarea, input { font: inherit; color: inherit; }
 button { cursor: pointer; }
-a { color: var(--color-ink); text-decoration-color: var(--color-accent); }
+a { color: var(--color-ink); text-decoration-color: var(--color-azul); }
 ::selection { background: var(--color-ciano); color: var(--color-ink); }
 html { scrollbar-color: var(--color-muted) var(--color-paper); }
 textarea { caret-color: var(--color-accent); }
 :focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
 
 /* topo */
-.topo { border-bottom: 1px solid var(--color-rule); background: var(--color-paper); }
+.topo { background: var(--color-ink); color: var(--color-paper); }
+.topo a { color: var(--color-paper); }
 .topo-dentro { max-width: var(--largura); margin: 0 auto; padding: 0.625rem 1rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; }
 .painel-pagina .topo-dentro { max-width: 76rem; }
-.marca { font-family: var(--font-display); font-weight: 400; font-size: var(--text-lg); color: var(--color-ink); line-height: 1; }
-.marca small { font-family: var(--font-body); font-size: var(--text-sm); color: var(--color-muted); margin-left: 0.375rem; }
+.marca { display: flex; align-items: center; gap: 0.25rem; line-height: 1; }
+.logo { display: block; height: 60px; width: auto; margin-left: -1rem; }
+.marca small { font-size: var(--text-sm); color: var(--color-paper); }
 .demo { margin-left: auto; display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
-.demo label { font-size: var(--text-sm); color: var(--color-muted); display: flex; gap: 0.375rem; align-items: center; }
-.demo select { min-height: 36px; max-width: 11rem; padding: 0 0.375rem; background: var(--color-card); border: 1px solid var(--color-rule); border-radius: var(--radius); }
+.demo label { font-size: var(--text-sm); color: var(--color-paper); display: flex; gap: 0.375rem; align-items: center; }
+.demo select { min-height: 36px; max-width: 11rem; padding: 0 0.375rem; color: var(--color-ink); background: var(--color-card); border: 1px solid var(--color-rule); border-radius: var(--radius); }
+
+/* início */
+.home-dentro { max-width: var(--largura); margin: 0 auto; padding: 0 1rem; }
+.home-topo { background: var(--color-ink); color: var(--color-paper); padding: 0.5rem 0 1.25rem; }
+.home-linha { display: flex; align-items: center; justify-content: space-between; }
+.avatar { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; background: var(--color-card); color: var(--color-ink); }
+.icone { width: 44px; height: 44px; display: grid; place-items: center; border: 0; border-radius: 50%; background: none; color: var(--color-paper); transition: background-color var(--dur); }
+.icone:hover { background: var(--color-ciano); color: var(--color-ink); }
+.icone[aria-pressed="true"] { background: var(--color-card); color: var(--color-ink); }
+.home-ola { margin-top: 0.75rem; font-size: var(--text-lg); font-weight: 800; color: var(--color-paper); }
+.home-corpo { display: flex; flex-direction: column; gap: 1.25rem; padding-top: 1.25rem; padding-bottom: 1.25rem; }
+.saldo { color: var(--color-muted); }
+.saldo-valor { font-family: var(--font-display); font-weight: 800; font-size: 2.25rem; line-height: 1.15; letter-spacing: -0.02em; color: var(--color-vermelho); }
+.saldo-data { font-family: var(--font-display); font-weight: 800; font-size: var(--text-xl); line-height: 1.2; color: var(--color-ink); }
+.home.oculto .valor { color: transparent; user-select: none; border-radius: var(--radius); background: var(--color-paper-2); }
+.atalhos { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.5rem; }
+.atalho { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; padding: 0; border: 0; background: none; color: var(--color-ink); font-size: var(--text-sm); line-height: 1.3; text-align: center; }
+.atalho-icone { width: 56px; height: 56px; display: grid; place-items: center; border-radius: 50%; background: var(--color-paper-2); transition: background-color var(--dur); }
+.atalho.principal .atalho-icone { background: var(--color-ciano); }
+.atalho:hover .atalho-icone { background: var(--color-ciano); }
+.atalho:active .atalho-icone { background: var(--color-rule); }
+.faixa { display: flex; align-items: center; gap: 0.625rem; min-height: 48px; padding: 0.5rem 0.875rem; border: 0; border-radius: var(--radius); background: var(--color-paper-2); color: var(--color-ink); font-weight: 600; text-align: left; transition: background-color var(--dur); }
+.faixa:hover { background: var(--color-ciano); }
+.carteira { display: flex; flex-direction: column; gap: 0.125rem; padding-top: 1rem; border-top: 1px solid var(--color-rule); font-size: var(--text-sm); color: var(--color-muted); }
 
 /* conversa */
 .app { display: flex; flex-direction: column; min-height: 100dvh; }
 .fio { flex: 1; width: 100%; max-width: var(--largura); margin: 0 auto; padding: 1rem 1rem 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
 .bolha { max-width: 100%; display: flex; flex-direction: column; gap: 0.625rem; }
-.bolha.cliente { align-self: flex-end; max-width: 85%; background: var(--color-accent); color: var(--color-accent-ink); padding: 0.5rem 0.75rem; border-radius: var(--radius); overflow-wrap: anywhere; }
+.bolha.cliente { align-self: flex-end; max-width: 85%; background: var(--color-ink); color: var(--color-paper); padding: 0.5rem 0.75rem; border-radius: var(--radius); overflow-wrap: anywhere; }
 .bolha.cliente p { text-wrap: pretty; }
 .bolha .corpo { display: flex; flex-direction: column; gap: 0.5rem; color: var(--color-ink); }
 .bolha .corpo ul { margin: 0; padding-left: 1.125rem; }
 .bolha .corpo strong { font-weight: 600; }
 .bolha .corpo table { border-collapse: collapse; }
 .bolha .corpo td { border-bottom: 1px solid var(--color-rule); padding: 0.25rem 1rem 0.25rem 0; }
-.saudacao { font-family: var(--font-display); font-weight: 300; font-size: var(--text-xl); line-height: 1.1; color: var(--color-ink); }
+.saudacao { font-family: var(--font-display); font-weight: 800; font-size: var(--text-xl); line-height: 1.1; color: var(--color-ink); }
 .conta-linha { color: var(--color-muted); }
 
 .fontes { display: flex; flex-wrap: wrap; gap: 0.25rem 0.75rem; font-size: var(--text-sm); color: var(--color-muted); }
-.fonte { background: none; border: 0; padding: 0; min-height: 28px; color: var(--color-ink); text-decoration: underline; text-decoration-color: var(--color-accent); text-underline-offset: 2px; text-align: left; }
+.fonte { background: none; border: 0; padding: 0; min-height: 28px; color: var(--color-ink); text-decoration: underline; text-decoration-color: var(--color-azul); text-underline-offset: 2px; text-align: left; }
 .artigo { border-left: 2px solid var(--color-rule); padding-left: 0.75rem; font-size: var(--text-sm); }
 
 .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
@@ -84,8 +114,10 @@ textarea { caret-color: var(--color-accent); }
 .ficha { background: var(--color-card); box-shadow: var(--sombra); border-radius: var(--radius); padding: 0.875rem 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
 .ficha h3 { font-family: var(--font-body); font-weight: 400; font-size: var(--text-sm); color: var(--color-muted); }
 .ficha.atrasada { background: var(--color-atraso-fundo); box-shadow: inset 0 0 0 1px var(--color-atraso); }
-.quando { font-family: var(--font-display); font-weight: 300; font-size: var(--text-xl); line-height: 1.1; color: var(--color-ink); }
+.quando { font-family: var(--font-display); font-weight: 800; font-size: var(--text-xl); line-height: 1.1; color: var(--color-ink); }
 .ficha-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 1rem; font-size: var(--text-sm); color: var(--color-muted); }
+.andamento { position: relative; height: 12px; margin: 0.25rem 0; border: 1px solid var(--color-ambar); border-radius: 6px; background: var(--color-paper); }
+.andamento span { position: absolute; top: 50%; left: var(--p); width: 20px; height: 20px; transform: translate(-50%, -50%); border-radius: 50%; background: var(--color-vermelho); }
 .caminho { list-style: none; margin: 0.25rem 0 0; padding: 0; }
 .caminho li { display: grid; grid-template-columns: 0.875rem minmax(0, 1fr) auto; gap: 0.625rem; padding-bottom: 0.625rem; position: relative; font-size: var(--text-sm); }
 .caminho li:last-child { padding-bottom: 0; }
@@ -119,16 +151,16 @@ textarea { caret-color: var(--color-accent); }
 .primario { min-height: 44px; padding: 0 1rem; background: var(--color-accent); color: var(--color-accent-ink); border: 0; border-radius: var(--radius); transition: background-color var(--dur); }
 .primario:hover { background: var(--color-ciano); }
 .primario:disabled { background: var(--color-paper-2); color: var(--color-muted); cursor: default; }
-.saidas { display: flex; flex-wrap: wrap; gap: 0 1rem; align-items: center; font-size: var(--text-sm); }
+.saidas { display: flex; flex-wrap: wrap; gap: 0 0.875rem; align-items: center; font-size: var(--text-sm); }
 .saidas button { background: none; border: 0; padding: 0; min-height: 36px; color: var(--color-ink); text-decoration: underline; text-underline-offset: 2px; }
-.saidas button:hover { text-decoration-color: var(--color-accent); }
+.saidas button:hover { text-decoration-color: var(--color-azul); }
 .saidas .pessoa { font-weight: 600; }
 .horario { font-size: var(--text-sm); color: var(--color-muted); }
 
 /* painel */
 .painel { max-width: 76rem; margin: 0 auto; padding: 1rem; display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; }
 .fila { display: flex; flex-direction: column; gap: 0.5rem; }
-.fila h1 { font-family: var(--font-display); font-weight: 300; font-size: var(--text-xl); color: var(--color-ink); }
+.fila h1 { font-family: var(--font-display); font-weight: 800; font-size: var(--text-xl); color: var(--color-ink); }
 .item { display: flex; flex-direction: column; gap: 0.125rem; width: 100%; min-height: 44px; text-align: left; padding: 0.5rem 0.75rem; background: var(--color-card); border: 1px solid var(--color-rule); border-radius: var(--radius); color: var(--color-ink); transition: border-color var(--dur); }
 .item:hover, .item[aria-current="true"] { border-color: var(--color-accent); }
 .item small { color: var(--color-muted); font-size: var(--text-sm); }
@@ -136,7 +168,7 @@ textarea { caret-color: var(--color-accent); }
 .item.seguranca { border-color: var(--color-alerta); background: var(--color-alerta-fundo); }
 .vazio { color: var(--color-muted); }
 .caso { display: flex; flex-direction: column; gap: 1rem; min-width: 0; }
-.caso h2 { font-family: var(--font-display); font-weight: 300; font-size: var(--text-xl); line-height: 1.1; color: var(--color-ink); }
+.caso h2 { font-family: var(--font-display); font-weight: 800; font-size: var(--text-xl); line-height: 1.1; color: var(--color-ink); }
 .caso h3.secao { font-family: var(--font-body); font-weight: 600; font-size: var(--text-base); color: var(--color-ink); }
 .colunas { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; }
 .coluna { display: flex; flex-direction: column; gap: 0.625rem; min-width: 0; }

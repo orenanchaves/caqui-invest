@@ -524,6 +524,8 @@ export function painelInicial(idCliente, agora = AGORA_PADRAO) {
   return {
     cliente: { id: cliente.id, nome: cliente.nome.split(' ')[0], idade60: cliente.idade >= 60 },
     conta: brl(cliente.saldo_em_conta_brl),
+    carteira: brl(D.posicoes.filter((p) => p.id_cliente === idCliente).reduce((soma, p) => soma + p.saldo_bruto_brl, 0)),
+    data: dataBR(hoje),
     pedidos: abertas.map((o) => cartaoCaminho(o, hoje)),
   };
 }

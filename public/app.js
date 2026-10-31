@@ -1,7 +1,13 @@
-import { cartao, esc, FILAS, md } from './ui.js';
+import { cartao, esc, FILAS, ICONES, md } from './ui.js';
 
 const $ = (s) => document.querySelector(s);
-const fio = $('#fio'), campo = $('#texto'), enviar = $('#enviar');
+const fio = $('#fio'), home = $('#home'), campo = $('#texto'), enviar = $('#enviar');
+const ATALHOS = [
+  ['relogio', 'Cadê meu dinheiro', 'Cadê meu dinheiro?'],
+  ['calculo', 'Quanto vou receber', 'Quanto vou receber se resgatar tudo hoje?'],
+  ['grafico', 'Comparar poupança', 'Meu CDB rendeu menos que a poupança?'],
+  ['extrato', 'Extrato', 'Quero ver meu extrato'],
+];
 const sessao = { cliente: null, agora: null, estado: {}, historico: [] };
 
 const rolar = () => window.scrollTo({ top: document.documentElement.scrollHeight });
@@ -81,16 +87,30 @@ async function iniciar() {
   $('#horario').textContent = r.humano
     ? 'Pessoas das 8h às 20h, todos os dias: disponível agora.'
     : 'Pessoas das 8h às 20h: agora registramos com protocolo. Segurança a qualquer hora.';
-  const pedidos = r.pedidos.map(cartao).join('');
-  adicionar(`<h1 class="saudacao">${r.pedidos.length ? `${esc(r.cliente.nome)}, seu dinheiro está a caminho.` : `${esc(r.cliente.nome)}, nada em andamento.`}</h1>
-    <p class="conta-linha">${esc(r.conta)} disponíveis na sua conta Caqui.</p>${pedidos}
-    <div class="chips"><button class="chip" data-fala="Cadê meu dinheiro?">Cadê meu dinheiro?</button><button class="chip" data-fala="Quanto vou receber se resgatar tudo hoje?">Quanto vou receber?</button><button class="chip" data-fala="Meu CDB rendeu menos que a poupança?">Rendeu menos que a poupança?</button></div>`);
+  const atalhos = ATALHOS.map(([icone, rotulo, fala], i) => `<button class="atalho${i ? '' : ' principal'}" data-fala="${esc(fala)}"><span class="atalho-icone">${ICONES[icone]}</span><span>${esc(rotulo)}</span></button>`).join('');
+  home.classList.remove('oculto');
+  home.innerHTML = `<div class="home-topo"><div class="home-dentro">
+      <div class="home-linha"><span class="avatar">${ICONES.pessoa}</span><button class="icone" data-valores aria-pressed="false" aria-label="Ocultar valores">${ICONES.olho}</button></div>
+      <h1 class="home-ola">Olá, ${esc(r.cliente.nome)}</h1>
+    </div></div>
+    <div class="home-dentro home-corpo">
+      <div class="saldo"><span>Disponível na conta</span><p class="saldo-valor"><span class="valor">${esc(r.conta)}</span></p></div>
+      <div class="atalhos">${atalhos}</div>
+      <button class="faixa" data-fala="Quero falar com uma pessoa">${ICONES.conversa}<span>Falar com uma pessoa</span></button>
+      ${r.pedidos.map(cartao).join('')}
+      <div class="carteira"><span>Sua carteira, antes do imposto</span><p class="saldo-data"><span class="valor">${esc(r.carteira)}</span></p><span class="notas">Fonte: posições da sua conta em ${esc(r.data)}</span></div>
+    </div>`;
 }
 
 document.addEventListener('click', async (e) => {
   const b = e.target.closest('button');
   if (!b) return;
   if (b.dataset.fala) falar(b.dataset.fala);
+  if ('valores' in b.dataset) {
+    const oculto = home.classList.toggle('oculto');
+    b.setAttribute('aria-pressed', oculto);
+    b.setAttribute('aria-label', oculto ? 'Mostrar valores' : 'Ocultar valores');
+  }
   if ('ok' in b.dataset) {
     b.closest('.chips').innerHTML = '<span class="horario">Obrigado. Se precisar, é só escrever.</span>';
     sessao.estado.naoEntendi = 0;
