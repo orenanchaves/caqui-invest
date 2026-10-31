@@ -294,8 +294,11 @@ a.icone-link:hover { background: var(--color-card); }
 .deck-links-lista { position: absolute; right: 0.5rem; top: calc(100% + 0.25rem); display: flex; flex-direction: column; gap: 0.125rem; width: min(19rem, calc(100vw - 2rem)); padding: 0.25rem; border-radius: var(--radius); background: var(--color-card); box-shadow: var(--sombra); }
 .deck-links-lista a { min-height: 44px; display: flex; align-items: center; padding: 0.25rem 0.75rem; border-radius: var(--radius); color: var(--color-ink); font-weight: 600; text-decoration: none; transition: background-color 180ms; }
 .deck-links-lista a:hover { background: var(--color-destaque); }
-.deck-topo { position: fixed; z-index: 5; inset: 0 0 auto 0; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 0.25rem 0.5rem; background: var(--color-demo-ink); color: var(--color-paper); }
-html:fullscreen .deck-topo { display: none; }
+.deck-topo { position: fixed; z-index: 5; inset: 0 0 auto 0; display: flex; align-items: center; gap: 0.25rem; padding: 0.25rem 0.5rem; background: var(--color-demo-ink); color: var(--color-paper); }
+html:fullscreen .deck-topo, .topo-recolhido .deck-topo { display: none; }
+.deck-links { margin-left: auto; }
+.deck-recolher { flex: none; width: 44px; height: 44px; display: grid; place-items: center; border: 0; border-radius: var(--radius); background: none; color: var(--color-paper); transition: background-color 180ms, color 180ms; }
+.deck-recolher:hover { background: var(--color-destaque); color: var(--color-ink); }
 .deck-secoes { display: flex; gap: 0.125rem; min-width: 0; overflow-x: auto; scrollbar-width: none; }
 .deck-secoes button { flex: none; min-height: 44px; padding: 0 0.75rem; border: 0; border-radius: var(--radius); background: none; color: var(--color-paper); font-weight: 600; transition: background-color 180ms, color 180ms; }
 .deck-secoes button:hover, .deck-secoes button[aria-current] { background: var(--color-destaque); color: var(--color-ink); }

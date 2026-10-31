@@ -42,6 +42,7 @@ document.addEventListener('keydown', (e) => {
   if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); ir(atual - 1); }
   if (e.key === 'Home') ir(0);
   if (e.key === 'End') ir(slides.length - 1);
+  if (e.key.toLowerCase() === 'm') recolherMenu(!document.body.classList.contains('topo-recolhido'));
   if (e.key.toLowerCase() === 'f' && document.fullscreenEnabled) alternarTela();
 });
 // Expande a apresentação para a tela inteira.
@@ -63,6 +64,19 @@ function escalar() {
 escalar();
 window.addEventListener('resize', escalar);
 document.addEventListener('fullscreenchange', escalar);
+
+// O menu superior recolhe, e o palco cresce no espaço que ele deixa.
+const mostrarMenu = document.querySelector('#mostrar-menu');
+function recolherMenu(recolhido) {
+  document.body.classList.toggle('topo-recolhido', recolhido);
+  mostrarMenu.hidden = !recolhido;
+  menuLinks.open = false;
+  try { localStorage.setItem('menu-apresentacao', recolhido ? 'recolhido' : 'aberto'); } catch {}
+  escalar();
+}
+document.querySelector('#recolher').addEventListener('click', () => recolherMenu(true));
+mostrarMenu.addEventListener('click', () => recolherMenu(false));
+try { if (localStorage.getItem('menu-apresentacao') === 'recolhido') recolherMenu(true); } catch {}
 window.addEventListener('resize', encaixar);
 ir(Number(location.hash.slice(1)) - 1 || 0);
 
