@@ -6,6 +6,7 @@ O atendimento responde a pergunta que mais chega à Caqui, "onde está meu dinhe
 
 - `/`: conversa do cliente. Escolha cliente e hora na barra de demonstração.
 - `/atendente.html`: fila e caso como chegam à equipe.
+- `/extrato.html`: movimentações do cliente, aberta pelo atalho Extrato.
 - `/design-system.html`: tokens e componentes do front-end. Regras em [DESIGN.md](DESIGN.md).
 
 O motor é determinístico e roda no servidor. Sem modelo de linguagem em produção: prazo, imposto e poupança saem de cálculo, e o resto sai de trecho literal da base. Se não entender, diz que não entendeu e leva a uma pessoa.

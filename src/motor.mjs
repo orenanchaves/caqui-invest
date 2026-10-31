@@ -539,13 +539,14 @@ export function painelInicial(idCliente, agora = AGORA_PADRAO) {
     conta: brl(cliente.saldo_em_conta_brl),
     carteira: brl(D.posicoes.filter((p) => p.id_cliente === idCliente).reduce((soma, p) => soma + p.saldo_bruto_brl, 0)),
     data: dataBR(hoje),
+    total: brl(cliente.saldo_em_conta_brl + D.posicoes.filter((p) => p.id_cliente === idCliente).reduce((soma, p) => soma + p.saldo_bruto_brl, 0)),
     setores: setoresCarteira(idCliente),
     investimentos: D.posicoes.filter((p) => p.id_cliente === idCliente).map((p) => {
       const pedidos = abertas.filter((o) => o.produto === p.produto).map((o) => cartaoCaminho(o, hoje));
       const etapas = [
         { rotulo: 'Aplicação', br: dataBR(p.data_aplicacao), feita: true },
         { rotulo: 'Hoje', br: dataBR(hoje), agora: true },
-        ...pedidos.map((c) => ({ rotulo: c.titulo.split(' ')[0] + ' de ' + c.valor, br: c.previsto || 'a confirmar' })),
+        ...pedidos.map((c) => ({ rotulo: c.titulo.split(' ')[0], valor: c.valor, br: c.previsto || 'a confirmar' })),
         ...(p.vencimento ? [{ rotulo: 'Vencimento', br: dataBR(p.vencimento) }] : []),
       ];
       const andamento = p.vencimento ? Math.min(100, Math.round((diasEntre(p.data_aplicacao, hoje) / Math.max(diasEntre(p.data_aplicacao, p.vencimento), 1)) * 100)) : null;
@@ -553,6 +554,16 @@ export function painelInicial(idCliente, agora = AGORA_PADRAO) {
     }),
     pedidos: abertas.map((o) => cartaoCaminho(o, hoje)),
   };
+}
+
+export function extratoCliente(idCliente, agora = AGORA_PADRAO) {
+  const cliente = D.clientes.find((c) => c.id === idCliente);
+  if (!cliente) return null;
+  const itens = D.operacoes
+    .filter((o) => o.id_cliente === idCliente && o.pedido_em.slice(0, 16) <= agora)
+    .sort((a, b) => b.pedido_em.localeCompare(a.pedido_em))
+    .map((o) => ({ id: o.id_operacao, data: dataBR(o.pedido_em.slice(0, 10)), titulo: `${TIPOS[o.tipo]} ${nomeProd(o.produto)}`, valor: brl(o.valor_brl), status: STATUS[o.status] }));
+  return { cliente: cliente.nome.split(' ')[0], conta: brl(cliente.saldo_em_conta_brl), data: dataBR(agora.slice(0, 10)), itens };
 }
 
 export function fichaCliente(idCliente, agora = AGORA_PADRAO) {

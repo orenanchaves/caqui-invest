@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { aliquotaIR, diaBase, prazoResgate, somaDU } from '../src/calculo.mjs';
-import { artigoPublico, mascarar, painelInicial, responder } from '../src/motor.mjs';
+import { artigoPublico, extratoCliente, mascarar, painelInicial, responder } from '../src/motor.mjs';
 
 const fala = (texto, o = {}) => responder({ texto, cliente: 'C-0002', ...o });
 
@@ -9,11 +9,19 @@ test('painel inicial soma a carteira só do cliente da sessão', () => {
   const p = painelInicial('C-0001', '2026-11-18T10:00');
   assert.equal(p.carteira, 'R$ 61.021,15');
   assert.equal(p.conta, 'R$ 1.250,00');
+  assert.equal(p.total, 'R$ 62.271,15');
   assert.deepEqual(p.setores.map((s) => s.nome), ['CDB', 'LCI']);
   assert.equal(p.setores.reduce((soma, s) => soma + s.pct, 0), 100);
   assert.deepEqual(p.investimentos.map((i) => i.valor), ['R$ 40.791,24', 'R$ 20.229,91']);
-  assert.deepEqual(p.investimentos[0].etapas.map((e) => e.rotulo), ['Aplicação', 'Hoje', 'Resgate de R$ 40.000,00', 'Vencimento']);
+  assert.deepEqual(p.investimentos[0].etapas.map((e) => e.rotulo), ['Aplicação', 'Hoje', 'Resgate', 'Vencimento']);
   assert.ok(p.investimentos[0].andamento > 0 && p.investimentos[0].andamento < 100);
+});
+
+test('extrato traz só as operações do cliente, da mais nova para a mais antiga', () => {
+  const e = extratoCliente('C-0001', '2026-11-18T10:00');
+  assert.ok(e.itens.length > 0);
+  assert.ok(e.itens.every((i) => i.titulo && i.valor && i.status));
+  assert.equal(extratoCliente('C-9999'), null);
 });
 
 test('corte das 16h inclui 16h em ponto', () => {

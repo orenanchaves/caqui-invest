@@ -17,10 +17,11 @@ export function md(texto) {
 
 // Rastreio no formato de entrega: etapas na horizontal, com a atual em destaque.
 function rastreio(etapas) {
+  const curta = etapas.length > 3;
   const passos = etapas.map((e) => {
     const classe = e.agora || e.hoje ? 'agora' : e.feita ? 'feita' : '';
     const rotulo = e.rotulo + (e.hoje ? ', hoje' : '');
-    return `<li class="${classe}"${classe === 'agora' ? ' aria-current="step"' : ''}><span class="marco"></span><span class="passo">${esc(rotulo)}</span><time>${esc(e.br)}</time>${e.nota ? `<span class="nota">${esc(e.nota)}</span>` : ''}</li>`;
+    return `<li class="${classe}"${classe === 'agora' ? ' aria-current="step"' : ''}><span class="marco"></span><span class="passo">${esc(rotulo)}</span>${e.valor ? `<span class="dinheiro">${esc(e.valor)}</span>` : ''}<time>${esc(curta ? e.br.replace(/\/\d{2}(\d{2})$/, '/$1') : e.br)}</time>${e.nota ? `<span class="nota">${esc(e.nota)}</span>` : ''}</li>`;
   }).join('');
   return `<ol class="rastreio">${passos}</ol>`;
 }
@@ -61,6 +62,14 @@ export const ICONES = {
   olho: svg(['M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z', 'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z']),
   conversa: svg(['M12 3.5a8.5 8.5 0 0 0-7.4 12.7L3.5 20.5l4.4-1.1A8.5 8.5 0 1 0 12 3.5Z']),
 };
+
+export function linhaDinheiro(i) {
+  return `<article class="linha-dinheiro">
+    <div class="linha-topo"><h3>${esc(i.nome)}</h3><span class="valor">${esc(i.valor)}</span></div>
+    ${i.taxa ? `<p class="notas">${esc(i.taxa)}</p>` : ''}
+    ${rastreio(i.etapas)}
+  </article>`;
+}
 
 export function caixinha(i) {
   return `<article class="quadro">

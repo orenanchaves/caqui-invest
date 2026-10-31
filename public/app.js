@@ -1,14 +1,17 @@
-import { caixinha, cartao, esc, FILAS, ICONES, md, setores } from './ui.js';
+import { caixinha, cartao, esc, FILAS, ICONES, linhaDinheiro, md, setores } from './ui.js';
 
 const $ = (s) => document.querySelector(s);
 const fio = $('#fio'), home = $('#home'), campo = $('#texto'), enviar = $('#enviar');
 const SUGESTOES = ['Meu resgate não caiu. Sumiu?', 'Apliquei e não aparece no extrato', 'Quando cai meu resgate?', 'O que é liquidez diária?'];
 const chipsSugestoes = () => `<div class="chips">${SUGESTOES.map((t) => `<button class="chip" data-fala="${esc(t)}">${esc(t)}</button>`).join('')}</div>`;
+const VISTAS = [['caixinhas', 'Caixinhas'], ['lista', 'Lista'], ['grafico', 'Gráfico']];
+let vista = 'caixinhas';
+try { vista = VISTAS.some(([id]) => id === localStorage.getItem('vista')) ? localStorage.getItem('vista') : vista; } catch {}
 const ATALHOS = [
   ['carteira', 'Meu dinheiro', 'Onde está meu dinheiro?'],
   ['calculadora', 'Quanto vou receber', 'Quanto vou receber se resgatar tudo hoje?'],
   ['rendimento', 'Comparar poupança', 'Meu CDB rendeu menos que a poupança?'],
-  ['extrato', 'Extrato', 'Quero ver meu extrato'],
+  ['extrato', 'Extrato', ''],
 ];
 const sessao = { cliente: null, agora: null, estado: {}, historico: [] };
 
@@ -153,17 +156,29 @@ async function iniciar() {
   $('#horario').textContent = r.humano
     ? 'Pessoas das 8h às 20h, todos os dias: disponível agora.'
     : 'Pessoas das 8h às 20h: agora registramos com protocolo. Segurança a qualquer hora.';
-  const atalhos = ATALHOS.map(([icone, rotulo, fala], i) => `<button class="atalho${i ? '' : ' principal'}" data-fala="${esc(fala)}"><span class="atalho-icone"><span class="icone-pacote" style="--icone: url(icones/${icone}.svg)"></span></span><span>${esc(rotulo)}</span></button>`).join('');
+  const atalhos = ATALHOS.map(([icone, rotulo, fala], i) => {
+    const miolo = `<span class="atalho-icone"><span class="icone-pacote" style="--icone: url(icones/${icone}.svg)"></span></span><span>${esc(rotulo)}</span>`;
+    if (!fala) return `<a class="atalho" href="extrato.html?cliente=${encodeURIComponent(sessao.cliente)}&agora=${encodeURIComponent(sessao.agora)}">${miolo}</a>`;
+    return `<button class="atalho${i ? '' : ' principal'}" data-fala="${esc(fala)}">${miolo}</button>`;
+  }).join('');
   home.classList.remove('oculto');
+  const [primeiro, ...demais] = r.pedidos;
+  const vistas = r.investimentos.length ? `<div class="vistas" role="group" aria-label="Forma de ver">${VISTAS.map(([id, rotulo]) => `<button data-vista="${id}" aria-pressed="${id === vista}">${rotulo}</button>`).join('')}</div>
+      <div data-painel="caixinhas"><div class="quadros">${r.investimentos.map(caixinha).join('')}</div></div>
+      <div data-painel="lista">${r.investimentos.map(linhaDinheiro).join('')}</div>
+      <div data-painel="grafico">${setores(r.setores)}</div>` : '';
   home.innerHTML = `<div class="home-topo"><div class="home-dentro">
-      <div class="home-linha"><span class="avatar">${ICONES.pessoa}</span><h1 class="home-ola">${esc(r.cliente.nome)}</h1><button class="icone mostrar-demo" data-demo aria-label="Mostrar barra de demonstração"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><button class="icone" data-valores aria-pressed="false" aria-label="Ocultar valores">${ICONES.olho}</button></div>
+      <div class="home-linha"><span class="avatar">${ICONES.pessoa}</span><h1 class="home-ola">${esc(r.cliente.nome)}</h1><button class="icone" data-valores aria-pressed="false" aria-label="Ocultar valores">${ICONES.olho}</button></div>
+      <p class="topo-rotulo">Seu dinheiro na Caqui</p>
+      <p class="topo-total"><span class="valor">${esc(r.total)}</span></p>
     </div></div>
     <div class="home-dentro home-corpo">
+      ${primeiro ? `<div class="destaque">${cartao(primeiro)}</div>` : ''}
       <div class="saldo"><span>Disponível na conta</span><p class="saldo-valor"><span class="valor">${esc(r.conta)}</span></p></div>
-      <div class="carteira">${r.investimentos.length ? `<h2 class="caixinhas-titulo">Onde está seu dinheiro?</h2><div class="quadros">${r.investimentos.map(caixinha).join('')}</div>` : ''}<p class="carteira-total"><span>Total, antes do imposto</span><span class="valor">${esc(r.carteira)}</span></p>${r.setores.length ? setores(r.setores) : ''}<span class="notas">Fonte: posições da sua conta em ${esc(r.data)}</span></div>
+      <div class="carteira" data-vista="${vista}"><h2 class="caixinhas-titulo">Onde está seu dinheiro?</h2>${vistas}<p class="carteira-total"><span>Total investido, antes do imposto</span><span class="valor">${esc(r.carteira)}</span></p><span class="notas">Fonte: posições da sua conta em ${esc(r.data)}</span></div>
       <div class="atalhos">${atalhos}</div>
       <div class="perguntas"><h2 class="caixinhas-titulo">Dúvidas comuns</h2>${chipsSugestoes()}</div>
-      ${r.pedidos.map(cartao).join('')}
+      ${demais.map(cartao).join('')}
     </div>`;
 }
 
@@ -171,6 +186,12 @@ document.addEventListener('click', async (e) => {
   const b = e.target.closest('button');
   if (!b) return;
   if (b.dataset.fala) ('importante' in b.dataset ? aguardar(() => falar(b.dataset.fala)) : falar(b.dataset.fala));
+  if (b.dataset.vista) {
+    vista = b.dataset.vista;
+    home.querySelector('.carteira').dataset.vista = vista;
+    home.querySelectorAll('[data-vista]:not(.carteira)').forEach((x) => x.setAttribute('aria-pressed', x === b));
+    try { localStorage.setItem('vista', vista); } catch {}
+  }
   if ('caixinha' in b.dataset) {
     const aberta = b.getAttribute('aria-expanded') === 'true';
     b.closest('.quadros').querySelectorAll('[data-caixinha]').forEach((x) => {
@@ -183,6 +204,7 @@ document.addEventListener('click', async (e) => {
   }
   if ('demo' in b.dataset) {
     const oculta = document.body.classList.toggle('sem-demo');
+    b.setAttribute('aria-expanded', !oculta);
     try { localStorage.setItem('demo', oculta ? 'oculta' : 'visivel'); } catch {}
   }
   if ('abrir' in b.dataset) conversa(true);
@@ -248,6 +270,7 @@ $('#cliente').addEventListener('change', iniciar);
 $('#hora').addEventListener('change', iniciar);
 
 try { document.body.classList.toggle('sem-demo', localStorage.getItem('demo') !== 'visivel'); } catch {}
+$('.demo-abrir').setAttribute('aria-expanded', !document.body.classList.contains('sem-demo'));
 const demo = await fetch('/api/demo').then((x) => x.json());
 $('#cliente').innerHTML = demo.clientes.map((c) => `<option value="${esc(c.id)}">${esc(c.nome)}</option>`).join('');
 $('#hora').innerHTML = demo.horarios.map((h) => `<option value="${esc(h)}">18/11, ${h.slice(11, 13)}h</option>`).join('');

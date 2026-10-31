@@ -1,6 +1,6 @@
 // Borda HTTP do atendimento. O cliente vem da sessão de demonstração e nunca do texto.
 // Log só com protocolo e rótulos: nenhum texto de cliente vai para o log (regra 10).
-import { AGORA_PADRAO, artigoPublico, fichaCliente, humanoDisponivel, mascarar, painelInicial, responder } from './motor.mjs';
+import { AGORA_PADRAO, artigoPublico, extratoCliente, fichaCliente, humanoDisponivel, mascarar, painelInicial, responder } from './motor.mjs';
 
 const DEMO = [
   ['C-0001', 'Dona Marta', 'Resgate caindo hoje'],
@@ -63,6 +63,10 @@ export default {
       const c = clienteValido(url.searchParams.get('cliente'));
       const agora = agoraValido(url.searchParams.get('agora'));
       return c ? json({ ...painelInicial(c, agora), humano: humanoDisponivel(agora) }) : json({ erro: 'cliente inválido' }, 400);
+    }
+    if (p === '/api/extrato') {
+      const c = clienteValido(url.searchParams.get('cliente'));
+      return c ? json(extratoCliente(c, agoraValido(url.searchParams.get('agora')))) : json({ erro: 'cliente inválido' }, 400);
     }
     if (p === '/api/mensagem' && req.method === 'POST') return mensagem(req, env);
     const art = p.match(/^\/api\/artigo\/(KB-\d{3})$/);

@@ -121,6 +121,8 @@ Itens de "O que vale para qualquer caminho" que não se aplicam: nenhum.
 | 31/10 | Tela inicial sem botão de pessoa | A saída fica a um toque, no chat. Isso afasta a tela inicial do item "visível em qualquer passo" do case, por escolha do autor |
 | 31/10 | Gráfico de setores só com as classes dos dados | Dólar e euro não existem em `dados/`, e o case proíbe inventar informação |
 | 31/10 | Áudio transcrito no campo, sem envio automático | O cliente confere o texto antes de enviar, e a transcrição é do navegador |
+| 31/10 | Três formas de ver o dinheiro: caixinhas, lista e gráfico | Cada cliente confere de um jeito. Dona Marta tende a preferir a lista, com cada passo à vista. Hipótese, sem teste com clientes |
+| 31/10 | Sem botões Aplicar e Resgatar na tela inicial | O produto não executa operações, e o motor não trata "quero aplicar" |
 | 31/10 | Medir com teste cego escrito por um agente que não viu o código | 40/40 no teste oficial não dizia nada: a primeira rodada cega deu 46/70, com golpes passando |
 | 31/10 | Última nota limpa: 37/50 em frases novas, zero falso alarme em 10 inocentes | Depois disso as regras foram ajustadas de novo, então qualquer nota posterior nesses arquivos está contaminada |
 | 31/10 | Classificador com modelo de linguagem sobe de item futuro para o próximo passo | Regra por palavra não generaliza. O cálculo e a citação ficam no motor; o modelo só escolheria a rota |
