@@ -147,7 +147,7 @@ function linhaProduto(i) {
   const pedido = i.etapas.find((e) => e.valor);
   const fim = i.etapas.find((e) => e.rotulo === 'Vencimento');
   const selo = pedido ? `${pedido.rotulo} ${pedido.br}` : fim ? `Até ${fim.br}` : '';
-  return `<tr><td class="produto-nome"><span class="linha-icone"><span class="icone-pacote" style="--icone: url(icones/extrato.svg)"></span></span>${esc(i.nome)}</td><td>${esc(i.taxa)}</td><td><span class="valor">${esc(i.valor)}</span></td><td>${selo ? `<span class="selo">${esc(selo)}</span>` : ''}</td><td><button class="linha-abrir" type="button" data-fala="Onde está meu dinheiro?" aria-label="Perguntar sobre ${esc(i.nome)}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></td></tr>`;
+  return `<tr><td class="produto-nome"><div class="produto-celula"><span class="linha-icone"><span class="icone-pacote" style="--icone: url(icones/extrato.svg)"></span></span><span>${esc(i.nome)}</span></div></td><td>${esc(i.taxa)}</td><td><span class="valor">${esc(i.valor)}</span></td><td>${selo ? `<span class="selo">${esc(selo)}</span>` : ''}</td><td><button class="linha-abrir" type="button" data-fala="Onde está meu dinheiro?" aria-label="Perguntar sobre ${esc(i.nome)}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></td></tr>`;
 }
 
 async function iniciar() {
