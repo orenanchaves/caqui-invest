@@ -175,7 +175,7 @@ body:not(:has(.home)) .ds-lado { background: var(--color-paper); }
 .deck { height: 100dvh; overflow: hidden; background: var(--color-demo-ink); }
 .palco { position: fixed; top: 50%; left: 50%; width: 1440px; height: 810px; overflow: hidden; background: var(--color-paper); transform: translate(-50%, -50%) scale(var(--escala, 1)); }
 .slide { display: flex; flex-direction: column; justify-content: center; gap: 1.25rem; padding: 3rem max(1.25rem, calc(50% - 38rem)) 5rem; background: var(--color-paper); color: var(--color-ink); font-size: 1.125rem; }
-.slide h1, .slide h2 { margin: 0; max-width: 24ch; font-family: var(--font-display); font-weight: 800; line-height: 1.08; letter-spacing: -0.02em; text-wrap: balance; }
+.slide h1, .slide h2 { margin: 0; max-width: 24ch; font-family: var(--font-display); font-weight: 800; line-height: 1.08; text-wrap: balance; }
 .slide h1 { font-size: clamp(2.5rem, 101px, 5.5rem); }
 .slide h2 { font-size: clamp(2rem, 66px, 3.75rem); }
 .slide p { margin: 0; text-wrap: balance; }
@@ -410,7 +410,7 @@ a.atalho { text-decoration: none; }
 .home-ola { font-size: var(--text-lg); font-weight: 800; color: var(--color-paper); }
 .home-corpo { display: flex; flex-direction: column; gap: 2rem; padding-top: 1.25rem; padding-bottom: 5.5rem; }
 .saldo { color: var(--color-muted); }
-.saldo-valor { font-family: var(--font-display); font-weight: 800; font-size: var(--text-xl); line-height: 1.15; letter-spacing: -0.02em; color: var(--color-ink); }
+.saldo-valor { font-family: var(--font-display); font-weight: 800; font-size: var(--text-xl); line-height: 1.15; color: var(--color-ink); }
 .saldo-data { font-family: var(--font-display); font-weight: 800; font-size: var(--text-xl); line-height: 1.2; color: var(--color-ink); }
 .home.oculto .valor { color: transparent; user-select: none; border-radius: var(--radius); background: var(--color-paper-2); }
 .atalhos { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.5rem; }
@@ -433,7 +433,7 @@ a.atalho { text-decoration: none; }
 .quadro-topo { width: 100%; height: 100%; aspect-ratio: 610 / 742; display: flex; flex-direction: column; gap: 0.25rem; padding: 0.5rem; border: 0; background: none; color: var(--color-ink); text-align: left; }
 .quadro.aberta .quadro-topo { aspect-ratio: auto; height: auto; min-height: 44px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.125rem 0.75rem; padding: 0.625rem 0.75rem; }
 .quadro-nome { font-size: 0.8125rem; line-height: 1.2; color: var(--color-muted); overflow-wrap: break-word; }
-.quadro-valor { margin-top: auto; font-size: var(--text-sm); font-weight: 800; line-height: 1.2; letter-spacing: -0.01em; color: var(--color-ink); }
+.quadro-valor { margin-top: auto; font-size: var(--text-sm); font-weight: 800; line-height: 1.2; color: var(--color-ink); }
 .quadro-taxa { font-size: 0.8125rem; color: var(--color-muted); }
 .quadro.aberta .quadro-valor { margin-top: 0; }
 .quadro-abre { display: grid; grid-template-rows: 0fr; visibility: hidden; transition: grid-template-rows 240ms, visibility 240ms; }
@@ -458,7 +458,7 @@ a.atalho { text-decoration: none; }
 .linha-topo h3 { font-size: var(--text-base); font-weight: 600; color: var(--color-ink); }
 .linha-topo .valor { flex: none; font-weight: 800; color: var(--color-ink); }
 .topo-rotulo { margin-top: 0.75rem; color: var(--color-paper); }
-.topo-total { font-family: var(--font-display); font-weight: 800; font-size: 2.25rem; line-height: 1.15; letter-spacing: -0.02em; color: var(--color-paper); }
+.topo-total { font-family: var(--font-display); font-weight: 800; font-size: 2.25rem; line-height: 1.15; color: var(--color-paper); }
 .destaque { --faixa: var(--color-accent); padding: 0.75rem 1rem 0.25rem; border-radius: var(--radius); background: var(--faixa); color: var(--color-ink); }
 .destaque[data-situacao="analise"] { --faixa: var(--color-alerta-fundo); }
 .destaque[data-situacao="atrasado"] { --faixa: var(--color-status-atraso); }
