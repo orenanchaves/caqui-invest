@@ -259,7 +259,7 @@ if (Reconhecimento) {
     ouvindo = null;
     microfone.setAttribute('aria-pressed', 'false');
     microfone.setAttribute('aria-label', 'Falar por áudio');
-    campo.placeholder = 'Sua dúvida';
+    campo.placeholder = 'Fale aqui';
   };
   microfone.addEventListener('click', () => {
     if (ouvindo) return ouvindo.stop();
