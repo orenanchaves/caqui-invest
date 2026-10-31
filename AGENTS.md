@@ -1,4 +1,4 @@
-# Cadê: instruções do projeto
+# Atendimento Caqui: instruções do projeto
 
 Leia `SPEC.md` antes de mudar comportamento. Decisão nova entra em "Decisões" antes do código.
 
@@ -6,6 +6,7 @@ Leia `SPEC.md` antes de mudar comportamento. Decisão nova entra em "Decisões" 
 - Toda resposta factual cita o artigo da base ou o dado da conta. KB-007 fica fora do índice.
 - O id do cliente vem da sessão, nunca do texto da conversa.
 - Log só com protocolo, regra, motivo e ação. CPF sempre mascarado.
+- Todo valor em dinheiro usa `--color-ink`, o marrom escuro da marca, nunca vermelho ou cinza.
 - Só dados sintéticos. Nenhum segredo no repositório.
 - Regra nova vira teste em `test/motor.test.mjs`.
 - Pronto é `npm test` e `npm run perguntas` passando, com as respostas lidas.

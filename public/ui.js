@@ -26,7 +26,7 @@ function caminho(c) {
   return `<article class="ficha${c.atrasada ? ' atrasada' : ''}">
     <h3>${esc(c.titulo)}</h3>
     <p class="quando">${esc(titulo)}</p>
-    <div class="ficha-meta"><span>${esc(c.atrasada ? 'Passou da data' : c.status)}</span>${c.valor ? `<span>${esc(c.valor)}</span>` : ''}</div>
+    <div class="ficha-meta"><span>${esc(c.atrasada ? 'Passou da data' : c.status)}</span>${c.valor ? `<span class="dinheiro">${esc(c.valor)}</span>` : ''}</div>
     <div class="andamento" role="img" aria-label="Etapa ${feitas} de ${c.etapas.length}" style="--p: ${andamento}%"><span></span></div>
     <ol class="caminho">${passos}</ol>
     ${c.notas?.length ? `<p class="notas">${esc(c.notas.join(', '))}</p>` : ''}
@@ -62,5 +62,20 @@ export const ICONES = {
   extrato: svg(['M6 3.5h12v17l-3-1.6-3 1.6-3-1.6-3 1.6v-17Z', 'M9 8.5h6M9 12.5h6']),
   conversa: svg(['M12 3.5a8.5 8.5 0 0 0-7.4 12.7L3.5 20.5l4.4-1.1A8.5 8.5 0 1 0 12 3.5Z']),
 };
+
+export function caixinha(i) {
+  const passos = i.etapas.map((e) => `<li class="${e.agora ? 'agora' : e.feita ? 'feita' : ''}"><span class="marco"></span><span>${esc(e.rotulo)}</span><time>${esc(e.br)}</time></li>`).join('');
+  return `<article class="quadro">
+    <button class="quadro-topo" data-caixinha aria-expanded="false">
+      <span class="quadro-nome">${esc(i.nome)}</span>
+      <span class="quadro-valor"><span class="valor">${esc(i.valor)}</span></span>
+      ${i.taxa ? `<span class="quadro-taxa">${esc(i.taxa)}</span>` : ''}
+    </button>
+    <div class="quadro-linha" hidden>
+      ${i.andamento === null ? '' : `<div class="andamento" role="img" aria-label="${i.andamento}% do prazo" style="--p: ${i.andamento}%"><span></span></div>`}
+      <ol class="caminho">${passos}</ol>
+    </div>
+  </article>`;
+}
 
 export const FILAS = { seguranca: 'Segurança, sem fila', prioritaria: 'Prioritária', especialista: 'Especialista em investimentos', reclamacao: 'Reclamações e encerramento', geral: 'Atendimento' };

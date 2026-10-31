@@ -1,4 +1,4 @@
-// O motor do Cadê. Ordem fixa: travas de segurança primeiro, cálculo depois, base citada por último.
+// O motor do atendimento. Ordem fixa: travas de segurança primeiro, cálculo depois, base citada por último.
 // O id do cliente vem sempre da sessão. Texto do cliente é dado, nunca instrução (regra 11).
 import D from './dados.gen.mjs';
 import {
@@ -447,7 +447,7 @@ function naoEntendi(ctx) {
   ctx.estado.naoEntendi = n;
   if (n >= 3) return entregar(ctx, { fila: 'geral', motivo: 'não entendido três vezes', regra: 8, intro: 'Não consegui entender, e não vou ficar repetindo a mesma coisa.' });
   return r({
-    regra: 9, motivo: 'não entendido', resolvida: false, sugestoes: ['Cadê meu dinheiro?', 'Quanto vou receber?', 'Falar com uma pessoa'],
+    regra: 9, motivo: 'não entendido', resolvida: false, sugestoes: ['Onde está meu dinheiro?', 'Quanto vou receber?', 'Falar com uma pessoa'],
     texto: n === 1
       ? 'Não entendi, e prefiro dizer isso a inventar uma resposta. Posso ajudar com prazos, seu dinheiro, imposto e como os produtos funcionam.'
       : 'Ainda não entendi. Quer falar com uma pessoa? Ela vê esta conversa e você não repete nada.',
@@ -526,7 +526,17 @@ export function painelInicial(idCliente, agora = AGORA_PADRAO) {
     conta: brl(cliente.saldo_em_conta_brl),
     carteira: brl(D.posicoes.filter((p) => p.id_cliente === idCliente).reduce((soma, p) => soma + p.saldo_bruto_brl, 0)),
     data: dataBR(hoje),
-    investimentos: D.posicoes.filter((p) => p.id_cliente === idCliente).map((p) => ({ nome: nomeProd(p.produto), valor: brl(p.saldo_bruto_brl), taxa: p.taxa_contratada === 'n/a' ? '' : p.taxa_contratada })),
+    investimentos: D.posicoes.filter((p) => p.id_cliente === idCliente).map((p) => {
+      const pedidos = abertas.filter((o) => o.produto === p.produto).map((o) => cartaoCaminho(o, hoje));
+      const etapas = [
+        { rotulo: 'Aplicação', br: dataBR(p.data_aplicacao), feita: true },
+        { rotulo: 'Hoje', br: dataBR(hoje), agora: true },
+        ...pedidos.map((c) => ({ rotulo: c.titulo.split(' ')[0] + ' de ' + c.valor, br: c.previsto || 'a confirmar' })),
+        ...(p.vencimento ? [{ rotulo: 'Vencimento', br: dataBR(p.vencimento) }] : []),
+      ];
+      const andamento = p.vencimento ? Math.min(100, Math.round((diasEntre(p.data_aplicacao, hoje) / Math.max(diasEntre(p.data_aplicacao, p.vencimento), 1)) * 100)) : null;
+      return { nome: nomeProd(p.produto), valor: brl(p.saldo_bruto_brl), taxa: p.taxa_contratada === 'n/a' ? '' : p.taxa_contratada, etapas, andamento };
+    }),
     pedidos: abertas.map((o) => cartaoCaminho(o, hoje)),
   };
 }

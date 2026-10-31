@@ -77,7 +77,7 @@ textarea { caret-color: var(--color-accent); }
 .home-ola { margin-top: 0.75rem; font-size: var(--text-lg); font-weight: 800; color: var(--color-paper); }
 .home-corpo { display: flex; flex-direction: column; gap: 1.25rem; padding-top: 1.25rem; padding-bottom: 1.25rem; }
 .saldo { color: var(--color-muted); }
-.saldo-valor { font-family: var(--font-display); font-weight: 800; font-size: 2.25rem; line-height: 1.15; letter-spacing: -0.02em; color: var(--color-vermelho); }
+.saldo-valor { font-family: var(--font-display); font-weight: 800; font-size: 2.25rem; line-height: 1.15; letter-spacing: -0.02em; color: var(--color-ink); }
 .saldo-data { font-family: var(--font-display); font-weight: 800; font-size: var(--text-xl); line-height: 1.2; color: var(--color-ink); }
 .home.oculto .valor { color: transparent; user-select: none; border-radius: var(--radius); background: var(--color-paper-2); }
 .atalhos { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.5rem; }
@@ -86,14 +86,21 @@ textarea { caret-color: var(--color-accent); }
 .atalho.principal .atalho-icone { background: var(--color-ciano); }
 .atalho:hover .atalho-icone { background: var(--color-ciano); }
 .atalho:active .atalho-icone { background: var(--color-rule); }
-.faixa { display: flex; align-items: center; gap: 0.625rem; min-height: 48px; padding: 0.5rem 0.875rem; border: 0; border-radius: var(--radius); background: var(--color-paper-2); color: var(--color-ink); font-weight: 600; text-align: left; transition: background-color var(--dur); }
-.faixa:hover { background: var(--color-ciano); }
 .caixinhas-titulo { margin-bottom: 0.5rem; font-size: var(--text-base); font-weight: 800; color: var(--color-ink); }
 .quadros { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; margin-bottom: 0.625rem; }
-.quadro { aspect-ratio: 610 / 742; min-width: 0; display: flex; flex-direction: column; gap: 0.25rem; padding: 0.5rem; background: var(--color-paper); border: 1px solid var(--color-ambar); border-radius: var(--radius); }
-.quadro h3 { font-size: 0.8125rem; font-weight: 400; line-height: 1.2; color: var(--color-muted); overflow-wrap: break-word; }
-.quadro-valor { margin-top: auto; font-size: var(--text-sm); font-weight: 800; line-height: 1.2; color: var(--color-ink); letter-spacing: -0.01em; }
+.quadros.empilhada { grid-template-columns: minmax(0, 1fr); }
+.quadro { min-width: 0; background: var(--color-paper); border: 1px solid var(--color-ambar); border-radius: var(--radius); overflow: hidden; transition: border-color var(--dur); }
+.quadro:hover { border-color: var(--color-accent); }
+.quadro-topo { width: 100%; height: 100%; aspect-ratio: 610 / 742; display: flex; flex-direction: column; gap: 0.25rem; padding: 0.5rem; border: 0; background: none; color: var(--color-ink); text-align: left; }
+.empilhada .quadro-topo { aspect-ratio: auto; height: auto; min-height: 44px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.125rem 0.75rem; padding: 0.625rem 0.75rem; }
+.quadro-nome { font-size: 0.8125rem; line-height: 1.2; color: var(--color-muted); overflow-wrap: break-word; }
+.quadro-valor { margin-top: auto; font-size: var(--text-sm); font-weight: 800; line-height: 1.2; letter-spacing: -0.01em; color: var(--color-ink); }
 .quadro-taxa { font-size: 0.8125rem; color: var(--color-muted); }
+.empilhada .quadro-valor { margin-top: 0; }
+.quadro-linha { display: flex; flex-direction: column; gap: 0.625rem; padding: 0 0.75rem 0.75rem; }
+.quadro-linha[hidden] { display: none; }
+.quadro-linha li { color: var(--color-ink); }
+.quadro-linha .marco { background: var(--color-paper); }
 .carteira { display: flex; flex-direction: column; gap: 0.125rem; font-size: var(--text-sm); color: var(--color-muted); }
 .carteira-total { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 0.75rem; }
 .carteira-total .valor { font-weight: 800; color: var(--color-ink); }
@@ -130,6 +137,7 @@ textarea { caret-color: var(--color-accent); }
 .ficha-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 1rem; font-size: var(--text-sm); color: var(--color-muted); }
 .andamento { position: relative; height: 12px; margin: 0.25rem 0; border: 1px solid var(--color-ambar); border-radius: 6px; background: var(--color-paper); }
 .andamento span { position: absolute; top: 50%; left: var(--p); width: 20px; height: 20px; transform: translate(-50%, -50%); border-radius: 50%; background: var(--color-vermelho); }
+.dinheiro { color: var(--color-ink); font-weight: 600; }
 .caminho { list-style: none; margin: 0.25rem 0 0; padding: 0; }
 .caminho li { display: grid; grid-template-columns: 0.875rem minmax(0, 1fr) auto; gap: 0.625rem; padding-bottom: 0.625rem; position: relative; font-size: var(--text-sm); }
 .caminho li:last-child { padding-bottom: 0; }
@@ -156,8 +164,12 @@ textarea { caret-color: var(--color-accent); }
 .botao-forte:disabled { background: var(--color-paper-2); color: var(--color-muted); cursor: default; }
 
 /* rodapé fixo com a saída */
-.base { position: sticky; bottom: 0; background: var(--color-paper); border-top: 1px solid var(--color-rule); }
+.base { position: sticky; bottom: 0; z-index: 2; background: var(--color-paper); border-top: 1px solid var(--color-rule); }
 .base-dentro { max-width: var(--largura); margin: 0 auto; padding: 0.5rem 1rem calc(0.25rem + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 0.25rem; }
+.base-fechada { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+.base-fechada[hidden], .base-aberta[hidden] { display: none; }
+.base-pessoa { min-height: 44px; padding: 0; border: 0; background: none; color: var(--color-ink); font-weight: 600; text-decoration: underline; text-decoration-color: var(--color-azul); text-underline-offset: 2px; }
+.base-aberta { display: flex; flex-direction: column; gap: 0.25rem; }
 .campo { display: flex; gap: 0.5rem; }
 .campo textarea { flex: 1; min-width: 0; min-height: 44px; max-height: 7rem; resize: none; padding: 0.5625rem 0.75rem; background: var(--color-card); border: 1px solid var(--color-rule); border-radius: var(--radius); }
 .primario { min-height: 44px; padding: 0 1rem; background: var(--color-accent); color: var(--color-accent-ink); border: 0; border-radius: var(--radius); transition: background-color var(--dur); }

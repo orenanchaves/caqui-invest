@@ -1,11 +1,11 @@
-# SPEC: Cadê
+# SPEC: atendimento Caqui
 
 **Grupo:** Renan Chaves
 **URL pública:** https://caqui-cade.ond-jarvis.workers.dev
 
 > Escrita antes do código. Mudou durante o dia? Atualizar aqui e anotar em "Decisões".
 
-Cadê é o atendimento da Caqui para a pergunta que mais chega: "onde está meu dinheiro?". O cliente vê o caminho do dinheiro com datas calculadas, sabe de onde veio cada informação e tem uma pessoa a um toque. Quem atende recebe o caso pronto.
+A solução é o atendimento da Caqui para a pergunta que mais chega: "onde está meu dinheiro?". O cliente vê o caminho do dinheiro com datas calculadas, sabe de onde veio cada informação e tem uma pessoa a um toque. Quem atende recebe o caso pronto.
 
 ## 1. Qual parte do problema?
 
@@ -54,14 +54,14 @@ Contatos que ainda chegam a humano: 48.000 menos 9.072, 3.360, 3.648 e 2.592 dá
 
 Total: **cerca de 4.026 h por mês, 42% das 9.560 h**.
 
-**O que isso não resolve:** com 5x a base são 47.800 h de demanda e 100 atendentes entregam 15.419 h (9.560 ÷ 62 × 100), ou seja, é preciso cortar 68%. O Cadê chega a 42%. O resto precisa vir de outras frentes: acesso e segurança, formação do atendente, recontato. O recontato evitado não entra na conta, então existe folga, mas ela não foi medida.
+**O que isso não resolve:** com 5x a base são 47.800 h de demanda e 100 atendentes entregam 15.419 h (9.560 ÷ 62 × 100), ou seja, é preciso cortar 68%. A solução chega a 42%. O resto precisa vir de outras frentes: acesso e segurança, formação do atendente, recontato. O recontato evitado não entra na conta, então existe folga, mas ela não foi medida.
 
 ## 4. Como a confiança aparece?
 
 - **Caminho do dinheiro:** linha do tempo com pedido, dia-base, cotização e pagamento, com as datas e o motivo de cada salto ("depois das 16h", "02/11 é feriado").
 - **Fonte em toda resposta:** artigo com data de revisão, ou operação da conta. Tocar na fonte abre o artigo.
 - **Nada gerado:** resposta factual sai de cálculo ou de trecho literal da base. Não há modelo de linguagem em produção, portanto não há como inventar prazo.
-- **Saída fixa na tela:** "Falar com uma pessoa", "Reclamar ou encerrar" e "Suspeita de golpe" ficam visíveis em qualquer passo, com o horário do atendimento.
+- **Saída fixa na tela:** "Falar com uma pessoa" fica visível em qualquer passo. "Reclamar", "Encerrar", "Suspeita de golpe" e o horário ficam a um toque, em "Conversar". Golpe escrito na conversa interrompe o fluxo do mesmo jeito.
 - **Diz quando não sabe:** e na segunda vez já oferece uma pessoa.
 
 ## 5. O que fica de fora?
@@ -114,6 +114,9 @@ Itens de "O que vale para qualquer caminho" que não se aplicam: nenhum.
 | 31/10 | KB-007 fora do índice, por lista e por teste | Artigo de 2024 com corte de 15h, superado pelo KB-006 |
 | 31/10 | Tela inicial com saldo, atalhos e pedidos antes da conversa | O cliente vê a data sem precisar perguntar. Os atalhos enviam a mesma pergunta ao motor, sem caminho novo de resposta |
 | 31/10 | Identidade da Caqui com o logo oficial e Montserrat no lugar da Proxima Nova | A Proxima Nova é licenciada e não há arquivo da fonte no projeto. Basta servir o arquivo para ela assumir, porque já é a primeira da lista |
+| 31/10 | Rodapé fechado por padrão, só com "Conversar" e "Falar com uma pessoa" | A tela estava poluída. A saída para humano segue visível, como o case pede, e as outras saídas abrem com um toque |
+| 31/10 | Caixinha abre ao toque, com a timeline, e as caixinhas ficam uma embaixo da outra | A tela fechada mostra só nome, valor e taxa. Aplicação, hoje, pedido em aberto e vencimento aparecem quando o cliente pede |
+| 31/10 | Sem nome próprio para a solução | O cliente fala com a Caqui, não com um produto à parte |
 | 31/10 | Medir com teste cego escrito por um agente que não viu o código | 40/40 no teste oficial não dizia nada: a primeira rodada cega deu 46/70, com golpes passando |
 | 31/10 | Última nota limpa: 37/50 em frases novas, zero falso alarme em 10 inocentes | Depois disso as regras foram ajustadas de novo, então qualquer nota posterior nesses arquivos está contaminada |
 | 31/10 | Classificador com modelo de linguagem sobe de item futuro para o próximo passo | Regra por palavra não generaliza. O cálculo e a citação ficam no motor; o modelo só escolheria a rota |

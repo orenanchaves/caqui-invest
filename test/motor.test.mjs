@@ -10,6 +10,8 @@ test('painel inicial soma a carteira só do cliente da sessão', () => {
   assert.equal(p.carteira, 'R$ 61.021,15');
   assert.equal(p.conta, 'R$ 1.250,00');
   assert.deepEqual(p.investimentos.map((i) => i.valor), ['R$ 40.791,24', 'R$ 20.229,91']);
+  assert.deepEqual(p.investimentos[0].etapas.map((e) => e.rotulo), ['Aplicação', 'Hoje', 'Resgate de R$ 40.000,00', 'Vencimento']);
+  assert.ok(p.investimentos[0].andamento > 0 && p.investimentos[0].andamento < 100);
 });
 
 test('corte das 16h inclui 16h em ponto', () => {

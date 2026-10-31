@@ -1,8 +1,8 @@
-# Cadê: atendimento da Caqui Invest
+# Atendimento da Caqui Invest
 
 **URL pública:** https://caqui-cade.ond-jarvis.workers.dev **Spec:** [SPEC.md](SPEC.md).
 
-Cadê responde a pergunta que mais chega à Caqui, "onde está meu dinheiro?", com data calculada, fonte em toda resposta e uma pessoa a um toque. Quem atende recebe o caso com protocolo, histórico e dados conferidos.
+O atendimento responde a pergunta que mais chega à Caqui, "onde está meu dinheiro?", com data calculada, fonte em toda resposta e uma pessoa a um toque. Quem atende recebe o caso com protocolo, histórico e dados conferidos.
 
 - `/`: conversa do cliente. Escolha cliente e hora na barra de demonstração.
 - `/atendente.html`: fila e caso como chegam à equipe.

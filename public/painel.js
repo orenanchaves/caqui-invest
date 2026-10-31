@@ -30,7 +30,7 @@ async function abrir(protocolo) {
     ${dados.map(([a, b]) => `<dt>${esc(a)}</dt><dd>${esc(b)}</dd>`).join('')}</dl>
     <div class="colunas">
       <div class="coluna"><h3 class="secao">Conversa até aqui</h3>
-        ${c.historico.map((t) => `<p class="turno"><b>${t.de === 'cliente' ? 'Cliente' : 'Cadê'}:</b> ${esc(t.texto)}</p>`).join('')}</div>
+        ${c.historico.map((t) => `<p class="turno"><b>${t.de === 'cliente' ? 'Cliente' : 'Caqui'}:</b> ${esc(t.texto)}</p>`).join('')}</div>
       <div class="coluna"><h3 class="secao">Dados conferidos</h3>${f.cartoes.map(cartao).join('')}</div>
     </div>`;
 }

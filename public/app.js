@@ -1,14 +1,21 @@
-import { cartao, esc, FILAS, ICONES, md } from './ui.js';
+import { caixinha, cartao, esc, FILAS, ICONES, md } from './ui.js';
 
 const $ = (s) => document.querySelector(s);
 const fio = $('#fio'), home = $('#home'), campo = $('#texto'), enviar = $('#enviar');
 const ATALHOS = [
-  ['relogio', 'Cadê meu dinheiro', 'Cadê meu dinheiro?'],
+  ['relogio', 'Meu dinheiro', 'Onde está meu dinheiro?'],
   ['calculo', 'Quanto vou receber', 'Quanto vou receber se resgatar tudo hoje?'],
   ['grafico', 'Comparar poupança', 'Meu CDB rendeu menos que a poupança?'],
   ['extrato', 'Extrato', 'Quero ver meu extrato'],
 ];
 const sessao = { cliente: null, agora: null, estado: {}, historico: [] };
+
+function rodape(aberto) {
+  $('#base-aberta').hidden = !aberto;
+  $('#base-fechada').hidden = aberto;
+  $('[data-abrir]').setAttribute('aria-expanded', aberto);
+  if (aberto) campo.focus({ preventScroll: true });
+}
 
 const rolar = () => window.scrollTo({ top: document.documentElement.scrollHeight });
 
@@ -66,13 +73,13 @@ async function falar(texto) {
     if (!r.ok) throw new Error(r.status);
     const res = await r.json();
     sessao.estado = res.estado;
-    sessao.historico.push({ de: 'cliente', texto }, { de: 'cadê', texto: res.textoCompleto });
+    sessao.historico.push({ de: 'cliente', texto }, { de: 'caqui', texto: res.textoCompleto });
     mostrar(res);
   } catch {
     adicionar('<div class="aviso">Não consegui responder agora. Sua mensagem não foi perdida: tente de novo ou ligue para a Caqui.</div>');
   } finally {
     enviar.disabled = false;
-    campo.focus({ preventScroll: true });
+    if (!$('#base-aberta').hidden) campo.focus({ preventScroll: true });
   }
 }
 
@@ -95,9 +102,8 @@ async function iniciar() {
     </div></div>
     <div class="home-dentro home-corpo">
       <div class="saldo"><span>Disponível na conta</span><p class="saldo-valor"><span class="valor">${esc(r.conta)}</span></p></div>
-      <div class="carteira">${r.investimentos.length ? `<h2 class="caixinhas-titulo">Suas caixinhas</h2><div class="quadros">${r.investimentos.map((i) => `<article class="quadro"><h3>${esc(i.nome)}</h3><p class="quadro-valor"><span class="valor">${esc(i.valor)}</span></p>${i.taxa ? `<p class="quadro-taxa">${esc(i.taxa)}</p>` : ''}</article>`).join('')}</div>` : ''}<p class="carteira-total"><span>Total, antes do imposto</span><span class="valor">${esc(r.carteira)}</span></p><span class="notas">Fonte: posições da sua conta em ${esc(r.data)}</span></div>
+      <div class="carteira">${r.investimentos.length ? `<h2 class="caixinhas-titulo">Suas caixinhas</h2><div class="quadros">${r.investimentos.map(caixinha).join('')}</div>` : ''}<p class="carteira-total"><span>Total, antes do imposto</span><span class="valor">${esc(r.carteira)}</span></p><span class="notas">Fonte: posições da sua conta em ${esc(r.data)}</span></div>
       <div class="atalhos">${atalhos}</div>
-      <button class="faixa" data-fala="Quero falar com uma pessoa">${ICONES.conversa}<span>Falar com uma pessoa</span></button>
       ${r.pedidos.map(cartao).join('')}
     </div>`;
 }
@@ -106,6 +112,19 @@ document.addEventListener('click', async (e) => {
   const b = e.target.closest('button');
   if (!b) return;
   if (b.dataset.fala) falar(b.dataset.fala);
+  if ('caixinha' in b.dataset) {
+    const aberta = b.getAttribute('aria-expanded') === 'true';
+    const grade = b.closest('.quadros');
+    grade.querySelectorAll('[data-caixinha]').forEach((x) => {
+      const esta = x === b && !aberta;
+      x.setAttribute('aria-expanded', esta);
+      x.nextElementSibling.hidden = !esta;
+      x.closest('.quadro').classList.toggle('aberta', esta);
+    });
+    grade.classList.toggle('empilhada', !aberta);
+  }
+  if ('abrir' in b.dataset) rodape(true);
+  if ('fechar' in b.dataset) rodape(false);
   if ('valores' in b.dataset) {
     const oculto = home.classList.toggle('oculto');
     b.setAttribute('aria-pressed', oculto);

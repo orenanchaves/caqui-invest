@@ -1,4 +1,4 @@
-// Borda HTTP do Cadê. O cliente vem da sessão de demonstração e nunca do texto.
+// Borda HTTP do atendimento. O cliente vem da sessão de demonstração e nunca do texto.
 // Log só com protocolo e rótulos: nenhum texto de cliente vai para o log (regra 10).
 import { AGORA_PADRAO, artigoPublico, fichaCliente, humanoDisponivel, mascarar, painelInicial, responder } from './motor.mjs';
 
@@ -22,7 +22,7 @@ function novoProtocolo(agora) {
 }
 
 function limparHistorico(h) {
-  return (Array.isArray(h) ? h : []).slice(-40).map((m) => ({ de: m?.de === 'cadê' ? 'cadê' : 'cliente', texto: mascarar(String(m?.texto ?? '').slice(0, 1500)) }));
+  return (Array.isArray(h) ? h : []).slice(-40).map((m) => ({ de: m?.de === 'caqui' ? 'caqui' : 'cliente', texto: mascarar(String(m?.texto ?? '').slice(0, 1500)) }));
 }
 
 async function mensagem(req, env) {
@@ -34,7 +34,7 @@ async function mensagem(req, env) {
   const estado = { naoEntendi: Number(anterior.naoEntendi) || 0, protocolo: /^CQ-\d{8}-[A-F0-9]{4}$/.test(anterior.protocolo) ? anterior.protocolo : null };
 
   const res = responder({ texto, cliente, agora, estado });
-  const historico = [...limparHistorico(c.historico), { de: 'cliente', texto: mascarar(texto.slice(0, 800)) }, { de: 'cadê', texto: res.textoCompleto }];
+  const historico = [...limparHistorico(c.historico), { de: 'cliente', texto: mascarar(texto.slice(0, 800)) }, { de: 'caqui', texto: res.textoCompleto }];
   if (res.entrega) {
     res.estado.protocolo = res.estado.protocolo || novoProtocolo(agora);
     res.entrega.protocolo = res.estado.protocolo;

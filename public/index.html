@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cadê, atendimento da Caqui Invest</title>
+<title>Atendimento Caqui Invest</title>
 <meta name="description" content="Demonstração com dados fictícios: onde está o seu dinheiro, com data calculada, fonte e uma pessoa a um toque.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap">
 <link rel="stylesheet" href="estilo.css">
@@ -14,7 +14,7 @@
 <div class="app">
   <header class="topo">
     <div class="topo-dentro">
-      <span class="marca">Cadê<small>Caqui Invest, dados fictícios</small></span>
+      <span class="marca">Caqui<small>dados fictícios</small></span>
       <div class="demo">
         <label>Cliente <select id="cliente"></select></label>
         <label>Agora <select id="hora"></select></label>
@@ -25,21 +25,28 @@
   <main class="fio" id="fio" aria-live="polite"></main>
   <footer class="base">
     <div class="base-dentro">
-      <form class="campo" id="form">
-        <textarea id="texto" rows="1" aria-label="Sua mensagem" placeholder="Escreva sua dúvida"></textarea>
-        <button class="primario" id="enviar" type="submit">Enviar</button>
-      </form>
-      <nav class="saidas" aria-label="Saídas do atendimento">
-        <button class="pessoa" type="button" data-fala="Quero falar com uma pessoa">Falar com uma pessoa</button>
-        <button type="button" data-fala="Quero fazer uma reclamação">Reclamar</button>
-        <button type="button" data-fala="Quero encerrar minha conta">Encerrar</button>
-        <button type="button" data-fala="Acho que é golpe">Suspeita de golpe</button>
-      </nav>
-      <p class="horario" id="horario"></p>
+      <div class="base-fechada" id="base-fechada">
+        <button class="primario" type="button" data-abrir aria-expanded="false" aria-controls="base-aberta">Conversar</button>
+        <button class="base-pessoa" type="button" data-fala="Quero falar com uma pessoa">Falar com uma pessoa</button>
+      </div>
+      <div class="base-aberta" id="base-aberta" hidden>
+        <form class="campo" id="form">
+          <textarea id="texto" rows="1" aria-label="Sua mensagem" placeholder="Escreva sua dúvida"></textarea>
+          <button class="primario" id="enviar" type="submit">Enviar</button>
+        </form>
+        <nav class="saidas" aria-label="Saídas do atendimento">
+          <button class="pessoa" type="button" data-fala="Quero falar com uma pessoa">Falar com uma pessoa</button>
+          <button type="button" data-fala="Quero fazer uma reclamação">Reclamar</button>
+          <button type="button" data-fala="Quero encerrar minha conta">Encerrar</button>
+          <button type="button" data-fala="Acho que é golpe">Suspeita de golpe</button>
+          <button type="button" data-fechar>Fechar</button>
+        </nav>
+        <p class="horario" id="horario"></p>
+      </div>
     </div>
   </footer>
 </div>
 <script type="module" src="app.js"></script>
-<noscript><p>O Cadê precisa de JavaScript para conversar. Pessoas atendem das 8h às 20h.</p></noscript>
+<noscript><p>O atendimento precisa de JavaScript para conversar. Pessoas atendem das 8h às 20h.</p></noscript>
 </body>
 </html>
