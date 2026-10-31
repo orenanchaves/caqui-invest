@@ -183,7 +183,7 @@ document.addEventListener('click', async (e) => {
   }
   if ('demo' in b.dataset) {
     const oculta = document.body.classList.toggle('sem-demo');
-    try { localStorage.setItem('demo', oculta ? 'oculta' : ''); } catch {}
+    try { localStorage.setItem('demo', oculta ? 'oculta' : 'visivel'); } catch {}
   }
   if ('abrir' in b.dataset) conversa(true);
   if ('fechar' in b.dataset) conversa(false);
@@ -247,7 +247,7 @@ campo.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey)
 $('#cliente').addEventListener('change', iniciar);
 $('#hora').addEventListener('change', iniciar);
 
-try { document.body.classList.toggle('sem-demo', localStorage.getItem('demo') === 'oculta'); } catch {}
+try { document.body.classList.toggle('sem-demo', localStorage.getItem('demo') !== 'visivel'); } catch {}
 const demo = await fetch('/api/demo').then((x) => x.json());
 $('#cliente').innerHTML = demo.clientes.map((c) => `<option value="${esc(c.id)}">${esc(c.nome)}</option>`).join('');
 $('#hora').innerHTML = demo.horarios.map((h) => `<option value="${esc(h)}">18/11, ${h.slice(11, 13)}h</option>`).join('');
