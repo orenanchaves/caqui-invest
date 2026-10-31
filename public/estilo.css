@@ -206,6 +206,7 @@ body:not(:has(.home)) .ds-lado { background: var(--color-paper); }
 .deck-controles button:disabled { background: var(--color-paper-2); color: var(--color-muted); cursor: not-allowed; }
 
 /* conversa com uma pessoa */
+.chat-simbolo { transition: background-color 320ms, color 320ms; }
 .chat-quem { display: flex; flex-direction: column; min-width: 0; margin-right: auto; }
 .chat-quem h2 { margin-right: 0; line-height: 1.15; }
 .chat-quem small { color: var(--color-muted); font-size: 0.75rem; font-weight: 600; }
@@ -450,7 +451,7 @@ a.atalho { text-decoration: none; }
 .chat-topo { display: flex; align-items: center; gap: 0.5rem; padding: calc(0.5rem + env(safe-area-inset-top)) 0.25rem 0.5rem 0.75rem; }
 .chat-topo .base-pessoa { padding: 0 0.625rem; }
 .chat-simbolo { flex: none; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; color: var(--color-orb); }
-.chat-topo { transition: background-color 240ms; }
+.chat-topo { transition: background-color 420ms; }
 .chat.humano .chat-topo { background: var(--color-paper-2); }
 .chat.humano .chat-simbolo { background: var(--color-ink); color: var(--color-paper); }
 .chat.humano .chat-simbolo svg { width: 20px; height: 20px; }

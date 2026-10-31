@@ -20,27 +20,30 @@ const QUEM = { seguranca: 'Segurança Caqui' };
 const nomeEquipe = (e) => QUEM[e.fila] || 'Jonas';
 
 // O topo do chat mostra quem está com o cliente: caquIA ou a equipe.
-function atendimento(entrega) {
-  $('#chat').classList.toggle('humano', !!entrega);
-  $('#chat').classList.toggle('seguranca', entrega?.fila === 'seguranca');
+async function atendimento(entrega) {
   const nome = entrega ? nomeEquipe(entrega) : 'caquIA';
   const trocou = $('#chat-nome').textContent !== nome;
+  const suave = trocou && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const partes = [$('#chat-quem'), $('#chat-simbolo')];
+  campo.placeholder = entrega ? `Escreva para ${nome}` : 'Fale aqui';
+  if (suave) await Promise.all(partes.map((el) => el.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(-6px)' }], { duration: 200, easing: 'ease-in', fill: 'forwards' }).finished));
+  $('#chat').classList.toggle('humano', !!entrega);
+  $('#chat').classList.toggle('seguranca', entrega?.fila === 'seguranca');
   $('#chat-nome').textContent = nome;
   $('#chat-papel').textContent = entrega?.fila === 'seguranca' ? 'Atendimento sem fila' : 'Equipe Caqui';
   $('#chat-papel').hidden = !entrega;
-  if (trocou && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    [$('#chat-quem'), $('#chat-simbolo')].forEach((el) => el.animate([{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { duration: 320, easing: 'ease-out' }));
-  }
   $('#chat-simbolo').innerHTML = entrega ? ICONES.pessoa : SIMBOLO;
-  campo.placeholder = entrega ? `Escreva para ${nome}` : 'Fale aqui';
+  if (suave) partes.forEach((el) => { el.getAnimations().forEach((a) => a.cancel()); el.animate([{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }], { duration: 320, easing: 'ease-out' }); });
 }
 
 // Depois da entrega, o que a pessoa escreve vai para a equipe, e a resposta chega pela conversa do caso.
 const SEMENTES = () => $('#aguarde').innerHTML;
-function comecarPessoa(protocolo) {
+function comecarPessoa(entrega) {
+  const { protocolo } = entrega;
   pararPessoa();
   const nome = $('#chat-nome').textContent;
   adicionar(`<p class="passagem">${esc(nome === 'Jonas' ? 'Jonas, da equipe Caqui, entrou na conversa' : `${nome} entrou na conversa`)}</p>`);
+  adicionar(blocoEntrega(entrega));
   const espera = adicionar(`<div class="aguardando" role="status"><div class="pensando">${SEMENTES()}</div><span>${esc(nome)} já está vendo o seu caso</span><button class="chip" data-voltar-caquia>Voltar para a caquIA</button></div>`);
   sessao.pessoa = { protocolo, vistas: 0, espera, relogio: setInterval(lerPessoa, 3000) };
 }
@@ -63,6 +66,18 @@ async function lerPessoa() {
   });
   p.vistas = Math.max(p.vistas, lista.length);
 }
+// A passagem acontece em etapas: a caquIA avisa, chama a pessoa, o topo troca e a pessoa entra.
+async function passarParaPessoa(res) {
+  mostrar({ ...res, entrega: null });
+  const nome = nomeEquipe(res.entrega);
+  const chamando = adicionar(`<div class="aguardando" role="status"><div class="pensando">${SEMENTES()}</div><span>Chamando ${esc(nome)}</span></div>`);
+  await espera(1200);
+  await atendimento(res.entrega);
+  chamando.remove();
+  await espera(240);
+  comecarPessoa(res.entrega);
+}
+
 async function falarPessoa(texto) {
   adicionar(`<p>${esc(texto)}</p>`, 'cliente');
   campo.value = '';
@@ -173,10 +188,12 @@ async function falar(texto) {
     pensando.remove();
     sessao.estado = res.estado;
     if (res.acao === 'seguranca_imediata') { $('#pare').hidden = false; $('.pare-botao').focus(); }
-    if (res.entrega) atendimento(res.entrega);
     sessao.historico.push({ de: 'cliente', texto }, { de: 'caqui', texto: res.textoCompleto });
-    mostrar(res);
-    if (res.entrega?.protocolo && !res.entrega.retorno) comecarPessoa(res.entrega.protocolo);
+    if (res.entrega && !res.entrega.retorno) await passarParaPessoa(res);
+    else {
+      if (res.entrega) atendimento(res.entrega);
+      mostrar(res);
+    }
   } catch {
     pensando.remove();
     adicionar('<div class="aviso">Não consegui responder agora. Sua mensagem não foi perdida: tente de novo ou ligue para a Caqui.</div>');
