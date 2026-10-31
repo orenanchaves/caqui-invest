@@ -5,3 +5,16 @@ const olhar = new IntersectionObserver((itens) => {
   for (const item of itens) if (item.isIntersecting) marcar(item.target.id);
 }, { rootMargin: '-20% 0px -70% 0px' });
 document.querySelectorAll('.ds-secao').forEach((s) => olhar.observe(s));
+
+// Copia o código do bloco e confirma no próprio botão.
+document.addEventListener('click', async (e) => {
+  const b = e.target.closest('.ds-copiar');
+  if (!b) return;
+  try {
+    await navigator.clipboard.writeText(b.nextElementSibling.textContent);
+    b.textContent = 'Copiado';
+  } catch {
+    b.textContent = 'Selecione e copie';
+  }
+  setTimeout(() => { b.textContent = 'Copiar'; }, 1600);
+});

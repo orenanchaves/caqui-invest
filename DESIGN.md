@@ -1,6 +1,6 @@
 # Design system Caqui
 
-Fonte única do front-end: [public/tokens.css](public/tokens.css), importado por [public/estilo.css](public/estilo.css). Referência visual: `/design-system.html`.
+Fonte única do front-end: [public/tokens.css](public/tokens.css), importado por [public/estilo.css](public/estilo.css). Referência visual: `/design-system`.
 
 Para implementar, leia [PARA-DEVS.md](PARA-DEVS.md). Os tokens em JSON estão em [design-system/tokens.json](design-system/tokens.json).
 
@@ -26,11 +26,9 @@ Inclua `estilo.css` na página e use os tokens. Cor, fonte e raio nunca são esc
 - O chat se chama caquIA, sempre com essa grafia.
 - Ícones em linha, de uma cor, com `currentColor` ou máscara. Nada que imite marca real.
 
-## Layouts da tela inicial
+## Layout no desktop
 
-- **Lista:** topo escuro com busca e total, faixa laranja do pedido e linhas com ícone, valor e seta.
-- **Bento:** os mesmos dados em blocos de duas colunas sobre o creme forte.
-- Referência em `/design-system.html#layouts`.
+A partir de 60rem, a home segue o frame "Desktop, Onde está o dinheiro": uma coluna só, sobre `--color-card`.
 
 ## Movimento e texto
 
