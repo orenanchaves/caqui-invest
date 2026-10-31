@@ -177,7 +177,7 @@ body:not(:has(.home)) .ds-lado { background: var(--color-paper); }
 .slide h1, .slide h2 { margin: 0; max-width: 24ch; font-family: var(--font-display); font-weight: 800; line-height: 1.08; letter-spacing: -0.02em; text-wrap: balance; }
 .slide h1 { font-size: clamp(2.5rem, 7vw, 5.5rem); }
 .slide h2 { font-size: clamp(2rem, 4.6vw, 3.75rem); }
-.slide p { margin: 0; text-wrap: pretty; }
+.slide p { margin: 0; text-wrap: balance; }
 .slide a { color: inherit; text-underline-offset: 3px; }
 .slide-grande { max-width: 34ch; font-size: clamp(1.25rem, 2.4vw, 1.75rem); line-height: 1.3; }
 .slide-nota { color: var(--color-muted); font-size: 1rem; }
@@ -201,6 +201,11 @@ body:not(:has(.home)) .ds-lado { background: var(--color-paper); }
 .cartoes-slide h3 { margin: 0; font-size: 1.375rem; font-weight: 800; }
 .moldura-largo { width: 100%; aspect-ratio: 1440 / 900; }
 /* slides do Figma */
+.slide { position: relative; }
+.slide:not(.capa) { justify-content: flex-start; }
+.slide:not(.capa) > h2 { margin-bottom: auto; }
+.slide:not(.capa) > :last-child:not(.slide-assinatura), .slide:not(.capa) > :nth-last-child(2):has(+ .slide-assinatura) { margin-bottom: auto; }
+.slide-assinatura { position: absolute; top: 1rem; right: max(1.25rem, calc(50% - 38rem)); display: block; width: 5.5rem; height: auto; }
 .slide-corpo { max-width: 58ch; font-size: clamp(1.125rem, 1.9vw, 1.5rem); line-height: 1.4; }
 .slide-largo { max-width: 46ch; }
 .slide.escuro .slide-corpo { color: var(--color-paper); }
@@ -217,7 +222,16 @@ body:not(:has(.home)) .ds-lado { background: var(--color-paper); }
 .paleta { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin: 0; padding: 0; list-style: none; }
 .paleta li { display: flex; flex-direction: column; gap: 0.5rem; }
 .paleta span { display: block; aspect-ratio: 3 / 2; border-radius: var(--radius); box-shadow: inset 0 0 0 1px var(--color-rule); }
-.identidade-fonte { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 800; line-height: 1.1; }
+.identidade-frase { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 800; line-height: 1.15; }
+.identidade-lista { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.875rem; margin: 0; }
+.identidade-lista dt { font-weight: 800; }
+.identidade-lista dd { margin: 0; line-height: 1.3; text-wrap: balance; }
+.logo-versoes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin: 0; padding: 0; list-style: none; font-size: 1rem; }
+.logo-versoes li { display: flex; flex-direction: column; gap: 0.5rem; min-width: 0; }
+.logo-versoes span { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--radius); }
+.logo-versoes img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: contain; }
+.fundo-claro { background: var(--color-destaque); }
+.fundo-escuro { background: var(--color-ink); }
 .numeros.cinco, .numeros.quatro, .numeros.tres { grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); }
 .cartoes-slide article { min-width: 0; }
 .cartoes-slide b { font-family: var(--font-display); font-size: 2.25rem; font-weight: 800; line-height: 1; }
@@ -230,9 +244,10 @@ body:not(:has(.home)) .ds-lado { background: var(--color-paper); }
 .telas-slide { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem 1rem; margin: 0; }
 .telas-slide figure, .largas-slide figure { display: flex; flex-direction: column; gap: 0.625rem; margin: 0; min-width: 0; }
 .telas-slide img, .largas-slide img { display: block; width: 100%; height: auto; border-radius: var(--radius); }
-.telas-slide figcaption { font-size: 1rem; line-height: 1.3; text-wrap: pretty; }
+.telas-slide img { outline: 1px solid var(--color-rule); }
+.telas-slide figcaption { font-size: 1rem; line-height: 1.3; text-wrap: balance; }
 .largas-slide { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
-.largas-slide figcaption { font-size: 1.125rem; line-height: 1.35; text-wrap: pretty; }
+.largas-slide figcaption { font-size: 1.125rem; line-height: 1.35; text-wrap: balance; }
 .conta-slide, .escopo-slide { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; }
 .conta-linhas { margin: 0; padding: 0.5rem 1.5rem; border-radius: var(--radius); background: var(--color-destaque); }
 .conta-linhas div { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0 1rem; padding: 0.75rem 0; }
@@ -254,6 +269,7 @@ body:not(:has(.home)) .ds-lado { background: var(--color-paper); }
 .deck-controles { position: fixed; z-index: 4; right: 1rem; bottom: 1rem; display: none; align-items: center; gap: 0.25rem; padding: 0.25rem; border-radius: var(--radius); background: var(--color-card); color: var(--color-ink); box-shadow: var(--sombra); font-size: var(--text-sm); font-weight: 600; font-variant-numeric: tabular-nums; }
 .deck-controles button { width: 44px; height: 44px; display: grid; place-items: center; border: 0; border-radius: var(--radius); background: none; color: var(--color-ink); transition: background-color 180ms; }
 .deck-controles button:hover:not(:disabled) { background: var(--color-destaque); }
+.deck-controles button[hidden] { display: none; }
 .deck-controles button:disabled { background: var(--color-paper-2); color: var(--color-muted); cursor: not-allowed; }
 
 /* conversa com uma pessoa */
@@ -572,10 +588,15 @@ a.atalho { text-decoration: none; }
   .painel-pagina #lista { flex: 1; min-height: 0; max-height: none; }
   .painel-pagina .caso { min-height: 0; overflow-y: auto; padding-right: 0.5rem; }
   .deck-controles { display: flex; }
+  .slide:not(.capa) { padding-top: 2.5rem; }
+  .slide-assinatura { top: 1.75rem; width: 9rem; }
+  .logo-versoes { grid-template-columns: repeat(4, minmax(0, 1fr)); font-size: 1.125rem; }
   .identidade { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 4rem; align-items: center; }
   .paleta { grid-template-columns: repeat(6, minmax(0, 1fr)); font-size: 1rem; }
-  .telas-slide { grid-template-columns: repeat(4, auto); justify-content: space-between; }
-  .telas-slide figure { width: min(19rem, calc((100vh - 13rem) * 0.42)); }
+  .paleta span { aspect-ratio: 2 / 1; }
+  .identidade-lista { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 1.5rem; font-size: 1.125rem; }
+  .telas-slide { grid-template-columns: repeat(4, minmax(0, 1fr)); justify-items: start; }
+  .telas-slide figure { width: min(100%, calc((100vh - 15rem) * 0.46)); }
   .largas-slide { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .largas-slide figure { max-width: calc((100vh - 18rem) * 1.62); }
   .conta-slide { grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); }

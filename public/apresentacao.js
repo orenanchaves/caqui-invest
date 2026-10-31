@@ -5,6 +5,9 @@ const anterior = document.querySelector('#anterior');
 const proximo = document.querySelector('#proximo');
 let atual = 0;
 
+// Assinatura do logo no canto direito, menos na capa e no fechamento, que já têm o logo.
+slides.filter((s) => !s.classList.contains('capa')).forEach((s) => s.insertAdjacentHTML('beforeend', '<img class="slide-assinatura" src="logo/caqui-01.svg" alt="">'));
+
 function encaixar() {
   document.querySelectorAll('iframe[data-largura]').forEach((f) => {
     f.style.transform = `scale(${f.parentElement.clientWidth / Number(f.dataset.largura)})`;
@@ -28,6 +31,17 @@ document.addEventListener('keydown', (e) => {
   if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); ir(atual - 1); }
   if (e.key === 'Home') ir(0);
   if (e.key === 'End') ir(slides.length - 1);
+  if (e.key.toLowerCase() === 'f' && document.fullscreenEnabled) alternarTela();
+});
+// Expande a apresentação para a tela inteira.
+const expandir = document.querySelector('#expandir');
+const alternarTela = () => (document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen());
+expandir.hidden = !document.fullscreenEnabled;
+expandir.addEventListener('click', alternarTela);
+document.addEventListener('fullscreenchange', () => {
+  const cheia = !!document.fullscreenElement;
+  expandir.setAttribute('aria-pressed', cheia);
+  expandir.setAttribute('aria-label', cheia ? 'Sair da tela inteira' : 'Expandir a tela');
 });
 window.addEventListener('resize', encaixar);
 ir(Number(location.hash.slice(1)) - 1 || 0);
