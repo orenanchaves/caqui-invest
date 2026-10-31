@@ -51,7 +51,7 @@ A partir de 60rem, a home tem barra no topo com busca, menu e perfil; faixa de s
 | Menu inferior | `.menu-base` | Início, Portfólio, Extrato e o orb, sempre visível |
 | Cor por status | `data-situacao` | Andamento laranja suave, análise rosa, atrasado laranja forte, concluído creme, recusado salmão. Sempre com botão de fechar |
 | Aviso de golpe | `.pare` | Tela inteira "Pare agora." quando a caquIA detecta golpe, sem logo |
-| Apresentação | `apresentacao.html` | 28 slides em código com os tokens do design system, sempre em palco wide 16:9 de 1440 por 810 que só muda de escala, com as telas em `telas/`. Menu flutuante recolhível com seções e links, setas do teclado e tela cheia |
+| Apresentação | `apresentacao.html` | 28 slides em código com os tokens do design system, em palco wide 16:9 de 1440 por 810 no desktop e em rolagem vertical com menu hambúrguer abaixo de 60rem, com as telas em `telas/`. Fade cruzado entre slides, menu flutuante que encolhe no lugar, com seções e links, setas do teclado e tela cheia |
 | Configurações | `configuracoes.html` | Abre pelo perfil: nome, valores ocultos e forma de ver. No desktop usa a mesma barra e o mesmo rodapé da home |
 | Formas de ver | `.vista-seletor` | Ao lado do título: Caixinhas, Lista e Gráfico, com a escolha salva |
 | Lista | `.linha-dinheiro` | Mostra cada investimento com o rastreio aberto |

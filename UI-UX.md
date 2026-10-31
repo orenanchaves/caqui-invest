@@ -1,6 +1,6 @@
 # UI e UX do atendimento Caqui
 
-UI e UX por **Renan Chaves**, para o case Hands On com IA da Avenue, em 31/10/2026.
+UI e UX por **Renan Chaves e Douglas Martins**, para o case Hands On com IA da Avenue, em 31/10/2026.
 
 Produto no ar: https://caqui.pages.dev
 Design system: https://caqui.pages.dev/design-system
