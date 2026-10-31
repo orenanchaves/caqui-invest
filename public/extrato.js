@@ -1,6 +1,13 @@
 import { esc } from './ui.js';
 
 const area = document.querySelector('#extrato');
+
+// Volta para a tela de onde veio, mantendo o cliente escolhido na demonstração.
+document.querySelector('#voltar').addEventListener('click', (e) => {
+  if (!document.referrer.startsWith(location.origin)) return;
+  e.preventDefault();
+  history.back();
+});
 const r = await fetch(`/api/extrato${location.search}`);
 if (!r.ok) {
   area.innerHTML = '<p class="vazio">Não consegui abrir o extrato. <a href="/">Voltar para o app</a></p>';

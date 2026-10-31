@@ -88,6 +88,8 @@ html { scroll-behavior: smooth; }
 .aguarde[hidden] { display: none; }
 .aguarde svg { width: 7rem; }
 .aguarde .sementes { transform: none; transition: none; }
+.voltar { flex: none; width: 44px; height: 44px; margin-left: -0.625rem; display: grid; place-items: center; border-radius: 50%; color: var(--color-paper); transition: background-color 200ms, color 200ms; }
+.voltar:hover { background: var(--color-ciano); color: var(--color-ink); }
 .extrato { max-width: var(--largura); margin: 0 auto; padding: 1.5rem 1rem 3rem; display: flex; flex-direction: column; gap: 0.75rem; }
 .extrato h1 { font-family: var(--font-display); font-weight: 800; font-size: var(--text-xl); color: var(--color-ink); }
 .lista-extrato { list-style: none; margin: 0; padding: 0; }
@@ -139,12 +141,17 @@ a.atalho { text-decoration: none; }
 .icone-pacote { width: 26px; height: 26px; background: currentColor; -webkit-mask: var(--icone) center / contain no-repeat; mask: var(--icone) center / contain no-repeat; }
 .atalho.principal .atalho-icone { background: var(--color-ciano); }
 .atalho:hover .atalho-icone { background: var(--color-ciano); }
-.atalho:active .atalho-icone { background: var(--color-rule); }
+.atalho { touch-action: manipulation; -webkit-tap-highlight-color: transparent; transition: background-color 180ms, border-color 180ms, transform var(--dur); }
+.atalho:hover { background: var(--color-destaque); border-color: var(--color-accent); }
+.atalho:active { background: var(--color-accent); border-color: var(--color-accent); transform: scale(0.97); }
+.atalho:active .atalho-icone { background: var(--color-card); }
 .caixinhas-titulo { margin-bottom: 0.5rem; font-size: var(--text-base); font-weight: 800; color: var(--color-ink); }
 .quadros { display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.625rem; padding-bottom: 0.25rem; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: thin; }
 .quadro.aberta { flex-basis: min(21rem, 100%); }
 .quadro { flex: 0 0 calc((100% - 1rem) / 3); min-width: 0; scroll-snap-align: start; background: var(--color-paper); border: 1px solid var(--color-ambar); border-radius: var(--radius); overflow: hidden; transition: border-color var(--dur); }
-.quadro:hover { border-color: var(--color-accent); }
+.quadro:hover { background: var(--color-destaque); border-color: var(--color-accent); }
+.quadro:active { background: var(--color-destaque); }
+.quadro.aberta { background: var(--color-card); border-color: var(--color-accent); }
 .quadro-topo { width: 100%; height: 100%; aspect-ratio: 610 / 742; display: flex; flex-direction: column; gap: 0.25rem; padding: 0.5rem; border: 0; background: none; color: var(--color-ink); text-align: left; }
 .quadro.aberta .quadro-topo { aspect-ratio: auto; height: auto; min-height: 44px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.125rem 0.75rem; padding: 0.625rem 0.75rem; }
 .quadro-nome { font-size: 0.8125rem; line-height: 1.2; color: var(--color-muted); overflow-wrap: break-word; }
@@ -215,8 +222,10 @@ a.atalho { text-decoration: none; }
 
 .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .chip { min-height: 40px; padding: 0.25rem 0.75rem; background: var(--color-card); color: var(--color-ink); border: 1px solid var(--color-rule); border-radius: var(--radius); transition: background-color var(--dur), border-color var(--dur); }
-.chip:hover { border-color: var(--color-accent); }
-.chip:active { background: var(--color-paper-2); }
+.chip { font-weight: 600; touch-action: manipulation; -webkit-tap-highlight-color: transparent; transition: background-color 180ms, border-color 180ms, transform var(--dur); }
+.chip:hover { background: var(--color-destaque); border-color: var(--color-accent); }
+.chip:active { background: var(--color-accent); border-color: var(--color-accent); transform: scale(0.97); }
+.chip.escolhido { background: var(--color-accent); border-color: var(--color-accent); }
 .chip:disabled { background: var(--color-paper-2); color: var(--color-muted); cursor: default; }
 
 /* ficha */

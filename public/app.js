@@ -160,6 +160,7 @@ async function falar(texto) {
 async function iniciar() {
   sessao.cliente = $('#cliente').value;
   sessao.agora = $('#hora').value;
+  try { sessionStorage.setItem('demo-escolha', JSON.stringify([sessao.cliente, sessao.agora])); } catch {}
   sessao.estado = {};
   sessao.historico = [];
   fio.innerHTML = '';
@@ -198,6 +199,7 @@ async function iniciar() {
 document.addEventListener('click', async (e) => {
   const b = e.target.closest('button');
   if (!b) return;
+  if (b.classList.contains('chip') && b.dataset.fala) b.classList.add('escolhido');
   if (b.dataset.fala) ('importante' in b.dataset ? aguardar(() => falar(b.dataset.fala)) : falar(b.dataset.fala));
   if ('caixinha' in b.dataset) {
     const aberta = b.getAttribute('aria-expanded') === 'true';
@@ -288,6 +290,11 @@ const demo = await fetch('/api/demo').then((x) => x.json());
 $('#cliente').innerHTML = demo.clientes.map((c) => `<option value="${esc(c.id)}">${esc(c.nome)}</option>`).join('');
 $('#hora').innerHTML = demo.horarios.map((h) => `<option value="${esc(h)}">18/11, ${h.slice(11, 13)}h</option>`).join('');
 const espera = (ms) => new Promise((ok) => setTimeout(ok, ms));
+try {
+  const [cliente, hora] = JSON.parse(sessionStorage.getItem('demo-escolha')) || [];
+  if (cliente) $('#cliente').value = cliente;
+  if (hora) $('#hora').value = hora;
+} catch {}
 await Promise.all([iniciar(), espera(1920)]);
 iniciarOrb();
 const abertura = $('#carregando');
