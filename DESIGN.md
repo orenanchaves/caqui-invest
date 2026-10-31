@@ -47,11 +47,11 @@ A partir de 60rem, a home tem barra no topo com busca, menu e perfil; faixa de s
 | Atalho | `.atalho` | Quatro por linha |
 | Caixinha | `.quadro` | Ficam lado a lado, e a aberta alarga e empurra as outras |
 | Faixa de demonstração | `.demo-faixa` | Ferramenta de teste, em azul, fora do app. Abre para trocar cliente e horário |
-| Extrato | `.lista-extrato` | Página própria, fora do chat |
+| Extrato | `.lista-extrato` | Página própria, fora do chat. No desktop usa a mesma barra e o mesmo rodapé da home |
 | Menu inferior | `.menu-base` | Início, Portfólio, Extrato e o orb, sempre visível |
 | Cor por status | `data-situacao` | Andamento laranja suave, análise rosa, atrasado laranja forte, concluído creme, recusado salmão. Sempre com botão de fechar |
 | Aviso de golpe | `.pare` | Tela inteira "Pare agora." quando a caquIA detecta golpe, sem logo |
-| Configurações | `configuracoes.html` | Abre pelo perfil: nome, valores ocultos e forma de ver |
+| Configurações | `configuracoes.html` | Abre pelo perfil: nome, valores ocultos e forma de ver. No desktop usa a mesma barra e o mesmo rodapé da home |
 | Formas de ver | `.vista-seletor` | Ao lado do título: Caixinhas, Lista e Gráfico, com a escolha salva |
 | Lista | `.linha-dinheiro` | Mostra cada investimento com o rastreio aberto |
 | Pedido em destaque | `.destaque` | Faixa "Resgate em andamento" em laranja suave, logo abaixo do topo, com botão de fechar |

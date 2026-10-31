@@ -27,3 +27,11 @@ function encaixar() {
 }
 encaixar();
 new ResizeObserver(encaixar).observe(document.querySelector('.ds'));
+
+// No desktop o índice fica sempre aberto; no celular, abre sob demanda e fecha ao escolher.
+const indice = document.querySelector('#ds-indice');
+const largo = matchMedia('(min-width: 60rem)');
+const ajustar = () => { indice.open = largo.matches; };
+ajustar();
+largo.addEventListener('change', ajustar);
+indice.addEventListener('click', (e) => { if (e.target.closest('a') && !largo.matches) indice.open = false; });

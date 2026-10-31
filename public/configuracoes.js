@@ -1,4 +1,4 @@
-import { esc } from './ui.js';
+import { esc, molduraDesktop } from './ui.js';
 
 const area = document.querySelector('#configuracoes');
 const VISTAS = [['caixinhas', 'Caixinhas'], ['lista', 'Lista'], ['grafico', 'Gráfico']];
@@ -18,6 +18,7 @@ if (!r.ok) {
   area.innerHTML = '<p class="vazio">Não consegui abrir as configurações. <a href="/">Voltar para o app</a></p>';
 } else {
   const e = await r.json();
+  molduraDesktop(e.cliente, 'configuracoes');
   const vista = VISTAS.some(([id]) => id === ler('vista')) ? ler('vista') : 'caixinhas';
   area.innerHTML = `<h1>Configurações</h1>
     <ul class="lista-extrato">

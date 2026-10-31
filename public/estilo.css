@@ -93,7 +93,19 @@ html { scroll-behavior: smooth; }
 .pare-sair:hover { background: var(--color-destaque); }
 
 /* página do design system */
-.ds-nav { position: static; flex-wrap: wrap; overflow: visible; }
+.ds .ds-nav { position: static; flex-direction: column; flex-wrap: nowrap; gap: 1rem; margin: 0; padding: 0.5rem 0 0; overflow: visible; background: none; }
+.ds-indice { padding: 0.75rem 1rem; border-radius: var(--radius); background: var(--color-paper); }
+.ds-indice summary { min-height: 32px; display: flex; align-items: center; cursor: pointer; font-weight: 800; color: var(--color-ink); }
+.ds-indice-grupo { display: flex; flex-direction: column; gap: 0.125rem; }
+.ds-indice-grupo b { color: var(--color-ink); }
+.ds-indice-grupo span { margin-top: 0.5rem; font-size: var(--text-sm); color: var(--color-muted); }
+.ds .ds-nav a { min-height: 36px; padding: 0 0.625rem; border: 0; background: none; font-size: var(--text-sm); }
+.ds .ds-nav a[aria-current="true"] { background: var(--color-destaque); color: var(--color-ink); }
+.ds-layout { display: flex; flex-direction: column; gap: 1.5rem; min-width: 0; }
+.ds-conteudo { display: flex; flex-direction: column; gap: 2.5rem; min-width: 0; }
+.ds-grupo { margin: 1rem 0 -1rem; padding-bottom: 0.75rem; border-bottom: 2px solid var(--color-ink); font-size: var(--text-xl) !important; }
+.ds-secao h3 { font-family: var(--font-display); font-weight: 800; font-size: var(--text-lg); color: var(--color-ink); }
+.ds-secao h4 { margin-top: 0.5rem; font-size: var(--text-base); font-weight: 800; color: var(--color-ink); }
 .ds-amostra { max-width: 375px; display: flex; flex-direction: column; gap: 0.75rem; padding: 0.75rem; border-radius: var(--radius); background: var(--color-paper); }
 .ds-amostra-larga { max-width: none; }
 .ds-amostra .menu-base, .ds-amostra .pare { position: static; left: auto; width: 100%; transform: none; }
@@ -428,6 +440,20 @@ a.atalho { text-decoration: none; }
 .esqueleto { height: 3.5rem; background: var(--color-paper-2); border-radius: var(--radius); }
 
 @media (min-width: 60rem) {
+  .ds { max-width: 76rem; padding: 2rem 1.5rem 4rem; }
+  .ds-layout { display: grid; grid-template-columns: 15rem minmax(0, 1fr); gap: 3rem; align-items: start; }
+  .ds-indice { position: sticky; top: 1rem; max-height: calc(100vh - 2rem); overflow-y: auto; padding: 1rem; }
+  .ds-indice summary { display: none; }
+  .ds-grupo:first-child { margin-top: 0; }
+  #status .ds-amostra { max-width: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr)); }
+  body:has(> .barra-topo) { display: flex; flex-direction: column; min-height: 100vh; }
+  body:has(> .barra-topo) > main { flex: 1; width: 100%; }
+  body:has(> .barra-topo) > .topo { display: none; }
+  .extrato, #configuracoes { max-width: 76rem; min-height: 60vh; padding: 2rem 1.5rem 3rem; gap: 1.25rem; }
+  .extrato .saldo { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.25rem; border-radius: var(--radius); background: var(--color-paper); color: var(--color-ink); }
+  .extrato .saldo .dinheiro { font-weight: 800; }
+  .linha-extrato { align-items: center; padding: 1rem 0; }
+  .rodape-dentro a { min-height: 44px; display: inline-flex; align-items: center; color: var(--color-ink); font-weight: 600; }
   body { background: var(--color-card); }
   body:has(.barra-topo) .menu-base, .home > .home-topo { display: none; }
   .barra-topo { display: block; background: var(--color-ink); color: var(--color-paper); }

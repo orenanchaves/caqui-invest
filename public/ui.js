@@ -100,3 +100,16 @@ export function setores(lista) {
 }
 
 export const FILAS = { seguranca: 'Segurança, sem fila', prioritaria: 'Prioritária', especialista: 'Especialista em investimentos', reclamacao: 'Reclamações e encerramento', geral: 'Atendimento' };
+
+// Barra e rodapé do desktop nas páginas internas, iguais aos da home.
+export function molduraDesktop(nome, ativo) {
+  const qs = location.search;
+  const orb = document.querySelector('.menu-base .orb-disco').innerHTML;
+  const atual = (id) => (id === ativo ? ' aria-current="page"' : '');
+  document.querySelector('.topo').insertAdjacentHTML('afterend', `<div class="barra-topo"><div class="barra-dentro">
+    <form class="busca-topo" action="/" role="search"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg><input name="q" type="search" placeholder="Buscar na ajuda da Caqui" aria-label="Buscar na ajuda da Caqui" autocomplete="off"></form>
+    <nav class="menu-topo" aria-label="Menu principal"><a href="/">Início</a><a href="/#dinheiro">Portfólio</a><a href="extrato.html${esc(qs)}"${atual('extrato')}>Extrato</a><a class="orb-topo" href="/#caquia"><span class="orb-disco">${orb}</span>caquIA</a></nav>
+    <span class="barra-nome">${esc(nome)}</span><a class="avatar" href="configuracoes.html${esc(qs)}"${atual('configuracoes')} aria-label="Abrir configurações">${ICONES.pessoa}</a>
+  </div></div>`);
+  document.querySelector('main').insertAdjacentHTML('afterend', '<footer class="rodape-home"><div class="rodape-dentro"><a href="/?q=Acho%20que%20%C3%A9%20golpe">Suspeita de golpe</a><span>Pessoas das 8h às 20h, todos os dias. Segurança a qualquer hora.</span></div></footer>');
+}

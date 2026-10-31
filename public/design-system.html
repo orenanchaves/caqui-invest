@@ -15,89 +15,38 @@
 <header class="topo"><div class="topo-dentro"><a class="voltar" href="/" aria-label="Voltar para o app"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></a></div></header>
 <main class="ds">
   <h1>Design system Caqui</h1>
-  <p>Tudo aqui usa os mesmos arquivos do app. UI e UX por Renan Chaves.</p>
-  <nav class="ds-nav" aria-label="Seções"><a href="#devs">Para devs</a><a href="#cores">Cores</a><a href="#tipografia">Tipografia</a><a href="#icones">Ícones</a><a href="#telas">Telas</a><a href="#acoes">Botões</a><a href="#movimento">Movimento</a><a href="#perguntas">Perguntas sugeridas</a><a href="#menu">Barra de menu</a><a href="#orb">Orb</a><a href="#topo">Topo da home</a><a href="#status">Faixa por status</a><a href="#rastreio">Rastreio do pedido</a><a href="#dinheiro">Onde está meu dinheiro</a><a href="#atalhos">Atalhos</a><a href="#chat">caquIA</a><a href="#sanfona">Mais opções</a><a href="#golpe">Aviso de golpe</a><a href="#avisos">Avisos na conversa</a><a href="#extrato">Extrato</a><a href="#configuracoes">Configurações</a></nav>
-  <section id="devs" class="ds-secao">
-  <h2>Para devs</h2>
-<p>Guia para implementar o atendimento Caqui. UI e UX por Renan Chaves.</p>
-<h3>Rodar</h3>
-<p>O projeto é JavaScript com módulos ES, sem etapa de build no front-end.</p>
-<div class="ds-codigo-bloco"><button class="ds-copiar" type="button">Copiar</button><pre><code>npm install
-npx wrangler dev --port 8799</code></pre></div>
-<p>Antes de dizer que terminou, rode os dois:</p>
-<div class="ds-codigo-bloco"><button class="ds-copiar" type="button">Copiar</button><pre><code>npm test
-npm run perguntas</code></pre></div>
-<h3>Onde está cada coisa</h3>
-<div class="ds-tabela"><table><thead><tr><th>Caminho</th><th>O quê</th></tr></thead><tbody><tr><td><code>public/tokens.css</code></td><td>Fonte única de cor, fonte, tamanho e raio</td></tr><tr><td><code>public/estilo.css</code></td><td>Todos os componentes</td></tr><tr><td><code>public/app.js</code>, <code>public/ui.js</code></td><td>Home e chat</td></tr><tr><td><code>src/motor.mjs</code></td><td>Regras do atendimento, sem modelo de linguagem</td></tr><tr><td><code>src/worker.mjs</code></td><td>Rotas da API</td></tr><tr><td><code>dados/</code></td><td>Dados sintéticos</td></tr><tr><td><code>design-system/tokens.json</code></td><td>Os mesmos tokens em JSON, para levar a outro stack</td></tr><tr><td><code>DESIGN.md</code></td><td>Regras de marca e lista de componentes</td></tr><tr><td><code>SPEC.md</code></td><td>Decisões e comportamento</td></tr></tbody></table></div>
-<h3>Usar os tokens</h3>
-<p>No HTML, carregue a fonte de reserva e o CSS:</p>
-<div class="ds-codigo-bloco"><button class="ds-copiar" type="button">Copiar</button><pre><code>&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&amp;display=swap"&gt;
-&lt;link rel="stylesheet" href="estilo.css"&gt;</code></pre></div>
-<p>No componente, use sempre a variável:</p>
-<div class="ds-codigo-bloco"><button class="ds-copiar" type="button">Copiar</button><pre><code>.meu-cartao {
-  background: var(--color-card);
-  color: var(--color-ink);
-  border-radius: var(--radius);
-  box-shadow: var(--sombra);
-}</code></pre></div>
-<p>Nunca escreva cor, fonte ou raio direto no componente.</p>
-<h3>Levar para React</h3>
-<p>As classes funcionam em qualquer stack. Importe <code>tokens.css</code> e <code>estilo.css</code> uma vez na entrada e use <code>className</code>:</p>
-<div class="ds-codigo-bloco"><button class="ds-copiar" type="button">Copiar</button><pre><code>const ROTULOS = { andamento: 'em andamento', analise: 'em análise', atrasado: 'atrasado', concluido: 'concluído', recusado: 'recusado' };
-
-export function FaixaPedido({ pedido, aoFechar }) {
-  const tipo = pedido.titulo.split(' ')[0];
-  return (
-    &lt;div className="destaque" data-situacao={pedido.situacao}&gt;
-      &lt;div className="destaque-topo"&gt;
-        &lt;strong&gt;{tipo} {ROTULOS[pedido.situacao]}&lt;/strong&gt;
-        &lt;button className="destaque-fechar" aria-label="Fechar aviso" onClick={aoFechar}&gt;×&lt;/button&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-  );
-}</code></pre></div>
-<p>Neste exemplo, o rótulo não trata "Aplicação atrasada". O código real faz essa concordância em <code>public/app.js</code>, na função <code>rotuloSituacao</code>.</p>
-<h3>Estados por atributo</h3>
-<div class="ds-tabela"><table><thead><tr><th>Atributo</th><th>Onde</th><th>Valores</th></tr></thead><tbody><tr><td><code>data-situacao</code></td><td><code>.destaque</code></td><td><code>andamento</code>, <code>analise</code>, <code>atrasado</code>, <code>concluido</code>, <code>recusado</code></td></tr><tr><td><code>data-vista</code></td><td><code>.carteira</code></td><td><code>caixinhas</code>, <code>lista</code>, <code>grafico</code></td></tr><tr><td><code>aria-current="page"</code></td><td>item de <code>.menu-base</code></td><td>Tela atual</td></tr><tr><td><code>aria-current="step"</code></td><td>item de <code>.rastreio</code></td><td>Etapa atual</td></tr><tr><td><code>.oculto</code></td><td><code>#home</code></td><td>Esconde os valores</td></tr><tr><td><code>.humano</code></td><td><code>.chat</code></td><td>Conversa passada para a equipe</td></tr></tbody></table></div>
-<p>Preferências em <code>localStorage</code>: <code>vista</code>, <code>valores</code> e <code>demo</code>. Em <code>sessionStorage</code>, <code>demo-escolha</code> guarda o cliente da demonstração. Todo acesso fica em <code>try/catch</code>.</p>
-<h3>API</h3>
-<div class="ds-tabela"><table><thead><tr><th>Rota</th><th>Uso</th></tr></thead><tbody><tr><td><code>GET /api/demo</code></td><td>Clientes e horários da demonstração</td></tr><tr><td><code>GET /api/inicio?cliente=C-0001&amp;agora=2026-11-18T10:00</code></td><td>Dados da home</td></tr><tr><td><code>GET /api/extrato?cliente=C-0001&amp;agora=2026-11-18T10:00</code></td><td>Extrato e nome da conta</td></tr><tr><td><code>POST /api/mensagem</code></td><td>Resposta do motor</td></tr><tr><td><code>GET /api/artigo/KB-006</code></td><td>Artigo da base</td></tr><tr><td><code>GET /api/casos</code></td><td>Fila do painel do atendente</td></tr><tr><td><code>GET /api/casos/:protocolo</code></td><td>Um caso</td></tr></tbody></table></div>
-<p><code>POST /api/mensagem</code> recebe <code>{ cliente, agora, estado, historico, texto }</code> e devolve o novo <code>estado</code>. Quando devolve <code>acao: "seguranca_imediata"</code>, o front abre o aviso de golpe.</p>
-<p><code>GET /api/inicio</code> devolve, entre outros, <code>pedidos</code> para os pedidos abertos e <code>recentes</code> para os concluídos ou recusados há até um dia. Cada cartão traz <code>situacao</code>, que define a cor da faixa.</p>
-<h3>Regras que não mudam</h3>
-<ul><li>Modelo de linguagem nunca escreve prazo, taxa ou valor.</li><li>Toda resposta factual cita o artigo da base ou o dado da conta.</li><li>O id do cliente vem da sessão, nunca do texto da conversa.</li><li>Log só com protocolo, regra, motivo e ação. CPF sempre mascarado.</li><li>Todo valor em dinheiro usa <code>--color-ink</code>, ou creme sobre o topo escuro.</li><li>Só dados sintéticos e nenhum segredo no repositório.</li><li>Regra nova vira teste em <code>test/motor.test.mjs</code>.</li></ul>
-<h3>Acessibilidade</h3>
-<ul><li>Alvos de toque com pelo menos 44px.</li><li>Foco visível com <code>--color-focus</code>.</li><li>Animação sempre com alternativa para <code>prefers-reduced-motion</code>.</li><li>Mensagens de estado em texto, nunca só por cor.</li></ul>
-  </section>
+  <p>Tokens, componentes e telas do atendimento, em código, usando os mesmos arquivos do app. UI e UX por Renan Chaves.</p>
+  <div class="ds-layout">
+  <details class="ds-indice" id="ds-indice"><summary>Seções</summary><nav class="ds-nav" aria-label="Seções"><div class="ds-indice-grupo"><b>Fundamentos</b><a href="#cores">Cores</a><a href="#tipografia">Tipografia</a><a href="#icones">Ícones</a><a href="#movimento">Movimento</a></div><div class="ds-indice-grupo"><b>Componentes</b><span>Ações</span><a href="#acoes">Botões</a><a href="#perguntas">Perguntas sugeridas</a><span>Navegação</span><a href="#menu">Barra de menu</a><a href="#orb">Orb</a><span>Home</span><a href="#topo">Topo da home</a><a href="#atalhos">Atalhos</a><a href="#dinheiro">Onde está meu dinheiro</a><span>Pedidos</span><a href="#status">Faixa por status</a><a href="#rastreio">Rastreio do pedido</a><span>caquIA</span><a href="#chat">caquIA</a><a href="#sanfona">Mais opções</a><span>Avisos</span><a href="#golpe">Aviso de golpe</a><a href="#avisos">Avisos na conversa</a></div><div class="ds-indice-grupo"><b>Telas</b><a href="#telas">Telas reais</a></div><div class="ds-indice-grupo"><b>Para devs</b><a href="#devs">Guia técnico</a></div></nav></details>
+  <div class="ds-conteudo">
+<h2 class="ds-grupo" id="g-fundamentos">Fundamentos</h2>
   <section id="cores" class="ds-secao">
-  <h2>Cores</h2>
-  <ul class="ds-cores"><li class="ds-cor"><span style="background: var(--color-paper)"></span><b>Fundo das telas.</b><code>--color-paper</code><code>#fff4e9</code></li><li class="ds-cor"><span style="background: var(--color-paper-2)"></span><b>Faixa de pedido concluído e áreas de creme forte.</b><code>--color-paper-2</code><code>#fbe6d3</code></li><li class="ds-cor"><span style="background: var(--color-card)"></span><b>Superfície de cartões, barra de menu e campos.</b><code>--color-card</code><code>#fffbf6</code></li><li class="ds-cor"><span style="background: var(--color-ink)"></span><b>Texto principal, topo escuro e todo valor em dinheiro.</b><code>--color-ink</code><code>#2b0b09</code></li><li class="ds-cor"><span style="background: var(--color-ink-2)"></span><b>Texto corrido sobre creme.</b><code>--color-ink-2</code><code>#3d1f1b</code></li><li class="ds-cor"><span style="background: var(--color-muted)"></span><b>Texto de apoio e itens inativos da barra.</b><code>--color-muted</code><code>#5e4a43</code></li><li class="ds-cor"><span style="background: var(--color-rule)"></span><b>Linhas e contorno de chips e seletores.</b><code>--color-rule</code><code>#9b7051</code></li><li class="ds-cor"><span style="background: var(--color-accent)"></span><b>Ação e faixa de pedido em andamento. Texto em cima é sempre ink.</b><code>--color-accent</code><code>#f6ac78</code></li><li class="ds-cor"><span style="background: var(--color-accent-ink)"></span><b>Texto sobre accent.</b><code>--color-accent-ink</code><code>#2b0b09</code></li><li class="ds-cor"><span style="background: var(--color-destaque)"></span><b>Tom claro de hover e item ativo da barra.</b><code>--color-destaque</code><code>#fde3cd</code></li><li class="ds-cor"><span style="background: var(--color-ciano)"></span><b>Etapa atual do rastreio e atalho principal.</b><code>--color-ciano</code><code>#2edff0</code></li><li class="ds-cor"><span style="background: var(--color-azul)"></span><b>Faixa de demonstração e sublinhado. Nunca como texto sobre creme.</b><code>--color-azul</code><code>#2e79f0</code></li><li class="ds-cor"><span style="background: var(--color-focus)"></span><b>Anel de foco do teclado.</b><code>--color-focus</code><code>#2e79f0</code></li><li class="ds-cor"><span style="background: var(--color-ambar)"></span><b>Borda de caixinhas e atalhos.</b><code>--color-ambar</code><code>#e59f1c</code></li><li class="ds-cor"><span style="background: var(--color-orb)"></span><b>Disco do orb.</b><code>--color-orb</code><code>#f3b82a</code></li><li class="ds-cor"><span style="background: var(--color-vermelho)"></span><b>Raios do orb e marca.</b><code>--color-vermelho</code><code>#f0462e</code></li><li class="ds-cor"><span style="background: var(--color-alerta)"></span><b>Golpe e microfone gravando.</b><code>--color-alerta</code><code>#f0462e</code></li><li class="ds-cor"><span style="background: var(--color-alerta-fundo)"></span><b>Fundo de golpe e faixa em análise.</b><code>--color-alerta-fundo</code><code>#fcdcd6</code></li><li class="ds-cor"><span style="background: var(--color-atraso)"></span><b>Borda de ficha atrasada no chat.</b><code>--color-atraso</code><code>#f6ac78</code></li><li class="ds-cor"><span style="background: var(--color-atraso-fundo)"></span><b>Fundo de ficha atrasada no chat.</b><code>--color-atraso-fundo</code><code>#fce3cf</code></li><li class="ds-cor"><span style="background: var(--color-status-atraso)"></span><b>Faixa de pedido atrasado.</b><code>--color-status-atraso</code><code>#f0883e</code></li><li class="ds-cor"><span style="background: var(--color-status-recusado)"></span><b>Faixa de pedido recusado.</b><code>--color-status-recusado</code><code>#f4a99c</code></li><li class="ds-cor"><span style="background: var(--color-demo-ink)"></span><b>Texto da faixa de demonstração.</b><code>--color-demo-ink</code><code>#120a05</code></li><li class="ds-cor"><span style="background: var(--color-veu)"></span><b>Véu atrás do chat.</b><code>--color-veu</code><code>rgb(43 11 9 / 0.45)</code></li></ul>
+  <h3>Cores</h3>
+  <h4>Base</h4>
+  <ul class="ds-cores"><li class="ds-cor"><span style="background: var(--color-paper)"></span><b>Fundo das telas.</b><code>--color-paper</code><code>#fff4e9</code></li><li class="ds-cor"><span style="background: var(--color-paper-2)"></span><b>Faixa de pedido concluído e áreas de creme forte.</b><code>--color-paper-2</code><code>#fbe6d3</code></li><li class="ds-cor"><span style="background: var(--color-card)"></span><b>Superfície de cartões, barra de menu e campos.</b><code>--color-card</code><code>#fffbf6</code></li><li class="ds-cor"><span style="background: var(--color-rule)"></span><b>Linhas e contorno de chips e seletores.</b><code>--color-rule</code><code>#9b7051</code></li></ul>
+  <h4>Texto e dinheiro</h4>
+  <ul class="ds-cores"><li class="ds-cor"><span style="background: var(--color-ink)"></span><b>Texto principal, topo escuro e todo valor em dinheiro.</b><code>--color-ink</code><code>#2b0b09</code></li><li class="ds-cor"><span style="background: var(--color-ink-2)"></span><b>Texto corrido sobre creme.</b><code>--color-ink-2</code><code>#3d1f1b</code></li><li class="ds-cor"><span style="background: var(--color-muted)"></span><b>Texto de apoio e itens inativos da barra.</b><code>--color-muted</code><code>#5e4a43</code></li><li class="ds-cor"><span style="background: var(--color-accent-ink)"></span><b>Texto sobre accent.</b><code>--color-accent-ink</code><code>#2b0b09</code></li></ul>
+  <h4>Ação</h4>
+  <ul class="ds-cores"><li class="ds-cor"><span style="background: var(--color-accent)"></span><b>Ação e faixa de pedido em andamento. Texto em cima é sempre ink.</b><code>--color-accent</code><code>#f6ac78</code></li><li class="ds-cor"><span style="background: var(--color-destaque)"></span><b>Tom claro de hover e item ativo da barra.</b><code>--color-destaque</code><code>#fde3cd</code></li><li class="ds-cor"><span style="background: var(--color-orb)"></span><b>Disco do orb, marrom, com raios em color-accent.</b><code>--color-orb</code><code>#2b0b09</code></li><li class="ds-cor"><span style="background: var(--color-focus)"></span><b>Anel de foco do teclado.</b><code>--color-focus</code><code>#2e79f0</code></li></ul>
+  <h4>Status</h4>
+  <ul class="ds-cores"><li class="ds-cor"><span style="background: var(--color-accent)"></span><b>Em andamento</b><code>--color-accent</code><code>#f6ac78</code></li><li class="ds-cor"><span style="background: var(--color-alerta-fundo)"></span><b>Em análise</b><code>--color-alerta-fundo</code><code>#fcdcd6</code></li><li class="ds-cor"><span style="background: var(--color-status-atraso)"></span><b>Atrasado</b><code>--color-status-atraso</code><code>#f0883e</code></li><li class="ds-cor"><span style="background: var(--color-paper-2)"></span><b>Concluído</b><code>--color-paper-2</code><code>#fbe6d3</code></li><li class="ds-cor"><span style="background: var(--color-status-recusado)"></span><b>Recusado</b><code>--color-status-recusado</code><code>#f4a99c</code></li></ul>
+  <h4>Apoio</h4>
+  <ul class="ds-cores"><li class="ds-cor"><span style="background: var(--color-ciano)"></span><b>Etapa atual do rastreio e atalho principal.</b><code>--color-ciano</code><code>#2edff0</code></li><li class="ds-cor"><span style="background: var(--color-ambar)"></span><b>Borda de caixinhas e atalhos.</b><code>--color-ambar</code><code>#e59f1c</code></li><li class="ds-cor"><span style="background: var(--color-azul)"></span><b>Faixa de demonstração e sublinhado. Nunca como texto sobre creme.</b><code>--color-azul</code><code>#2e79f0</code></li><li class="ds-cor"><span style="background: var(--color-alerta)"></span><b>Golpe e microfone gravando.</b><code>--color-alerta</code><code>#f0462e</code></li><li class="ds-cor"><span style="background: var(--color-vermelho)"></span><b>Marca e golpe.</b><code>--color-vermelho</code><code>#f0462e</code></li><li class="ds-cor"><span style="background: var(--color-demo-ink)"></span><b>Texto da faixa de demonstração.</b><code>--color-demo-ink</code><code>#120a05</code></li><li class="ds-cor"><span style="background: var(--color-atraso-fundo)"></span><b>Fundo de ficha atrasada no chat.</b><code>--color-atraso-fundo</code><code>#fce3cf</code></li><li class="ds-cor"><span style="background: var(--color-veu)"></span><b>Véu atrás do chat.</b><code>--color-veu</code><code>rgb(43 11 9 / 0.45)</code></li></ul>
   </section>
   <section id="tipografia" class="ds-secao">
-  <h2>Tipografia</h2>
+  <h3>Tipografia</h3>
   <p class="saldo-valor">R$ 1.250,00</p>
   <p class="quando">Cai em 18/11/2026</p>
   <p>Texto corrido em Proxima Nova, com Montserrat de reserva.</p>
   <p class="notas">Texto de apoio e fonte da informação</p>
   </section>
   <section id="icones" class="ds-secao">
-  <h2>Ícones</h2>
+  <h3>Ícones</h3>
   <p>Em linha e de uma cor, aplicados por máscara com <code>.icone-pacote</code>.</p>
   <ul class="ds-icones"><li><span class="icone-pacote" style="--icone: url(icones/inicio.svg)"></span><code>inicio.svg</code></li><li><span class="icone-pacote" style="--icone: url(icones/carteira.svg)"></span><code>carteira.svg</code></li><li><span class="icone-pacote" style="--icone: url(icones/extrato.svg)"></span><code>extrato.svg</code></li><li><span class="icone-pacote" style="--icone: url(icones/calculadora.svg)"></span><code>calculadora.svg</code></li><li><span class="icone-pacote" style="--icone: url(icones/rendimento.svg)"></span><code>rendimento.svg</code></li></ul>
   </section>
-  <section id="telas" class="ds-secao">
-  <h2>Telas</h2>
-  <p>São as telas reais do app, então mudam junto com ele.</p>
-  <div class="ds-telas"><figure class="ds-tela ds-largo"><figcaption>Home no desktop</figcaption><div class="ds-moldura"><iframe src="/" title="Home no desktop" loading="lazy" data-largura="1440" data-altura="900" width="1440" height="900"></iframe></div></figure><figure class="ds-tela ds-celular"><figcaption>Home no celular</figcaption><div class="ds-moldura"><iframe src="/" title="Home no celular" loading="lazy" data-largura="375" data-altura="760" width="375" height="760"></iframe></div></figure><figure class="ds-tela ds-celular"><figcaption>Extrato</figcaption><div class="ds-moldura"><iframe src="/extrato?cliente=C-0001&agora=2026-11-18T10:00" title="Extrato" loading="lazy" data-largura="375" data-altura="760" width="375" height="760"></iframe></div></figure><figure class="ds-tela ds-celular"><figcaption>Configurações</figcaption><div class="ds-moldura"><iframe src="/configuracoes?cliente=C-0001&agora=2026-11-18T10:00" title="Configurações" loading="lazy" data-largura="375" data-altura="760" width="375" height="760"></iframe></div></figure></div>
-  </section>
-  <section id="acoes" class="ds-secao">
-  <h2>Botões</h2>
-  <p>Uma ação principal por bloco. A ação de segurança só aparece em golpe.</p>
-  <div class="ds-amostra"><div class="ds-linha"><button class="primario" type="button">Enviar</button><button class="botao-forte" type="button">Bloquear acesso agora</button><button class="base-pessoa" type="button">Falar com uma pessoa</button></div><div class="ds-escuro"><div class="modelo-acoes"><button class="botao-contorno" type="button"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>Aplicar</button><button class="botao-contorno" type="button"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>Resgatar</button></div></div></div>
-  <details class="ds-codigo"><summary>Ver código</summary><div class="ds-codigo-bloco"><button class="ds-copiar" type="button">Copiar</button><pre><code>&lt;div class="ds-linha"&gt;&lt;button class="primario" type="button"&gt;Enviar&lt;/button&gt;&lt;button class="botao-forte" type="button"&gt;Bloquear acesso agora&lt;/button&gt;&lt;button class="base-pessoa" type="button"&gt;Falar com uma pessoa&lt;/button&gt;&lt;/div&gt;&lt;div class="ds-escuro"&gt;&lt;div class="modelo-acoes"&gt;&lt;button class="botao-contorno" type="button"&gt;Aplicar&lt;/button&gt;&lt;button class="botao-contorno" type="button"&gt;Resgatar&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;</code></pre></div></details>
-  </section>
   <section id="movimento" class="ds-secao">
-  <h2>Movimento</h2>
+  <h3>Movimento</h3>
   <p>Passe o mouse, toque e use a tecla Tab nos botões acima para ver cada estado. Só <code>opacity</code> e <code>transform</code> são animados, e tudo para com <code>prefers-reduced-motion</code>.</p>
   <div class="ds-tabela"><table><thead><tr><th>Elemento</th><th>Ao passar o mouse</th><th>Ao tocar</th><th>Tempo</th></tr></thead><tbody>
   <tr><td>Aplicar e Resgatar</td><td>Fundo creme, texto marrom</td><td>Abre a orientação na caquIA</td><td>180ms</td></tr>
@@ -110,14 +59,21 @@ export function FaixaPedido({ pedido, aoFechar }) {
   <tr><td>Ações importantes</td><td colspan="2">Sementes em looping antes de concluir</td><td>1s</td></tr>
   </tbody></table></div>
   </section>
+<h2 class="ds-grupo" id="g-componentes">Componentes</h2>
+  <section id="acoes" class="ds-secao">
+  <h3>Botões</h3>
+  <p>Uma ação principal por bloco. A ação de segurança só aparece em golpe.</p>
+  <div class="ds-amostra"><div class="ds-linha"><button class="primario" type="button">Enviar</button><button class="botao-forte" type="button">Bloquear acesso agora</button><button class="base-pessoa" type="button">Falar com uma pessoa</button></div><div class="ds-escuro"><div class="modelo-acoes"><button class="botao-contorno" type="button"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>Aplicar</button><button class="botao-contorno" type="button"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>Resgatar</button></div></div></div>
+  <details class="ds-codigo"><summary>Ver código</summary><div class="ds-codigo-bloco"><button class="ds-copiar" type="button">Copiar</button><pre><code>&lt;div class="ds-linha"&gt;&lt;button class="primario" type="button"&gt;Enviar&lt;/button&gt;&lt;button class="botao-forte" type="button"&gt;Bloquear acesso agora&lt;/button&gt;&lt;button class="base-pessoa" type="button"&gt;Falar com uma pessoa&lt;/button&gt;&lt;/div&gt;&lt;div class="ds-escuro"&gt;&lt;div class="modelo-acoes"&gt;&lt;button class="botao-contorno" type="button"&gt;Aplicar&lt;/button&gt;&lt;button class="botao-contorno" type="button"&gt;Resgatar&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;</code></pre></div></details>
+  </section>
   <section id="perguntas" class="ds-secao">
-  <h2>Perguntas sugeridas</h2>
+  <h3>Perguntas sugeridas</h3>
   <p>Sempre uma embaixo da outra, em qualquer tela.</p>
   <div class="ds-amostra"><div class="chips"><button class="chip" type="button">Quando cai meu resgate?</button><button class="chip" type="button">O que é liquidez diária?</button></div></div>
   <details class="ds-codigo"><summary>Ver código</summary><div class="ds-codigo-bloco"><button class="ds-copiar" type="button">Copiar</button><pre><code>&lt;div class="chips"&gt;&lt;button class="chip" type="button"&gt;Quando cai meu resgate?&lt;/button&gt;&lt;button class="chip" type="button"&gt;O que é liquidez diária?&lt;/button&gt;&lt;/div&gt;</code></pre></div></details>
   </section>
   <section id="menu" class="ds-secao">
-  <h2>Barra de menu</h2>
+  <h3>Barra de menu</h3>
   <p>Fixa embaixo, com Início, Portfólio, Extrato e o orb.</p>
   <div class="ds-amostra"><nav class="menu-base" aria-label="Menu principal">
     <button type="button" data-ir="inicio" aria-current="page"><span class="icone-pacote" style="--icone: url(icones/inicio.svg)"></span><span>Início</span></button>
@@ -133,13 +89,13 @@ export function FaixaPedido({ pedido, aoFechar }) {
   &lt;/nav&gt;</code></pre></div></details>
   </section>
   <section id="orb" class="ds-secao">
-  <h2>Orb</h2>
+  <h3>Orb</h3>
   <p>Fica dentro da barra, pulsa e abre a caquIA.</p>
   <div class="ds-amostra"><button class="orb" type="button" data-ir="caquia" aria-label="Abrir conversa com a caquIA" aria-expanded="false"><span class="orb-disco"><svg viewBox="-63 -67.2 406 406" width="40" height="40" aria-hidden="true"><circle cx="140" cy="135.8" r="203" fill="currentColor"></circle><g class="orb-raios"><path d="M218.02,187.97c-2.33-.17-47.28-28.98-47.78-39.3-.54-11.28,43.79,24.86,44.12,25.2,2.44,2.57,15.25,14.95,3.66,14.1Z"></path><path d="M186.63,219.97c-2.17-.86-36.49-41.76-33.88-51.76,2.85-10.93,34.38,36.79,34.59,37.21,1.56,3.18,10.1,18.82-.71,14.55Z"></path><path d="M62.34,187.97c2.33-.17,47.28-28.98,47.78-39.3.54-11.28-43.79,24.86-44.12,25.2-2.44,2.57-15.25,14.95-3.66,14.1Z"></path><path d="M93.73,219.97c2.17-.86,36.49-41.76,33.88-51.76-2.85-10.93-34.38,36.79-34.59,37.21-1.56,3.18-10.1,18.82.71,14.55Z"></path><path d="M218.02,83.69c-2.33.17-47.28,28.98-47.78,39.3-.54,11.28,43.79-24.86,44.12-25.2,2.44-2.57,15.25-14.95,3.66-14.1Z"></path><path d="M186.63,51.69c-2.17.86-36.49,41.76-33.88,51.76,2.85,10.93,34.38-36.79,34.59-37.21,1.56-3.18,10.1-18.82-.71-14.55Z"></path><path d="M62.34,83.69c2.33.17,47.28,28.98,47.78,39.3.54,11.28-43.79-24.86-44.12-25.2-2.44-2.57-15.25-14.95-3.66-14.1Z"></path><path d="M93.73,51.69c2.17.86,36.49,41.76,33.88,51.76-2.85,10.93-34.38-36.79-34.59-37.21-1.56-3.18-10.1-18.82.71-14.55Z"></path></g></svg></span><span>caquIA</span></button></div>
   <details class="ds-codigo"><summary>Ver código</summary><div class="ds-codigo-bloco"><button class="ds-copiar" type="button">Copiar</button><pre><code>&lt;button class="orb" type="button" data-ir="caquia" aria-label="Abrir conversa com a caquIA" aria-expanded="false"&gt;&lt;span class="orb-disco"&gt;&lt;svg viewBox="-63 -67.2 406 406" width="40" height="40" aria-hidden="true"&gt;&lt;circle cx="140" cy="135.8" r="203" fill="currentColor"&gt;&lt;/circle&gt;&lt;g class="orb-raios"&gt;&lt;path d="M218.02,187.97c-2.33-.17-47.28-28.98-47.78-39.3-.54-11.28,43.79,24.86,44.12,25.2,2.44,2.57,15.25,14.95,3.66,14.1Z"&gt;&lt;/path&gt;&lt;path d="M186.63,219.97c-2.17-.86-36.49-41.76-33.88-51.76,2.85-10.93,34.38,36.79,34.59,37.21,1.56,3.18,10.1,18.82-.71,14.55Z"&gt;&lt;/path&gt;&lt;path d="M62.34,187.97c2.33-.17,47.28-28.98,47.78-39.3.54-11.28-43.79,24.86-44.12,25.2-2.44,2.57-15.25,14.95-3.66,14.1Z"&gt;&lt;/path&gt;&lt;path d="M93.73,219.97c2.17-.86,36.49-41.76,33.88-51.76-2.85-10.93-34.38,36.79-34.59,37.21-1.56,3.18-10.1,18.82.71,14.55Z"&gt;&lt;/path&gt;&lt;path d="M218.02,83.69c-2.33.17-47.28,28.98-47.78,39.3-.54,11.28,43.79-24.86,44.12-25.2,2.44-2.57,15.25-14.95,3.66-14.1Z"&gt;&lt;/path&gt;&lt;path d="M186.63,51.69c-2.17.86-36.49,41.76-33.88,51.76,2.85,10.93,34.38-36.79,34.59-37.21,1.56-3.18,10.1-18.82-.71-14.55Z"&gt;&lt;/path&gt;&lt;path d="M62.34,83.69c2.33.17,47.28,28.98,47.78,39.3.54,11.28-43.79-24.86-44.12-25.2-2.44-2.57-15.25-14.95-3.66-14.1Z"&gt;&lt;/path&gt;&lt;path d="M93.73,51.69c2.17.86,36.49,41.76,33.88,51.76-2.85,10.93-34.38-36.79-34.59-37.21-1.56-3.18-10.1-18.82.71-14.55Z"&gt;&lt;/path&gt;&lt;/g&gt;&lt;/svg&gt;&lt;/span&gt;&lt;span&gt;caquIA&lt;/span&gt;&lt;/button&gt;</code></pre></div></details>
   </section>
   <section id="topo" class="ds-secao">
-  <h2>Topo da home</h2>
+  <h3>Topo da home</h3>
   <p>O perfil abre Configurações. No topo escuro, o dinheiro fica em creme.</p>
   <div class="ds-amostra"><div class="home-topo"><div class="home-dentro">
       <div class="home-linha"><a class="avatar" href="configuracoes.html?cliente=C-0001&amp;agora=2026-11-18T10%3A00" aria-label="Abrir configurações"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path><path d="M4.5 20c1.2-3.6 4-5.4 7.5-5.4s6.3 1.8 7.5 5.4"></path></svg></a><h1 class="home-ola">Marta</h1><button class="icone" data-valores="" aria-pressed="false" aria-label="Ocultar valores"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"></path><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"></path></svg></button></div>
@@ -154,35 +110,103 @@ export function FaixaPedido({ pedido, aoFechar }) {
       &lt;div class="modelo-acoes"&gt;&lt;button class="botao-contorno" data-guia="Aplicar"&gt;Aplicar&lt;/button&gt;&lt;button class="botao-contorno" data-guia="Resgatar"&gt;Resgatar&lt;/button&gt;&lt;/div&gt;
     &lt;/div&gt;&lt;/div&gt;</code></pre></div></details>
   </section>
+  <section id="atalhos" class="ds-secao">
+  <h3>Atalhos</h3>
+  <p>Quatro por linha.</p>
+  <div class="ds-amostra ds-amostra-larga"><div class="atalhos"><button class="atalho principal" data-fala="Onde está meu dinheiro?"><span class="atalho-icone"><span class="icone-pacote" style="--icone: url(icones/carteira.svg)"></span></span><span>Portfólio</span></button><button class="atalho" data-fala="Quanto vou receber se resgatar tudo hoje?"><span class="atalho-icone"><span class="icone-pacote" style="--icone: url(icones/calculadora.svg)"></span></span><span>Quanto vou receber</span></button><button class="atalho" data-fala="Meu CDB rendeu menos que a poupança?"><span class="atalho-icone"><span class="icone-pacote" style="--icone: url(icones/rendimento.svg)"></span></span><span>Comparar poupança</span></button><a class="atalho" href="extrato.html?cliente=C-0001&amp;agora=2026-11-18T10%3A00"><span class="atalho-icone"><span class="icone-pacote" style="--icone: url(icones/extrato.svg)"></span></span><span>Extrato</span></a></div></div>
+  <details class="ds-codigo"><summary>Ver código</summary><div class="ds-codigo-bloco"><button class="ds-copiar" type="button">Copiar</button><pre><code>&lt;div class="atalhos"&gt;&lt;button class="atalho principal" data-fala="Onde está meu dinheiro?"&gt;&lt;span class="atalho-icone"&gt;&lt;span class="icone-pacote" style="--icone: url(icones/carteira.svg)"&gt;&lt;/span&gt;&lt;/span&gt;&lt;span&gt;Portfólio&lt;/span&gt;&lt;/button&gt;&lt;button class="atalho" data-fala="Quanto vou receber se resgatar tudo hoje?"&gt;&lt;span class="atalho-icone"&gt;&lt;span class="icone-pacote" style="--icone: url(icones/calculadora.svg)"&gt;&lt;/span&gt;&lt;/span&gt;&lt;span&gt;Quanto vou receber&lt;/span&gt;&lt;/button&gt;&lt;button class="atalho" data-fala="Meu CDB rendeu menos que a poupança?"&gt;&lt;span class="atalho-icone"&gt;&lt;span class="icone-pacote" style="--icone: url(icones/rendimento.svg)"&gt;&lt;/span&gt;&lt;/span&gt;&lt;span&gt;Comparar poupança&lt;/span&gt;&lt;/button&gt;&lt;a class="atalho" href="extrato.html?cliente=C-0001&amp;amp;agora=2026-11-18T10%3A00"&gt;&lt;span class="atalho-icone"&gt;&lt;span class="icone-pacote" style="--icone: url(icones/extrato.svg)"&gt;&lt;/span&gt;&lt;/span&gt;&lt;span&gt;Extrato&lt;/span&gt;&lt;/a&gt;&lt;/div&gt;</code></pre></div></details>
+  </section>
+  <section id="dinheiro" class="ds-secao">
+  <h3>Onde está meu dinheiro</h3>
+  <p>Caixinhas, Lista ou Gráfico. A escolha fica salva.</p>
+  <div class="ds-amostra ds-amostra-larga"><div class="carteira" data-vista="caixinhas"><div class="carteira-titulo"><h2 class="caixinhas-titulo">Onde está meu dinheiro</h3><select class="vista-seletor" aria-label="Forma de ver"><option value="caixinhas" selected="">Caixinhas</option><option value="lista">Lista</option><option value="grafico">Gráfico</option></select></div><div data-painel="caixinhas"><div class="quadros"><article class="quadro">
+    <button class="quadro-topo" data-caixinha="" aria-expanded="false">
+      <span class="quadro-nome">CDB Caqui Liquidez Diária 110</span>
+      <span class="quadro-valor"><span class="valor">R$ 40.791,24</span></span>
+      <span class="quadro-taxa">110% do CDI</span>
+    </button>
+    <div class="quadro-abre" inert=""><div class="quadro-linha">
+      <ol class="rastreio"><li class="feita"><span class="marco"></span><span class="passo">Aplicação</span><time>16/09/26</time></li><li class="agora" aria-current="step"><span class="marco"></span><span class="passo">Hoje</span><time>18/11/26</time></li><li class=""><span class="marco"></span><span class="passo">Resgate</span><span class="dinheiro">R$ 40.000,00</span><time>18/11/26</time></li><li class=""><span class="marco"></span><span class="passo">Vencimento</span><time>05/09/28</time></li></ol>
+    </div></div>
+  </article><article class="quadro">
+    <button class="quadro-topo" data-caixinha="" aria-expanded="false">
+      <span class="quadro-nome">LCI Caqui 92</span>
+      <span class="quadro-valor"><span class="valor">R$ 20.229,91</span></span>
+      <span class="quadro-taxa">92% do CDI</span>
+    </button>
+    <div class="quadro-abre" inert=""><div class="quadro-linha">
+      <ol class="rastreio"><li class="feita"><span class="marco"></span><span class="passo">Aplicação</span><time>05/10/2026</time></li><li class="agora" aria-current="step"><span class="marco"></span><span class="passo">Hoje</span><time>18/11/2026</time></li><li class=""><span class="marco"></span><span class="passo">Vencimento</span><time>24/09/2028</time></li></ol>
+    </div></div>
+  </article></div></div>
+      <div data-painel="lista"><article class="linha-dinheiro">
+    <div class="linha-topo"><h4>CDB Caqui Liquidez Diária 110</h4><span class="valor">R$ 40.791,24</span></div>
+    <p class="notas">110% do CDI</p>
+    <ol class="rastreio"><li class="feita"><span class="marco"></span><span class="passo">Aplicação</span><time>16/09/26</time></li><li class="agora" aria-current="step"><span class="marco"></span><span class="passo">Hoje</span><time>18/11/26</time></li><li class=""><span class="marco"></span><span class="passo">Resgate</span><span class="dinheiro">R$ 40.000,00</span><time>18/11/26</time></li><li class=""><span class="marco"></span><span class="passo">Vencimento</span><time>05/09/28</time></li></ol>
+  </article><article class="linha-dinheiro">
+    <div class="linha-topo"><h4>LCI Caqui 92</h4><span class="valor">R$ 20.229,91</span></div>
+    <p class="notas">92% do CDI</p>
+    <ol class="rastreio"><li class="feita"><span class="marco"></span><span class="passo">Aplicação</span><time>05/10/2026</time></li><li class="agora" aria-current="step"><span class="marco"></span><span class="passo">Hoje</span><time>18/11/2026</time></li><li class=""><span class="marco"></span><span class="passo">Vencimento</span><time>24/09/2028</time></li></ol>
+  </article></div>
+      <div data-painel="grafico"><div class="setores"><div class="pizza" role="img" aria-label="CDB 66,8%, LCI 33,2%" style="background: conic-gradient(var(--color-accent) 0% 66.8%, var(--color-ciano) 66.8% 100%)"></div><ul class="setores-legenda"><li><span class="setor-cor" style="background: var(--color-accent)"></span><span>CDB, 66,8%</span><span class="valor">R$ 40.791,24</span></li><li><span class="setor-cor" style="background: var(--color-ciano)"></span><span>LCI, 33,2%</span><span class="valor">R$ 20.229,91</span></li></ul></div></div><p class="carteira-total"><span>Total investido, antes do imposto</span><span class="valor">R$ 61.021,15</span></p><p class="carteira-total"><span>Disponível na conta</span><span class="valor">R$ 1.250,00</span></p><span class="notas">Fonte: posições da sua conta em 18/11/2026</span></div></div>
+  <details class="ds-codigo"><summary>Ver código</summary><div class="ds-codigo-bloco"><button class="ds-copiar" type="button">Copiar</button><pre><code>&lt;div class="carteira" data-vista="caixinhas"&gt;&lt;div class="carteira-titulo"&gt;&lt;h2 class="caixinhas-titulo"&gt;Onde está meu dinheiro&lt;/h2&gt;&lt;select class="vista-seletor" aria-label="Forma de ver"&gt;&lt;option value="caixinhas" selected=""&gt;Caixinhas&lt;/option&gt;&lt;option value="lista"&gt;Lista&lt;/option&gt;&lt;option value="grafico"&gt;Gráfico&lt;/option&gt;&lt;/select&gt;&lt;/div&gt;&lt;div data-painel="caixinhas"&gt;&lt;div class="quadros"&gt;&lt;article class="quadro"&gt;
+    &lt;button class="quadro-topo" data-caixinha="" aria-expanded="false"&gt;
+      &lt;span class="quadro-nome"&gt;CDB Caqui Liquidez Diária 110&lt;/span&gt;
+      &lt;span class="quadro-valor"&gt;&lt;span class="valor"&gt;R$ 40.791,24&lt;/span&gt;&lt;/span&gt;
+      &lt;span class="quadro-taxa"&gt;110% do CDI&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div class="quadro-abre" inert=""&gt;&lt;div class="quadro-linha"&gt;
+      &lt;ol class="rastreio"&gt;&lt;li class="feita"&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Aplicação&lt;/span&gt;&lt;time&gt;16/09/26&lt;/time&gt;&lt;/li&gt;&lt;li class="agora" aria-current="step"&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Hoje&lt;/span&gt;&lt;time&gt;18/11/26&lt;/time&gt;&lt;/li&gt;&lt;li class=""&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Resgate&lt;/span&gt;&lt;span class="dinheiro"&gt;R$ 40.000,00&lt;/span&gt;&lt;time&gt;18/11/26&lt;/time&gt;&lt;/li&gt;&lt;li class=""&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Vencimento&lt;/span&gt;&lt;time&gt;05/09/28&lt;/time&gt;&lt;/li&gt;&lt;/ol&gt;
+    &lt;/div&gt;&lt;/div&gt;
+  &lt;/article&gt;&lt;article class="quadro"&gt;
+    &lt;button class="quadro-topo" data-caixinha="" aria-expanded="false"&gt;
+      &lt;span class="quadro-nome"&gt;LCI Caqui 92&lt;/span&gt;
+      &lt;span class="quadro-valor"&gt;&lt;span class="valor"&gt;R$ 20.229,91&lt;/span&gt;&lt;/span&gt;
+      &lt;span class="quadro-taxa"&gt;92% do CDI&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div class="quadro-abre" inert=""&gt;&lt;div class="quadro-linha"&gt;
+      &lt;ol class="rastreio"&gt;&lt;li class="feita"&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Aplicação&lt;/span&gt;&lt;time&gt;05/10/2026&lt;/time&gt;&lt;/li&gt;&lt;li class="agora" aria-current="step"&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Hoje&lt;/span&gt;&lt;time&gt;18/11/2026&lt;/time&gt;&lt;/li&gt;&lt;li class=""&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Vencimento&lt;/span&gt;&lt;time&gt;24/09/2028&lt;/time&gt;&lt;/li&gt;&lt;/ol&gt;
+    &lt;/div&gt;&lt;/div&gt;
+  &lt;/article&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div data-painel="lista"&gt;&lt;article class="linha-dinheiro"&gt;
+    &lt;div class="linha-topo"&gt;&lt;h3&gt;CDB Caqui Liquidez Diária 110&lt;/h3&gt;&lt;span class="valor"&gt;R$ 40.791,24&lt;/span&gt;&lt;/div&gt;
+    &lt;p class="notas"&gt;110% do CDI&lt;/p&gt;
+    &lt;ol class="rastreio"&gt;&lt;li class="feita"&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Aplicação&lt;/span&gt;&lt;time&gt;16/09/26&lt;/time&gt;&lt;/li&gt;&lt;li class="agora" aria-current="step"&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Hoje&lt;/span&gt;&lt;time&gt;18/11/26&lt;/time&gt;&lt;/li&gt;&lt;li class=""&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Resgate&lt;/span&gt;&lt;span class="dinheiro"&gt;R$ 40.000,00&lt;/span&gt;&lt;time&gt;18/11/26&lt;/time&gt;&lt;/li&gt;&lt;li class=""&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Vencimento&lt;/span&gt;&lt;time&gt;05/09/28&lt;/time&gt;&lt;/li&gt;&lt;/ol&gt;
+  &lt;/article&gt;&lt;article class="linha-dinheiro"&gt;
+    &lt;div class="linha-topo"&gt;&lt;h3&gt;LCI Caqui 92&lt;/h3&gt;&lt;span class="valor"&gt;R$ 20.229,91&lt;/span&gt;&lt;/div&gt;
+    &lt;p class="notas"&gt;92% do CDI&lt;/p&gt;
+    &lt;ol class="rastreio"&gt;&lt;li class="feita"&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Aplicação&lt;/span&gt;&lt;time&gt;05/10/2026&lt;/time&gt;&lt;/li&gt;&lt;li class="agora" aria-current="step"&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Hoje&lt;/span&gt;&lt;time&gt;18/11/2026&lt;/time&gt;&lt;/li&gt;&lt;li class=""&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Vencimento&lt;/span&gt;&lt;time&gt;24/09/2028&lt;/time&gt;&lt;/li&gt;&lt;/ol&gt;
+  &lt;/article&gt;&lt;/div&gt;
+      &lt;div data-painel="grafico"&gt;&lt;div class="setores"&gt;&lt;div class="pizza" role="img" aria-label="CDB 66,8%, LCI 33,2%" style="background: conic-gradient(var(--color-accent) 0% 66.8%, var(--color-ciano) 66.8% 100%)"&gt;&lt;/div&gt;&lt;ul class="setores-legenda"&gt;&lt;li&gt;&lt;span class="setor-cor" style="background: var(--color-accent)"&gt;&lt;/span&gt;&lt;span&gt;CDB, 66,8%&lt;/span&gt;&lt;span class="valor"&gt;R$ 40.791,24&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span class="setor-cor" style="background: var(--color-ciano)"&gt;&lt;/span&gt;&lt;span&gt;LCI, 33,2%&lt;/span&gt;&lt;span class="valor"&gt;R$ 20.229,91&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;/div&gt;&lt;p class="carteira-total"&gt;&lt;span&gt;Total investido, antes do imposto&lt;/span&gt;&lt;span class="valor"&gt;R$ 61.021,15&lt;/span&gt;&lt;/p&gt;&lt;p class="carteira-total"&gt;&lt;span&gt;Disponível na conta&lt;/span&gt;&lt;span class="valor"&gt;R$ 1.250,00&lt;/span&gt;&lt;/p&gt;&lt;span class="notas"&gt;Fonte: posições da sua conta em 18/11/2026&lt;/span&gt;&lt;/div&gt;</code></pre></div></details>
+  </section>
   <section id="status" class="ds-secao">
-  <h2>Faixa por status</h2>
+  <h3>Faixa por status</h3>
   <p>A cor vem de <code>data-situacao</code>. Todas têm botão de fechar. O mesmo pedido aparece em todas, só para comparar as cores.</p>
   <div class="ds-amostra"><div class="destaque" data-situacao="andamento"><div class="destaque-topo"><strong>Resgate em andamento</strong><button class="destaque-fechar" data-fechar-destaque="" aria-label="Fechar aviso"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div><article class="ficha">
-    <h3>Resgate CDB Caqui Liquidez Diária 110</h3>
+    <h4>Resgate CDB Caqui Liquidez Diária 110</h4>
     <p class="quando">Cai em 18/11/2026</p>
     <div class="ficha-meta"><span>Em processamento</span><span class="dinheiro">R$ 40.000,00</span></div>
     <ol class="rastreio"><li class="feita"><span class="marco"></span><span class="passo">Pedido</span><time>17/11/2026</time></li><li class="agora" aria-current="step"><span class="marco"></span><span class="passo">Dia-base, hoje</span><time>18/11/2026</time><span class="nota">depois das 16h</span></li><li class="agora" aria-current="step"><span class="marco"></span><span class="passo">Dinheiro na conta, hoje</span><time>18/11/2026</time></li></ol>
     
   </article></div><div class="destaque" data-situacao="analise"><div class="destaque-topo"><strong>Resgate em análise</strong><button class="destaque-fechar" data-fechar-destaque="" aria-label="Fechar aviso"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div><article class="ficha">
-    <h3>Resgate CDB Caqui Liquidez Diária 110</h3>
+    <h4>Resgate CDB Caqui Liquidez Diária 110</h4>
     <p class="quando">Cai em 18/11/2026</p>
     <div class="ficha-meta"><span>Em processamento</span><span class="dinheiro">R$ 40.000,00</span></div>
     <ol class="rastreio"><li class="feita"><span class="marco"></span><span class="passo">Pedido</span><time>17/11/2026</time></li><li class="agora" aria-current="step"><span class="marco"></span><span class="passo">Dia-base, hoje</span><time>18/11/2026</time><span class="nota">depois das 16h</span></li><li class="agora" aria-current="step"><span class="marco"></span><span class="passo">Dinheiro na conta, hoje</span><time>18/11/2026</time></li></ol>
     
   </article></div><div class="destaque" data-situacao="atrasado"><div class="destaque-topo"><strong>Resgate atrasado</strong><button class="destaque-fechar" data-fechar-destaque="" aria-label="Fechar aviso"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div><article class="ficha">
-    <h3>Resgate CDB Caqui Liquidez Diária 110</h3>
+    <h4>Resgate CDB Caqui Liquidez Diária 110</h4>
     <p class="quando">Cai em 18/11/2026</p>
     <div class="ficha-meta"><span>Em processamento</span><span class="dinheiro">R$ 40.000,00</span></div>
     <ol class="rastreio"><li class="feita"><span class="marco"></span><span class="passo">Pedido</span><time>17/11/2026</time></li><li class="agora" aria-current="step"><span class="marco"></span><span class="passo">Dia-base, hoje</span><time>18/11/2026</time><span class="nota">depois das 16h</span></li><li class="agora" aria-current="step"><span class="marco"></span><span class="passo">Dinheiro na conta, hoje</span><time>18/11/2026</time></li></ol>
     
   </article></div><div class="destaque" data-situacao="concluido"><div class="destaque-topo"><strong>Resgate concluído</strong><button class="destaque-fechar" data-fechar-destaque="" aria-label="Fechar aviso"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div><article class="ficha">
-    <h3>Resgate CDB Caqui Liquidez Diária 110</h3>
+    <h4>Resgate CDB Caqui Liquidez Diária 110</h4>
     <p class="quando">Cai em 18/11/2026</p>
     <div class="ficha-meta"><span>Em processamento</span><span class="dinheiro">R$ 40.000,00</span></div>
     <ol class="rastreio"><li class="feita"><span class="marco"></span><span class="passo">Pedido</span><time>17/11/2026</time></li><li class="agora" aria-current="step"><span class="marco"></span><span class="passo">Dia-base, hoje</span><time>18/11/2026</time><span class="nota">depois das 16h</span></li><li class="agora" aria-current="step"><span class="marco"></span><span class="passo">Dinheiro na conta, hoje</span><time>18/11/2026</time></li></ol>
     
   </article></div><div class="destaque" data-situacao="recusado"><div class="destaque-topo"><strong>Resgate recusado</strong><button class="destaque-fechar" data-fechar-destaque="" aria-label="Fechar aviso"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div><article class="ficha">
-    <h3>Resgate CDB Caqui Liquidez Diária 110</h3>
+    <h4>Resgate CDB Caqui Liquidez Diária 110</h4>
     <p class="quando">Cai em 18/11/2026</p>
     <div class="ficha-meta"><span>Em processamento</span><span class="dinheiro">R$ 40.000,00</span></div>
     <ol class="rastreio"><li class="feita"><span class="marco"></span><span class="passo">Pedido</span><time>17/11/2026</time></li><li class="agora" aria-current="step"><span class="marco"></span><span class="passo">Dia-base, hoje</span><time>18/11/2026</time><span class="nota">depois das 16h</span></li><li class="agora" aria-current="step"><span class="marco"></span><span class="passo">Dinheiro na conta, hoje</span><time>18/11/2026</time></li></ol>
@@ -221,94 +245,26 @@ export function FaixaPedido({ pedido, aoFechar }) {
   &lt;/article&gt;&lt;/div&gt;</code></pre></div></details>
   </section>
   <section id="rastreio" class="ds-secao">
-  <h2>Rastreio do pedido</h2>
+  <h3>Rastreio do pedido</h3>
   <p>A data final é a maior coisa do cartão.</p>
-  <div class="ds-amostra"><article class="ficha"><h3>Resgate CDB Caqui Liquidez Diária 110</h3><p class="quando">Cai em 18/11/2026</p><div class="ficha-meta"><span>Em processamento</span><span class="dinheiro">R$ 40.000,00</span></div>
+  <div class="ds-amostra"><article class="ficha"><h4>Resgate CDB Caqui Liquidez Diária 110</h4><p class="quando">Cai em 18/11/2026</p><div class="ficha-meta"><span>Em processamento</span><span class="dinheiro">R$ 40.000,00</span></div>
   <ol class="rastreio"><li class="feita"><span class="marco"></span><span class="passo">Pedido</span><time>17/11/2026</time></li><li class="agora" aria-current="step"><span class="marco"></span><span class="passo">Dia-base, hoje</span><time>18/11/2026</time><span class="nota">depois das 16h</span></li><li><span class="marco"></span><span class="passo">Dinheiro na conta</span><time>18/11/2026</time></li></ol></article></div>
   <details class="ds-codigo"><summary>Ver código</summary><div class="ds-codigo-bloco"><button class="ds-copiar" type="button">Copiar</button><pre><code>&lt;article class="ficha"&gt;&lt;h3&gt;Resgate CDB Caqui Liquidez Diária 110&lt;/h3&gt;&lt;p class="quando"&gt;Cai em 18/11/2026&lt;/p&gt;&lt;div class="ficha-meta"&gt;&lt;span&gt;Em processamento&lt;/span&gt;&lt;span class="dinheiro"&gt;R$ 40.000,00&lt;/span&gt;&lt;/div&gt;
   &lt;ol class="rastreio"&gt;&lt;li class="feita"&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Pedido&lt;/span&gt;&lt;time&gt;17/11/2026&lt;/time&gt;&lt;/li&gt;&lt;li class="agora" aria-current="step"&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Dia-base, hoje&lt;/span&gt;&lt;time&gt;18/11/2026&lt;/time&gt;&lt;span class="nota"&gt;depois das 16h&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Dinheiro na conta&lt;/span&gt;&lt;time&gt;18/11/2026&lt;/time&gt;&lt;/li&gt;&lt;/ol&gt;&lt;/article&gt;</code></pre></div></details>
   </section>
-  <section id="dinheiro" class="ds-secao">
-  <h2>Onde está meu dinheiro</h2>
-  <p>Caixinhas, Lista ou Gráfico. A escolha fica salva.</p>
-  <div class="ds-amostra ds-amostra-larga"><div class="carteira" data-vista="caixinhas"><div class="carteira-titulo"><h2 class="caixinhas-titulo">Onde está meu dinheiro</h2><select class="vista-seletor" aria-label="Forma de ver"><option value="caixinhas" selected="">Caixinhas</option><option value="lista">Lista</option><option value="grafico">Gráfico</option></select></div><div data-painel="caixinhas"><div class="quadros"><article class="quadro">
-    <button class="quadro-topo" data-caixinha="" aria-expanded="false">
-      <span class="quadro-nome">CDB Caqui Liquidez Diária 110</span>
-      <span class="quadro-valor"><span class="valor">R$ 40.791,24</span></span>
-      <span class="quadro-taxa">110% do CDI</span>
-    </button>
-    <div class="quadro-abre" inert=""><div class="quadro-linha">
-      <ol class="rastreio"><li class="feita"><span class="marco"></span><span class="passo">Aplicação</span><time>16/09/26</time></li><li class="agora" aria-current="step"><span class="marco"></span><span class="passo">Hoje</span><time>18/11/26</time></li><li class=""><span class="marco"></span><span class="passo">Resgate</span><span class="dinheiro">R$ 40.000,00</span><time>18/11/26</time></li><li class=""><span class="marco"></span><span class="passo">Vencimento</span><time>05/09/28</time></li></ol>
-    </div></div>
-  </article><article class="quadro">
-    <button class="quadro-topo" data-caixinha="" aria-expanded="false">
-      <span class="quadro-nome">LCI Caqui 92</span>
-      <span class="quadro-valor"><span class="valor">R$ 20.229,91</span></span>
-      <span class="quadro-taxa">92% do CDI</span>
-    </button>
-    <div class="quadro-abre" inert=""><div class="quadro-linha">
-      <ol class="rastreio"><li class="feita"><span class="marco"></span><span class="passo">Aplicação</span><time>05/10/2026</time></li><li class="agora" aria-current="step"><span class="marco"></span><span class="passo">Hoje</span><time>18/11/2026</time></li><li class=""><span class="marco"></span><span class="passo">Vencimento</span><time>24/09/2028</time></li></ol>
-    </div></div>
-  </article></div></div>
-      <div data-painel="lista"><article class="linha-dinheiro">
-    <div class="linha-topo"><h3>CDB Caqui Liquidez Diária 110</h3><span class="valor">R$ 40.791,24</span></div>
-    <p class="notas">110% do CDI</p>
-    <ol class="rastreio"><li class="feita"><span class="marco"></span><span class="passo">Aplicação</span><time>16/09/26</time></li><li class="agora" aria-current="step"><span class="marco"></span><span class="passo">Hoje</span><time>18/11/26</time></li><li class=""><span class="marco"></span><span class="passo">Resgate</span><span class="dinheiro">R$ 40.000,00</span><time>18/11/26</time></li><li class=""><span class="marco"></span><span class="passo">Vencimento</span><time>05/09/28</time></li></ol>
-  </article><article class="linha-dinheiro">
-    <div class="linha-topo"><h3>LCI Caqui 92</h3><span class="valor">R$ 20.229,91</span></div>
-    <p class="notas">92% do CDI</p>
-    <ol class="rastreio"><li class="feita"><span class="marco"></span><span class="passo">Aplicação</span><time>05/10/2026</time></li><li class="agora" aria-current="step"><span class="marco"></span><span class="passo">Hoje</span><time>18/11/2026</time></li><li class=""><span class="marco"></span><span class="passo">Vencimento</span><time>24/09/2028</time></li></ol>
-  </article></div>
-      <div data-painel="grafico"><div class="setores"><div class="pizza" role="img" aria-label="CDB 66,8%, LCI 33,2%" style="background: conic-gradient(var(--color-accent) 0% 66.8%, var(--color-ciano) 66.8% 100%)"></div><ul class="setores-legenda"><li><span class="setor-cor" style="background: var(--color-accent)"></span><span>CDB, 66,8%</span><span class="valor">R$ 40.791,24</span></li><li><span class="setor-cor" style="background: var(--color-ciano)"></span><span>LCI, 33,2%</span><span class="valor">R$ 20.229,91</span></li></ul></div></div><p class="carteira-total"><span>Total investido, antes do imposto</span><span class="valor">R$ 61.021,15</span></p><p class="carteira-total"><span>Disponível na conta</span><span class="valor">R$ 1.250,00</span></p><span class="notas">Fonte: posições da sua conta em 18/11/2026</span></div></div>
-  <details class="ds-codigo"><summary>Ver código</summary><div class="ds-codigo-bloco"><button class="ds-copiar" type="button">Copiar</button><pre><code>&lt;div class="carteira" data-vista="caixinhas"&gt;&lt;div class="carteira-titulo"&gt;&lt;h2 class="caixinhas-titulo"&gt;Onde está meu dinheiro&lt;/h2&gt;&lt;select class="vista-seletor" aria-label="Forma de ver"&gt;&lt;option value="caixinhas" selected=""&gt;Caixinhas&lt;/option&gt;&lt;option value="lista"&gt;Lista&lt;/option&gt;&lt;option value="grafico"&gt;Gráfico&lt;/option&gt;&lt;/select&gt;&lt;/div&gt;&lt;div data-painel="caixinhas"&gt;&lt;div class="quadros"&gt;&lt;article class="quadro"&gt;
-    &lt;button class="quadro-topo" data-caixinha="" aria-expanded="false"&gt;
-      &lt;span class="quadro-nome"&gt;CDB Caqui Liquidez Diária 110&lt;/span&gt;
-      &lt;span class="quadro-valor"&gt;&lt;span class="valor"&gt;R$ 40.791,24&lt;/span&gt;&lt;/span&gt;
-      &lt;span class="quadro-taxa"&gt;110% do CDI&lt;/span&gt;
-    &lt;/button&gt;
-    &lt;div class="quadro-abre" inert=""&gt;&lt;div class="quadro-linha"&gt;
-      &lt;ol class="rastreio"&gt;&lt;li class="feita"&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Aplicação&lt;/span&gt;&lt;time&gt;16/09/26&lt;/time&gt;&lt;/li&gt;&lt;li class="agora" aria-current="step"&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Hoje&lt;/span&gt;&lt;time&gt;18/11/26&lt;/time&gt;&lt;/li&gt;&lt;li class=""&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Resgate&lt;/span&gt;&lt;span class="dinheiro"&gt;R$ 40.000,00&lt;/span&gt;&lt;time&gt;18/11/26&lt;/time&gt;&lt;/li&gt;&lt;li class=""&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Vencimento&lt;/span&gt;&lt;time&gt;05/09/28&lt;/time&gt;&lt;/li&gt;&lt;/ol&gt;
-    &lt;/div&gt;&lt;/div&gt;
-  &lt;/article&gt;&lt;article class="quadro"&gt;
-    &lt;button class="quadro-topo" data-caixinha="" aria-expanded="false"&gt;
-      &lt;span class="quadro-nome"&gt;LCI Caqui 92&lt;/span&gt;
-      &lt;span class="quadro-valor"&gt;&lt;span class="valor"&gt;R$ 20.229,91&lt;/span&gt;&lt;/span&gt;
-      &lt;span class="quadro-taxa"&gt;92% do CDI&lt;/span&gt;
-    &lt;/button&gt;
-    &lt;div class="quadro-abre" inert=""&gt;&lt;div class="quadro-linha"&gt;
-      &lt;ol class="rastreio"&gt;&lt;li class="feita"&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Aplicação&lt;/span&gt;&lt;time&gt;05/10/2026&lt;/time&gt;&lt;/li&gt;&lt;li class="agora" aria-current="step"&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Hoje&lt;/span&gt;&lt;time&gt;18/11/2026&lt;/time&gt;&lt;/li&gt;&lt;li class=""&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Vencimento&lt;/span&gt;&lt;time&gt;24/09/2028&lt;/time&gt;&lt;/li&gt;&lt;/ol&gt;
-    &lt;/div&gt;&lt;/div&gt;
-  &lt;/article&gt;&lt;/div&gt;&lt;/div&gt;
-      &lt;div data-painel="lista"&gt;&lt;article class="linha-dinheiro"&gt;
-    &lt;div class="linha-topo"&gt;&lt;h3&gt;CDB Caqui Liquidez Diária 110&lt;/h3&gt;&lt;span class="valor"&gt;R$ 40.791,24&lt;/span&gt;&lt;/div&gt;
-    &lt;p class="notas"&gt;110% do CDI&lt;/p&gt;
-    &lt;ol class="rastreio"&gt;&lt;li class="feita"&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Aplicação&lt;/span&gt;&lt;time&gt;16/09/26&lt;/time&gt;&lt;/li&gt;&lt;li class="agora" aria-current="step"&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Hoje&lt;/span&gt;&lt;time&gt;18/11/26&lt;/time&gt;&lt;/li&gt;&lt;li class=""&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Resgate&lt;/span&gt;&lt;span class="dinheiro"&gt;R$ 40.000,00&lt;/span&gt;&lt;time&gt;18/11/26&lt;/time&gt;&lt;/li&gt;&lt;li class=""&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Vencimento&lt;/span&gt;&lt;time&gt;05/09/28&lt;/time&gt;&lt;/li&gt;&lt;/ol&gt;
-  &lt;/article&gt;&lt;article class="linha-dinheiro"&gt;
-    &lt;div class="linha-topo"&gt;&lt;h3&gt;LCI Caqui 92&lt;/h3&gt;&lt;span class="valor"&gt;R$ 20.229,91&lt;/span&gt;&lt;/div&gt;
-    &lt;p class="notas"&gt;92% do CDI&lt;/p&gt;
-    &lt;ol class="rastreio"&gt;&lt;li class="feita"&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Aplicação&lt;/span&gt;&lt;time&gt;05/10/2026&lt;/time&gt;&lt;/li&gt;&lt;li class="agora" aria-current="step"&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Hoje&lt;/span&gt;&lt;time&gt;18/11/2026&lt;/time&gt;&lt;/li&gt;&lt;li class=""&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Vencimento&lt;/span&gt;&lt;time&gt;24/09/2028&lt;/time&gt;&lt;/li&gt;&lt;/ol&gt;
-  &lt;/article&gt;&lt;/div&gt;
-      &lt;div data-painel="grafico"&gt;&lt;div class="setores"&gt;&lt;div class="pizza" role="img" aria-label="CDB 66,8%, LCI 33,2%" style="background: conic-gradient(var(--color-accent) 0% 66.8%, var(--color-ciano) 66.8% 100%)"&gt;&lt;/div&gt;&lt;ul class="setores-legenda"&gt;&lt;li&gt;&lt;span class="setor-cor" style="background: var(--color-accent)"&gt;&lt;/span&gt;&lt;span&gt;CDB, 66,8%&lt;/span&gt;&lt;span class="valor"&gt;R$ 40.791,24&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span class="setor-cor" style="background: var(--color-ciano)"&gt;&lt;/span&gt;&lt;span&gt;LCI, 33,2%&lt;/span&gt;&lt;span class="valor"&gt;R$ 20.229,91&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;/div&gt;&lt;p class="carteira-total"&gt;&lt;span&gt;Total investido, antes do imposto&lt;/span&gt;&lt;span class="valor"&gt;R$ 61.021,15&lt;/span&gt;&lt;/p&gt;&lt;p class="carteira-total"&gt;&lt;span&gt;Disponível na conta&lt;/span&gt;&lt;span class="valor"&gt;R$ 1.250,00&lt;/span&gt;&lt;/p&gt;&lt;span class="notas"&gt;Fonte: posições da sua conta em 18/11/2026&lt;/span&gt;&lt;/div&gt;</code></pre></div></details>
-  </section>
-  <section id="atalhos" class="ds-secao">
-  <h2>Atalhos</h2>
-  <p>Quatro por linha.</p>
-  <div class="ds-amostra ds-amostra-larga"><div class="atalhos"><button class="atalho principal" data-fala="Onde está meu dinheiro?"><span class="atalho-icone"><span class="icone-pacote" style="--icone: url(icones/carteira.svg)"></span></span><span>Portfólio</span></button><button class="atalho" data-fala="Quanto vou receber se resgatar tudo hoje?"><span class="atalho-icone"><span class="icone-pacote" style="--icone: url(icones/calculadora.svg)"></span></span><span>Quanto vou receber</span></button><button class="atalho" data-fala="Meu CDB rendeu menos que a poupança?"><span class="atalho-icone"><span class="icone-pacote" style="--icone: url(icones/rendimento.svg)"></span></span><span>Comparar poupança</span></button><a class="atalho" href="extrato.html?cliente=C-0001&amp;agora=2026-11-18T10%3A00"><span class="atalho-icone"><span class="icone-pacote" style="--icone: url(icones/extrato.svg)"></span></span><span>Extrato</span></a></div></div>
-  <details class="ds-codigo"><summary>Ver código</summary><div class="ds-codigo-bloco"><button class="ds-copiar" type="button">Copiar</button><pre><code>&lt;div class="atalhos"&gt;&lt;button class="atalho principal" data-fala="Onde está meu dinheiro?"&gt;&lt;span class="atalho-icone"&gt;&lt;span class="icone-pacote" style="--icone: url(icones/carteira.svg)"&gt;&lt;/span&gt;&lt;/span&gt;&lt;span&gt;Portfólio&lt;/span&gt;&lt;/button&gt;&lt;button class="atalho" data-fala="Quanto vou receber se resgatar tudo hoje?"&gt;&lt;span class="atalho-icone"&gt;&lt;span class="icone-pacote" style="--icone: url(icones/calculadora.svg)"&gt;&lt;/span&gt;&lt;/span&gt;&lt;span&gt;Quanto vou receber&lt;/span&gt;&lt;/button&gt;&lt;button class="atalho" data-fala="Meu CDB rendeu menos que a poupança?"&gt;&lt;span class="atalho-icone"&gt;&lt;span class="icone-pacote" style="--icone: url(icones/rendimento.svg)"&gt;&lt;/span&gt;&lt;/span&gt;&lt;span&gt;Comparar poupança&lt;/span&gt;&lt;/button&gt;&lt;a class="atalho" href="extrato.html?cliente=C-0001&amp;amp;agora=2026-11-18T10%3A00"&gt;&lt;span class="atalho-icone"&gt;&lt;span class="icone-pacote" style="--icone: url(icones/extrato.svg)"&gt;&lt;/span&gt;&lt;/span&gt;&lt;span&gt;Extrato&lt;/span&gt;&lt;/a&gt;&lt;/div&gt;</code></pre></div></details>
-  </section>
   <section id="chat" class="ds-secao">
-  <h2>caquIA</h2>
+  <h3>caquIA</h3>
   <p>Popup com perguntas sugeridas, campo, microfone e saída para uma pessoa.</p>
   <div class="ds-amostra"><section class="chat" role="dialog" aria-label="Conversa com a caquIA">
     <header class="chat-topo">
       <span class="chat-simbolo"><svg viewBox="-63 -67.2 406 406" width="32" height="32" aria-hidden="true"><circle cx="140" cy="135.8" r="203" fill="currentColor"></circle><g class="orb-raios"><path d="M218.02,187.97c-2.33-.17-47.28-28.98-47.78-39.3-.54-11.28,43.79,24.86,44.12,25.2,2.44,2.57,15.25,14.95,3.66,14.1Z"></path><path d="M186.63,219.97c-2.17-.86-36.49-41.76-33.88-51.76,2.85-10.93,34.38,36.79,34.59,37.21,1.56,3.18,10.1,18.82-.71,14.55Z"></path><path d="M62.34,187.97c2.33-.17,47.28-28.98,47.78-39.3.54-11.28-43.79,24.86-44.12,25.2-2.44,2.57-15.25,14.95-3.66,14.1Z"></path><path d="M93.73,219.97c2.17-.86,36.49-41.76,33.88-51.76-2.85-10.93-34.38,36.79-34.59,37.21-1.56,3.18-10.1,18.82.71,14.55Z"></path><path d="M218.02,83.69c-2.33.17-47.28,28.98-47.78,39.3-.54,11.28,43.79-24.86,44.12-25.2,2.44-2.57,15.25-14.95,3.66-14.1Z"></path><path d="M186.63,51.69c-2.17.86-36.49,41.76-33.88,51.76,2.85,10.93,34.38-36.79,34.59-37.21,1.56-3.18,10.1-18.82-.71-14.55Z"></path><path d="M62.34,83.69c2.33.17,47.28,28.98,47.78,39.3.54,11.28-43.79-24.86-44.12-25.2-2.44-2.57-15.25-14.95-3.66-14.1Z"></path><path d="M93.73,51.69c2.17.86,36.49,41.76,33.88,51.76-2.85,10.93-34.38-36.79-34.59-37.21-1.56-3.18-10.1-18.82.71-14.55Z"></path></g></svg></span>
-      <h2>caquIA</h2>
+      <h3>caquIA</h3>
       <button class="base-pessoa" type="button" data-fala="Quero falar com uma pessoa" data-importante="">Falar com uma pessoa</button>
       <button class="chat-fechar" type="button" data-fechar="" aria-label="Fechar conversa"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
     </header>
     <main class="fio" aria-live="polite"><div class="bolha "><div class="corpo"><p>Como posso ajudar?</p></div><div class="chips"><button class="chip" data-fala="Meu resgate não caiu. Sumiu?">Meu resgate não caiu. Sumiu?</button><button class="chip" data-fala="Apliquei e não aparece no extrato">Apliquei e não aparece no extrato</button><button class="chip" data-fala="Quando cai meu resgate?">Quando cai meu resgate?</button><button class="chip" data-fala="O que é liquidez diária?">O que é liquidez diária?</button></div></div><div class="bolha cliente"><p>Quando cai meu resgate?</p></div><div class="bolha "><div class="corpo"><p>Seu dinheiro está a caminho: resgate de R$ 40.000,00 (CDB Caqui Liquidez Diária 110) cai hoje, 18/11/2026. Como o pedido foi feito em 17/11/2026 às 19h40 (depois das 16h), o dia-base é 18/11/2026. Hoje o status é em processamento.</p></div>
     <article class="ficha">
-    <h3>Resgate CDB Caqui Liquidez Diária 110</h3>
+    <h4>Resgate CDB Caqui Liquidez Diária 110</h4>
     <p class="quando">Cai em 18/11/2026</p>
     <div class="ficha-meta"><span>Em processamento</span><span class="dinheiro">R$ 40.000,00</span></div>
     <ol class="rastreio"><li class="feita"><span class="marco"></span><span class="passo">Pedido</span><time>17/11/2026</time></li><li class="agora" aria-current="step"><span class="marco"></span><span class="passo">Dia-base, hoje</span><time>18/11/2026</time><span class="nota">depois das 16h</span></li><li class="agora" aria-current="step"><span class="marco"></span><span class="passo">Dinheiro na conta, hoje</span><time>18/11/2026</time></li></ol>
@@ -333,45 +289,9 @@ export function FaixaPedido({ pedido, aoFechar }) {
         <p class="horario">Pessoas das 8h às 20h, todos os dias: disponível agora.</p>
       </details>
     </div>
-  </section></div>
-  <details class="ds-codigo"><summary>Ver código</summary><div class="ds-codigo-bloco"><button class="ds-copiar" type="button">Copiar</button><pre><code>&lt;section class="chat" role="dialog" aria-label="Conversa com a caquIA"&gt;
-    &lt;header class="chat-topo"&gt;
-      &lt;span class="chat-simbolo"&gt;&lt;svg viewBox="-63 -67.2 406 406" width="32" height="32" aria-hidden="true"&gt;&lt;circle cx="140" cy="135.8" r="203" fill="currentColor"&gt;&lt;/circle&gt;&lt;g class="orb-raios"&gt;&lt;path d="M218.02,187.97c-2.33-.17-47.28-28.98-47.78-39.3-.54-11.28,43.79,24.86,44.12,25.2,2.44,2.57,15.25,14.95,3.66,14.1Z"&gt;&lt;/path&gt;&lt;path d="M186.63,219.97c-2.17-.86-36.49-41.76-33.88-51.76,2.85-10.93,34.38,36.79,34.59,37.21,1.56,3.18,10.1,18.82-.71,14.55Z"&gt;&lt;/path&gt;&lt;path d="M62.34,187.97c2.33-.17,47.28-28.98,47.78-39.3.54-11.28-43.79,24.86-44.12,25.2-2.44,2.57-15.25,14.95-3.66,14.1Z"&gt;&lt;/path&gt;&lt;path d="M93.73,219.97c2.17-.86,36.49-41.76,33.88-51.76-2.85-10.93-34.38,36.79-34.59,37.21-1.56,3.18-10.1,18.82.71,14.55Z"&gt;&lt;/path&gt;&lt;path d="M218.02,83.69c-2.33.17-47.28,28.98-47.78,39.3-.54,11.28,43.79-24.86,44.12-25.2,2.44-2.57,15.25-14.95,3.66-14.1Z"&gt;&lt;/path&gt;&lt;path d="M186.63,51.69c-2.17.86-36.49,41.76-33.88,51.76,2.85,10.93,34.38-36.79,34.59-37.21,1.56-3.18,10.1-18.82-.71-14.55Z"&gt;&lt;/path&gt;&lt;path d="M62.34,83.69c2.33.17,47.28,28.98,47.78,39.3.54,11.28-43.79-24.86-44.12-25.2-2.44-2.57-15.25-14.95-3.66-14.1Z"&gt;&lt;/path&gt;&lt;path d="M93.73,51.69c2.17.86,36.49,41.76,33.88,51.76-2.85,10.93-34.38-36.79-34.59-37.21-1.56-3.18-10.1-18.82.71-14.55Z"&gt;&lt;/path&gt;&lt;/g&gt;&lt;/svg&gt;&lt;/span&gt;
-      &lt;h2&gt;caquIA&lt;/h2&gt;
-      &lt;button class="base-pessoa" type="button" data-fala="Quero falar com uma pessoa" data-importante=""&gt;Falar com uma pessoa&lt;/button&gt;
-      &lt;button class="chat-fechar" type="button" data-fechar="" aria-label="Fechar conversa"&gt;&lt;svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"&gt;&lt;path d="M6 6l12 12M18 6L6 18"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/button&gt;
-    &lt;/header&gt;
-    &lt;main class="fio" aria-live="polite"&gt;&lt;div class="bolha "&gt;&lt;div class="corpo"&gt;&lt;p&gt;Como posso ajudar?&lt;/p&gt;&lt;/div&gt;&lt;div class="chips"&gt;&lt;button class="chip" data-fala="Meu resgate não caiu. Sumiu?"&gt;Meu resgate não caiu. Sumiu?&lt;/button&gt;&lt;button class="chip" data-fala="Apliquei e não aparece no extrato"&gt;Apliquei e não aparece no extrato&lt;/button&gt;&lt;button class="chip" data-fala="Quando cai meu resgate?"&gt;Quando cai meu resgate?&lt;/button&gt;&lt;button class="chip" data-fala="O que é liquidez diária?"&gt;O que é liquidez diária?&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="bolha cliente"&gt;&lt;p&gt;Quando cai meu resgate?&lt;/p&gt;&lt;/div&gt;&lt;div class="bolha "&gt;&lt;div class="corpo"&gt;&lt;p&gt;Seu dinheiro está a caminho: resgate de R$ 40.000,00 (CDB Caqui Liquidez Diária 110) cai hoje, 18/11/2026. Como o pedido foi feito em 17/11/2026 às 19h40 (depois das 16h), o dia-base é 18/11/2026. Hoje o status é em processamento.&lt;/p&gt;&lt;/div&gt;
-    &lt;article class="ficha"&gt;
-    &lt;h3&gt;Resgate CDB Caqui Liquidez Diária 110&lt;/h3&gt;
-    &lt;p class="quando"&gt;Cai em 18/11/2026&lt;/p&gt;
-    &lt;div class="ficha-meta"&gt;&lt;span&gt;Em processamento&lt;/span&gt;&lt;span class="dinheiro"&gt;R$ 40.000,00&lt;/span&gt;&lt;/div&gt;
-    &lt;ol class="rastreio"&gt;&lt;li class="feita"&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Pedido&lt;/span&gt;&lt;time&gt;17/11/2026&lt;/time&gt;&lt;/li&gt;&lt;li class="agora" aria-current="step"&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Dia-base, hoje&lt;/span&gt;&lt;time&gt;18/11/2026&lt;/time&gt;&lt;span class="nota"&gt;depois das 16h&lt;/span&gt;&lt;/li&gt;&lt;li class="agora" aria-current="step"&gt;&lt;span class="marco"&gt;&lt;/span&gt;&lt;span class="passo"&gt;Dinheiro na conta, hoje&lt;/span&gt;&lt;time&gt;18/11/2026&lt;/time&gt;&lt;/li&gt;&lt;/ol&gt;
-    
-  &lt;/article&gt;&lt;details class="fontes"&gt;&lt;summary&gt;Fonte: operação OP-10005 da sua conta e mais 2&lt;/summary&gt;&lt;div class="fontes-lista"&gt;&lt;span&gt;operação OP-10005 da sua conta&lt;/span&gt;&lt;button class="fonte" data-artigo="KB-006"&gt;KB-006, revisado em 01/10/2026&lt;/button&gt;&lt;button class="fonte" data-artigo="KB-008"&gt;KB-008, revisado em 01/10/2026&lt;/button&gt;&lt;/div&gt;&lt;/details&gt;
-    &lt;div class="chips"&gt;&lt;button class="chip" data-ok=""&gt;Resolveu&lt;/button&gt;&lt;button class="chip" data-fala="Não resolveu"&gt;Não resolveu&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/main&gt;
-    &lt;div class="chat-base"&gt;
-      &lt;form class="campo"&gt;
-          &lt;div class="campo-texto"&gt;
-            &lt;textarea rows="1" aria-label="Sua mensagem" placeholder="Fale aqui"&gt;&lt;/textarea&gt;
-            &lt;button class="microfone" type="button" aria-label="Falar por áudio" aria-pressed="false"&gt;&lt;svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;&lt;path d="M12 15a3.5 3.5 0 0 0 3.5-3.5v-5a3.5 3.5 0 1 0-7 0v5A3.5 3.5 0 0 0 12 15Z"&gt;&lt;/path&gt;&lt;path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/button&gt;
-          &lt;/div&gt;
-          &lt;button class="primario enviar-icone" type="submit" aria-label="Enviar"&gt;&lt;svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;&lt;path d="M21 3 3 10.5l7 3L13.5 21 21 3Z"&gt;&lt;/path&gt;&lt;path d="M10 13.5 21 3"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/button&gt;
-      &lt;/form&gt;
-      &lt;details class="mais"&gt;
-        &lt;summary&gt;&lt;span class="mais-abrir"&gt;Mais opções&lt;/span&gt;&lt;span class="mais-fechar"&gt;Menos opções&lt;/span&gt;&lt;svg class="mais-seta" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;&lt;path d="M6 9l6 6 6-6"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/summary&gt;
-        &lt;nav class="saidas" aria-label="Saídas do atendimento"&gt;
-          &lt;button type="button" data-fala="Quero fazer uma reclamação" data-importante=""&gt;Reclamar&lt;/button&gt;
-          &lt;button type="button" data-fala="Quero encerrar minha conta" data-importante=""&gt;Encerrar&lt;/button&gt;
-          &lt;button type="button" data-fala="Acho que é golpe" data-importante=""&gt;Suspeita de golpe&lt;/button&gt;
-        &lt;/nav&gt;
-        &lt;p class="horario"&gt;Pessoas das 8h às 20h, todos os dias: disponível agora.&lt;/p&gt;
-      &lt;/details&gt;
-    &lt;/div&gt;
-  &lt;/section&gt;</code></pre></div></details>
   </section>
   <section id="sanfona" class="ds-secao">
-  <h2>Mais opções</h2>
+  <h3>Mais opções</h3>
   <p>Sanfona que alterna entre "Mais opções" e "Menos opções".</p>
   <div class="ds-amostra"><details class="mais">
         <summary><span class="mais-abrir">Mais opções</span><span class="mais-fechar">Menos opções</span><svg class="mais-seta" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></summary>
@@ -393,65 +313,84 @@ export function FaixaPedido({ pedido, aoFechar }) {
       &lt;/details&gt;</code></pre></div></details>
   </section>
   <section id="golpe" class="ds-secao">
-  <h2>Aviso de golpe</h2>
+  <h3>Aviso de golpe</h3>
   <p>Tela inteira, sem logo, quando a caquIA detecta golpe.</p>
   <div class="ds-amostra"><section class="pare" role="alertdialog" aria-modal="true">
     <div class="pare-dentro">
       <svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7.5 2.8v5.4c0 4.6-3 8-7.5 9.8-4.5-1.8-7.5-5.2-7.5-9.8V5.8L12 3Z"></path><path d="M12 8.5v4.5M12 16.2h.01"></path></svg>
-      <h2>Pare agora.</h2>
+      <h3>Pare agora.</h3>
       <p class="pare-forte">A Caqui nunca liga, manda mensagem ou e-mail pedindo código, senha ou transferência.</p>
       <p>Se alguém pediu isso agora, não envie nada e não desligue por conta própria.</p>
       <p>Bloqueamos sua sessão por precaução. Segurança atende 24 horas, inclusive fora do horário de atendimento.</p>
       <p class="notas">Fontes: KB-019 e KB-020</p>
       <div class="pare-acoes"><button class="pare-botao" type="button" data-pare="seguranca">Falar com segurança agora</button><button class="pare-sair" type="button" data-pare="voltar">Não era golpe, voltar ao app</button></div>
     </div>
-  </section></div>
-  <details class="ds-codigo"><summary>Ver código</summary><div class="ds-codigo-bloco"><button class="ds-copiar" type="button">Copiar</button><pre><code>&lt;section class="pare" role="alertdialog" aria-modal="true"&gt;
-    &lt;div class="pare-dentro"&gt;
-      &lt;svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;&lt;path d="M12 3l7.5 2.8v5.4c0 4.6-3 8-7.5 9.8-4.5-1.8-7.5-5.2-7.5-9.8V5.8L12 3Z"&gt;&lt;/path&gt;&lt;path d="M12 8.5v4.5M12 16.2h.01"&gt;&lt;/path&gt;&lt;/svg&gt;
-      &lt;h2&gt;Pare agora.&lt;/h2&gt;
-      &lt;p class="pare-forte"&gt;A Caqui nunca liga, manda mensagem ou e-mail pedindo código, senha ou transferência.&lt;/p&gt;
-      &lt;p&gt;Se alguém pediu isso agora, não envie nada e não desligue por conta própria.&lt;/p&gt;
-      &lt;p&gt;Bloqueamos sua sessão por precaução. Segurança atende 24 horas, inclusive fora do horário de atendimento.&lt;/p&gt;
-      &lt;p class="notas"&gt;Fontes: KB-019 e KB-020&lt;/p&gt;
-      &lt;div class="pare-acoes"&gt;&lt;button class="pare-botao" type="button" data-pare="seguranca"&gt;Falar com segurança agora&lt;/button&gt;&lt;button class="pare-sair" type="button" data-pare="voltar"&gt;Não era golpe, voltar ao app&lt;/button&gt;&lt;/div&gt;
-    &lt;/div&gt;
-  &lt;/section&gt;</code></pre></div></details>
   </section>
   <section id="avisos" class="ds-secao">
-  <h2>Avisos na conversa</h2>
+  <h3>Avisos na conversa</h3>
   <p>Interrompem o fluxo em golpe e marcam pedido atrasado.</p>
-  <div class="ds-amostra"><div class="aviso"><strong>Segurança da Caqui acionada, sem fila</strong></div><article class="ficha atrasada"><h3>Pedido atrasado</h3><p class="quando">Previsto para 10/11/2026</p></article></div>
+  <div class="ds-amostra"><div class="aviso"><strong>Segurança da Caqui acionada, sem fila</strong></div><article class="ficha atrasada"><h4>Pedido atrasado</h4><p class="quando">Previsto para 10/11/2026</p></article></div>
   <details class="ds-codigo"><summary>Ver código</summary><div class="ds-codigo-bloco"><button class="ds-copiar" type="button">Copiar</button><pre><code>&lt;div class="aviso"&gt;&lt;strong&gt;Segurança da Caqui acionada, sem fila&lt;/strong&gt;&lt;/div&gt;&lt;article class="ficha atrasada"&gt;&lt;h3&gt;Pedido atrasado&lt;/h3&gt;&lt;p class="quando"&gt;Previsto para 10/11/2026&lt;/p&gt;&lt;/article&gt;</code></pre></div></details>
   </section>
-  <section id="extrato" class="ds-secao">
-  <h2>Extrato</h2>
-  <p>Página própria, com topo só com a seta.</p>
-  <div class="ds-amostra"><main class="extrato"><h1>Extrato de Marta</h1>
-    <p class="saldo"><span>Disponível na conta</span> <span class="dinheiro">R$ 1.250,00</span></p>
-    <ul class="lista-extrato"><li class="linha-extrato"><div><h2>Resgate CDB Caqui Liquidez Diária 110</h2><p class="notas">17/11/2026, Em processamento</p></div><span class="dinheiro">R$ 40.000,00</span></li><li class="linha-extrato"><div><h2>Aplicação LCI Caqui 92</h2><p class="notas">05/10/2026, Liquidada</p></div><span class="dinheiro">R$ 20.000,00</span></li></ul>
-    <p class="notas">Fonte: operações da sua conta até 18/11/2026</p></main></div>
-  <details class="ds-codigo"><summary>Ver código</summary><div class="ds-codigo-bloco"><button class="ds-copiar" type="button">Copiar</button><pre><code>&lt;main class="extrato"&gt;&lt;h1&gt;Extrato de Marta&lt;/h1&gt;
-    &lt;p class="saldo"&gt;&lt;span&gt;Disponível na conta&lt;/span&gt; &lt;span class="dinheiro"&gt;R$ 1.250,00&lt;/span&gt;&lt;/p&gt;
-    &lt;ul class="lista-extrato"&gt;&lt;li class="linha-extrato"&gt;&lt;div&gt;&lt;h2&gt;Resgate CDB Caqui Liquidez Diária 110&lt;/h2&gt;&lt;p class="notas"&gt;17/11/2026, Em processamento&lt;/p&gt;&lt;/div&gt;&lt;span class="dinheiro"&gt;R$ 40.000,00&lt;/span&gt;&lt;/li&gt;&lt;li class="linha-extrato"&gt;&lt;div&gt;&lt;h2&gt;Aplicação LCI Caqui 92&lt;/h2&gt;&lt;p class="notas"&gt;05/10/2026, Liquidada&lt;/p&gt;&lt;/div&gt;&lt;span class="dinheiro"&gt;R$ 20.000,00&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;
-    &lt;p class="notas"&gt;Fonte: operações da sua conta até 18/11/2026&lt;/p&gt;&lt;/main&gt;</code></pre></div></details>
+<h2 class="ds-grupo" id="g-telas">Telas</h2>
+  <section id="telas" class="ds-secao">
+    <p>São as telas reais do app, então mudam junto com ele.</p>
+  <div class="ds-telas"><figure class="ds-tela ds-largo"><figcaption>Home no desktop</figcaption><div class="ds-moldura"><iframe src="/" title="Home no desktop" loading="lazy" data-largura="1440" data-altura="900" width="1440" height="900"></iframe></div></figure><figure class="ds-tela ds-celular"><figcaption>Home no celular</figcaption><div class="ds-moldura"><iframe src="/" title="Home no celular" loading="lazy" data-largura="375" data-altura="760" width="375" height="760"></iframe></div></figure><figure class="ds-tela ds-celular"><figcaption>Extrato</figcaption><div class="ds-moldura"><iframe src="/extrato?cliente=C-0001&agora=2026-11-18T10:00" title="Extrato" loading="lazy" data-largura="375" data-altura="760" width="375" height="760"></iframe></div></figure><figure class="ds-tela ds-celular"><figcaption>Configurações</figcaption><div class="ds-moldura"><iframe src="/configuracoes?cliente=C-0001&agora=2026-11-18T10:00" title="Configurações" loading="lazy" data-largura="375" data-altura="760" width="375" height="760"></iframe></div></figure></div>
   </section>
-  <section id="configuracoes" class="ds-secao">
-  <h2>Configurações</h2>
-  <p>Nome, valores ocultos e forma de ver o portfólio.</p>
-  <div class="ds-amostra"><main class="extrato"><h1>Configurações</h1>
-    <ul class="lista-extrato">
-      <li class="linha-extrato"><span>Nome</span><strong>Marta</strong></li>
-      <li class="linha-extrato"><label>Abrir com valores ocultos</label><input class="chave" type="checkbox" role="switch"></li>
-      <li class="linha-extrato"><label>Forma de ver o portfólio</label><select class="vista-seletor"><option value="caixinhas" selected="">Caixinhas</option><option value="lista">Lista</option><option value="grafico">Gráfico</option></select></li>
-    </ul></main></div>
-  <details class="ds-codigo"><summary>Ver código</summary><div class="ds-codigo-bloco"><button class="ds-copiar" type="button">Copiar</button><pre><code>&lt;main class="extrato"&gt;&lt;h1&gt;Configurações&lt;/h1&gt;
-    &lt;ul class="lista-extrato"&gt;
-      &lt;li class="linha-extrato"&gt;&lt;span&gt;Nome&lt;/span&gt;&lt;strong&gt;Marta&lt;/strong&gt;&lt;/li&gt;
-      &lt;li class="linha-extrato"&gt;&lt;label&gt;Abrir com valores ocultos&lt;/label&gt;&lt;input class="chave" type="checkbox" role="switch"&gt;&lt;/li&gt;
-      &lt;li class="linha-extrato"&gt;&lt;label&gt;Forma de ver o portfólio&lt;/label&gt;&lt;select class="vista-seletor"&gt;&lt;option value="caixinhas" selected=""&gt;Caixinhas&lt;/option&gt;&lt;option value="lista"&gt;Lista&lt;/option&gt;&lt;option value="grafico"&gt;Gráfico&lt;/option&gt;&lt;/select&gt;&lt;/li&gt;
-    &lt;/ul&gt;&lt;/main&gt;</code></pre></div></details>
+<h2 class="ds-grupo" id="g-para">Para devs</h2>
+  <section id="devs" class="ds-secao">
+  <p>Guia para implementar o atendimento Caqui. UI e UX por Renan Chaves.</p>
+<h4>Rodar</h4>
+<p>O projeto é JavaScript com módulos ES, sem etapa de build no front-end.</p>
+<div class="ds-codigo-bloco"><button class="ds-copiar" type="button">Copiar</button><pre><code>npm install
+npx wrangler dev --port 8799</code></pre></div>
+<p>Antes de dizer que terminou, rode os dois:</p>
+<div class="ds-codigo-bloco"><button class="ds-copiar" type="button">Copiar</button><pre><code>npm test
+npm run perguntas</code></pre></div>
+<h4>Onde está cada coisa</h4>
+<div class="ds-tabela"><table><thead><tr><th>Caminho</th><th>O quê</th></tr></thead><tbody><tr><td><code>public/tokens.css</code></td><td>Fonte única de cor, fonte, tamanho e raio</td></tr><tr><td><code>public/estilo.css</code></td><td>Todos os componentes</td></tr><tr><td><code>public/app.js</code>, <code>public/ui.js</code></td><td>Home e chat</td></tr><tr><td><code>src/motor.mjs</code></td><td>Regras do atendimento, sem modelo de linguagem</td></tr><tr><td><code>src/worker.mjs</code></td><td>Rotas da API</td></tr><tr><td><code>dados/</code></td><td>Dados sintéticos</td></tr><tr><td><code>design-system/tokens.json</code></td><td>Os mesmos tokens em JSON, para levar a outro stack</td></tr><tr><td><code>DESIGN.md</code></td><td>Regras de marca e lista de componentes</td></tr><tr><td><code>SPEC.md</code></td><td>Decisões e comportamento</td></tr></tbody></table></div>
+<h4>Usar os tokens</h4>
+<p>No HTML, carregue a fonte de reserva e o CSS:</p>
+<div class="ds-codigo-bloco"><button class="ds-copiar" type="button">Copiar</button><pre><code>&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&amp;display=swap"&gt;
+&lt;link rel="stylesheet" href="estilo.css"&gt;</code></pre></div>
+<p>No componente, use sempre a variável:</p>
+<div class="ds-codigo-bloco"><button class="ds-copiar" type="button">Copiar</button><pre><code>.meu-cartao {
+  background: var(--color-card);
+  color: var(--color-ink);
+  border-radius: var(--radius);
+  box-shadow: var(--sombra);
+}</code></pre></div>
+<p>Nunca escreva cor, fonte ou raio direto no componente.</p>
+<h4>Levar para React</h4>
+<p>As classes funcionam em qualquer stack. Importe <code>tokens.css</code> e <code>estilo.css</code> uma vez na entrada e use <code>className</code>:</p>
+<div class="ds-codigo-bloco"><button class="ds-copiar" type="button">Copiar</button><pre><code>const ROTULOS = { andamento: 'em andamento', analise: 'em análise', atrasado: 'atrasado', concluido: 'concluído', recusado: 'recusado' };
+
+export function FaixaPedido({ pedido, aoFechar }) {
+  const tipo = pedido.titulo.split(' ')[0];
+  return (
+    &lt;div className="destaque" data-situacao={pedido.situacao}&gt;
+      &lt;div className="destaque-topo"&gt;
+        &lt;strong&gt;{tipo} {ROTULOS[pedido.situacao]}&lt;/strong&gt;
+        &lt;button className="destaque-fechar" aria-label="Fechar aviso" onClick={aoFechar}&gt;×&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre></div>
+<p>Neste exemplo, o rótulo não trata "Aplicação atrasada". O código real faz essa concordância em <code>public/app.js</code>, na função <code>rotuloSituacao</code>.</p>
+<h4>Estados por atributo</h4>
+<div class="ds-tabela"><table><thead><tr><th>Atributo</th><th>Onde</th><th>Valores</th></tr></thead><tbody><tr><td><code>data-situacao</code></td><td><code>.destaque</code></td><td><code>andamento</code>, <code>analise</code>, <code>atrasado</code>, <code>concluido</code>, <code>recusado</code></td></tr><tr><td><code>data-vista</code></td><td><code>.carteira</code></td><td><code>caixinhas</code>, <code>lista</code>, <code>grafico</code></td></tr><tr><td><code>aria-current="page"</code></td><td>item de <code>.menu-base</code></td><td>Tela atual</td></tr><tr><td><code>aria-current="step"</code></td><td>item de <code>.rastreio</code></td><td>Etapa atual</td></tr><tr><td><code>.oculto</code></td><td><code>#home</code></td><td>Esconde os valores</td></tr><tr><td><code>.humano</code></td><td><code>.chat</code></td><td>Conversa passada para a equipe</td></tr></tbody></table></div>
+<p>Preferências em <code>localStorage</code>: <code>vista</code>, <code>valores</code> e <code>demo</code>. Em <code>sessionStorage</code>, <code>demo-escolha</code> guarda o cliente da demonstração. Todo acesso fica em <code>try/catch</code>.</p>
+<h4>API</h4>
+<div class="ds-tabela"><table><thead><tr><th>Rota</th><th>Uso</th></tr></thead><tbody><tr><td><code>GET /api/demo</code></td><td>Clientes e horários da demonstração</td></tr><tr><td><code>GET /api/inicio?cliente=C-0001&amp;agora=2026-11-18T10:00</code></td><td>Dados da home</td></tr><tr><td><code>GET /api/extrato?cliente=C-0001&amp;agora=2026-11-18T10:00</code></td><td>Extrato e nome da conta</td></tr><tr><td><code>POST /api/mensagem</code></td><td>Resposta do motor</td></tr><tr><td><code>GET /api/artigo/KB-006</code></td><td>Artigo da base</td></tr><tr><td><code>GET /api/casos</code></td><td>Fila do painel do atendente</td></tr><tr><td><code>GET /api/casos/:protocolo</code></td><td>Um caso</td></tr></tbody></table></div>
+<p><code>POST /api/mensagem</code> recebe <code>{ cliente, agora, estado, historico, texto }</code> e devolve o novo <code>estado</code>. Quando devolve <code>acao: "seguranca_imediata"</code>, o front abre o aviso de golpe.</p>
+<p><code>GET /api/inicio</code> devolve, entre outros, <code>pedidos</code> para os pedidos abertos e <code>recentes</code> para os concluídos ou recusados há até um dia. Cada cartão traz <code>situacao</code>, que define a cor da faixa.</p>
+<h4>Regras que não mudam</h4>
+<ul><li>Modelo de linguagem nunca escreve prazo, taxa ou valor.</li><li>Toda resposta factual cita o artigo da base ou o dado da conta.</li><li>O id do cliente vem da sessão, nunca do texto da conversa.</li><li>Log só com protocolo, regra, motivo e ação. CPF sempre mascarado.</li><li>Todo valor em dinheiro usa <code>--color-ink</code>, ou creme sobre o topo escuro.</li><li>Só dados sintéticos e nenhum segredo no repositório.</li><li>Regra nova vira teste em <code>test/motor.test.mjs</code>.</li></ul>
+<h4>Acessibilidade</h4>
+<ul><li>Alvos de toque com pelo menos 44px.</li><li>Foco visível com <code>--color-focus</code>.</li><li>Animação sempre com alternativa para <code>prefers-reduced-motion</code>.</li><li>Mensagens de estado em texto, nunca só por cor.</li></ul>
   </section>
+  </div>
+  </div>
 </main>
 <script type="module" src="design-system.js"></script>
 </body>

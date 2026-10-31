@@ -328,6 +328,12 @@ try {
 } catch {}
 await Promise.all([iniciar(), espera(1920)]);
 if (location.hash === '#dinheiro' || location.hash === '#caquia') ir(location.hash.slice(1));
+const pergunta = new URLSearchParams(location.search).get('q');
+if (pergunta) {
+  history.replaceState(null, '', '/');
+  conversa(true);
+  falar(pergunta);
+}
 const abertura = $('#carregando');
 abertura.classList.add('pronto');
 await espera(1700);
