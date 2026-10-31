@@ -1,0 +1,7 @@
+name = "caqui"
+compatibility_date = "2026-06-01"
+pages_build_output_dir = "../dist"
+
+[[kv_namespaces]]
+binding = "CASOS"
+id = "08da1b38bc324db1a67d22ed706d31d4"

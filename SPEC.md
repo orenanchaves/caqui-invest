@@ -1,7 +1,7 @@
 # SPEC: atendimento Caqui
 
 **Grupo:** Renan Chaves
-**URL pública:** https://caqui-cade.ond-jarvis.workers.dev
+**URL pública:** https://caqui.pages.dev
 
 > Escrita antes do código. Mudou durante o dia? Atualizar aqui e anotar em "Decisões".
 
@@ -69,7 +69,7 @@ Total: **cerca de 4.026 h por mês, 42% das 9.560 h**.
 - Modelo de linguagem em produção. Entender o cliente é por regras e palavras. Quem escreve de um jeito não previsto cai em "não entendi" e chega rápido a uma pessoa. Troca-se abrangência por confiabilidade, como o case pede.
 - Executar resgate, aplicação ou bloqueio real. O bloqueio de sessão é simulado.
 - Login real. A demonstração escolhe o cliente fictício, e o texto da conversa nunca muda isso.
-- Telefone e WhatsApp. Só chat web.
+- Telefone e WhatsApp. Só chat web, com áudio transcrito pelo navegador quando ele oferece esse recurso.
 - Conversa real com o atendente. O painel mostra como o caso chega.
 - Tempo de espera real. O número mostrado é simulado, com rótulo visível: 35 min no pico (dado do case) e uma estimativa fixa fora dele.
 - Geração de documento (extrato em PDF, informe). A resposta diz onde encontrar, quando a base diz.
@@ -116,9 +116,11 @@ Itens de "O que vale para qualquer caminho" que não se aplicam: nenhum.
 | 31/10 | Identidade da Caqui com o logo oficial e Montserrat no lugar da Proxima Nova | A Proxima Nova é licenciada e não há arquivo da fonte no projeto. Basta servir o arquivo para ela assumir, porque já é a primeira da lista |
 | 31/10 | Rodapé fechado por padrão, só com o orb e "Falar com uma pessoa" | A tela estava poluída. A saída para humano segue visível, como o case pede, e as outras saídas abrem com um toque |
 | 31/10 | Caixinha abre ao toque, com a timeline, e as caixinhas ficam uma embaixo da outra | A tela fechada mostra só nome, valor e taxa. Aplicação, hoje, pedido em aberto e vencimento aparecem quando o cliente pede |
-| 31/10 | Sem nome próprio para a solução | O cliente fala com a Caqui, não com um produto à parte |
-| 31/10 | Chat em popup e rastreio horizontal | A tela inicial fica limpa até o cliente acionar. O rastreio usa um padrão que o cliente já conhece das entregas |
+| 31/10 | O chat se chama caquIA; a solução segue sem nome próprio | O nome identifica a conversa automática, e o app continua sendo da Caqui |
+| 31/10 | Chat em popup no centro da tela e rastreio horizontal | A tela inicial fica limpa até o cliente acionar. O rastreio usa um padrão que o cliente já conhece das entregas |
 | 31/10 | Tela inicial sem botão de pessoa | A saída fica a um toque, no chat. Isso afasta a tela inicial do item "visível em qualquer passo" do case, por escolha do autor |
+| 31/10 | Gráfico de setores só com as classes dos dados | Dólar e euro não existem em `dados/`, e o case proíbe inventar informação |
+| 31/10 | Áudio transcrito no campo, sem envio automático | O cliente confere o texto antes de enviar, e a transcrição é do navegador |
 | 31/10 | Medir com teste cego escrito por um agente que não viu o código | 40/40 no teste oficial não dizia nada: a primeira rodada cega deu 46/70, com golpes passando |
 | 31/10 | Última nota limpa: 37/50 em frases novas, zero falso alarme em 10 inocentes | Depois disso as regras foram ajustadas de novo, então qualquer nota posterior nesses arquivos está contaminada |
 | 31/10 | Classificador com modelo de linguagem sobe de item futuro para o próximo passo | Regra por palavra não generaliza. O cálculo e a citação ficam no motor; o modelo só escolheria a rota |

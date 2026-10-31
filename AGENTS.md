@@ -7,6 +7,7 @@ Leia `SPEC.md` antes de mudar comportamento. Decisão nova entra em "Decisões" 
 - O id do cliente vem da sessão, nunca do texto da conversa.
 - Log só com protocolo, regra, motivo e ação. CPF sempre mascarado.
 - Todo valor em dinheiro usa `--color-ink`, o marrom escuro da marca, nunca vermelho ou cinza.
+- Front-end segue `DESIGN.md` e os tokens de `public/tokens.css`.
 - Só dados sintéticos. Nenhum segredo no repositório.
 - Regra nova vira teste em `test/motor.test.mjs`.
 - Pronto é `npm test` e `npm run perguntas` passando, com as respostas lidas.

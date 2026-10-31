@@ -9,6 +9,8 @@ test('painel inicial soma a carteira só do cliente da sessão', () => {
   const p = painelInicial('C-0001', '2026-11-18T10:00');
   assert.equal(p.carteira, 'R$ 61.021,15');
   assert.equal(p.conta, 'R$ 1.250,00');
+  assert.deepEqual(p.setores.map((s) => s.nome), ['CDB', 'LCI']);
+  assert.equal(p.setores.reduce((soma, s) => soma + s.pct, 0), 100);
   assert.deepEqual(p.investimentos.map((i) => i.valor), ['R$ 40.791,24', 'R$ 20.229,91']);
   assert.deepEqual(p.investimentos[0].etapas.map((e) => e.rotulo), ['Aplicação', 'Hoje', 'Resgate de R$ 40.000,00', 'Vencimento']);
   assert.ok(p.investimentos[0].andamento > 0 && p.investimentos[0].andamento < 100);

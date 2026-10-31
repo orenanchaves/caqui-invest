@@ -1,0 +1,33 @@
+/* Tokens da Caqui: única fonte de cor, fonte, tamanho e raio do front-end. Regras em DESIGN.md. */
+:root {
+  --color-paper: #fff4e9;
+  --color-paper-2: #fbe6d3;
+  --color-ink: #2b0b09;
+  --color-ink-2: #3d1f1b;
+  --color-muted: #5e4a43;
+  --color-rule: #9b7051;
+  --color-accent: #ef7f2e;
+  --color-accent-ink: #2b0b09;
+  --color-ciano: #2edff0;
+  --color-azul: #2e79f0;
+  --color-ambar: #e59f1c;
+  --color-orb: #f3b82a;
+  --color-veu: rgb(43 11 9 / 0.45);
+  --color-vermelho: #f0462e;
+  --color-atraso: #ef7f2e;
+  --color-atraso-fundo: #fce3cf;
+  --color-focus: #2e79f0;
+  --color-card: #fffbf6;
+  --color-alerta: #f0462e;
+  --color-alerta-fundo: #fcdcd6;
+  --font-display: "Proxima Nova", "Montserrat", system-ui, sans-serif;
+  --font-body: "Proxima Nova", "Montserrat", system-ui, sans-serif;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.75rem;
+  --radius: 14px;
+  --sombra: 0 0 0 1px oklch(30% 0.03 55 / 0.05), 0.5px 1px 1px oklch(30% 0.03 55 / 0.08), 3px 8px 14px -6px oklch(30% 0.03 55 / 0.14);
+  --dur: 120ms;
+  --largura: 44rem;
+}

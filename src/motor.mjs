@@ -514,6 +514,19 @@ export function responder({ texto, cliente: idCliente, agora = AGORA_PADRAO, est
   return res;
 }
 
+const CLASSES = { CDB: 'CDB', LCI: 'LCI', LCA: 'LCA', TESOURO: 'Tesouro', FUNDO: 'Fundos', ACOES: 'Ações' };
+
+function setoresCarteira(idCliente) {
+  const pos = D.posicoes.filter((p) => p.id_cliente === idCliente);
+  const total = pos.reduce((soma, p) => soma + p.saldo_bruto_brl, 0);
+  const somas = {};
+  for (const p of pos) {
+    const tipo = produto(p.produto).tipo;
+    somas[tipo] = (somas[tipo] || 0) + p.saldo_bruto_brl;
+  }
+  return Object.entries(somas).sort((a, b) => b[1] - a[1]).map(([tipo, valor]) => ({ tipo, nome: CLASSES[tipo], valor: brl(valor), pct: Math.round((valor / total) * 1000) / 10 }));
+}
+
 export function painelInicial(idCliente, agora = AGORA_PADRAO) {
   const cliente = D.clientes.find((c) => c.id === idCliente);
   if (!cliente) return null;
@@ -526,6 +539,7 @@ export function painelInicial(idCliente, agora = AGORA_PADRAO) {
     conta: brl(cliente.saldo_em_conta_brl),
     carteira: brl(D.posicoes.filter((p) => p.id_cliente === idCliente).reduce((soma, p) => soma + p.saldo_bruto_brl, 0)),
     data: dataBR(hoje),
+    setores: setoresCarteira(idCliente),
     investimentos: D.posicoes.filter((p) => p.id_cliente === idCliente).map((p) => {
       const pedidos = abertas.filter((o) => o.produto === p.produto).map((o) => cartaoCaminho(o, hoje));
       const etapas = [

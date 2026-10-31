@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design system Caqui</title>
+<meta name="description" content="Tokens e componentes do front-end da Caqui Invest, dados fictícios.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<header class="topo"><div class="topo-dentro"><span class="marca">Caqui<small>design system</small></span><div class="demo"><a href="/">Voltar para o app</a></div></div></header>
+<main class="ds">
+  <h1>Design system</h1>
+  <p>Tudo aqui usa os mesmos arquivos do app: <code>tokens.css</code> e <code>estilo.css</code>. As regras estão em <code>DESIGN.md</code>.</p>
+  <nav class="ds-nav" aria-label="Seções"><a href="#cores">Cores</a><a href="#tipografia">Tipografia</a><a href="#acoes">Ações</a><a href="#orb">Orb</a><a href="#caixinhas">Caixinhas</a><a href="#rastreio">Rastreio de entrega</a><a href="#avisos">Avisos</a></nav>
+  <section id="cores" class="ds-secao">
+  <h2>Cores</h2>
+  <ul class="ds-cores"><li class="ds-cor"><span style="background: var(--color-paper)"></span><b>Creme, fundo</b><code>--color-paper</code><code>#fff4e9</code></li><li class="ds-cor"><span style="background: var(--color-paper-2)"></span><b>Creme forte</b><code>--color-paper-2</code><code>#fbe6d3</code></li><li class="ds-cor"><span style="background: var(--color-ink)"></span><b>Marrom escuro, texto e dinheiro</b><code>--color-ink</code><code>#2b0b09</code></li><li class="ds-cor"><span style="background: var(--color-ink-2)"></span><b>Texto</b><code>--color-ink-2</code><code>#3d1f1b</code></li><li class="ds-cor"><span style="background: var(--color-muted)"></span><b>Texto de apoio</b><code>--color-muted</code><code>#5e4a43</code></li><li class="ds-cor"><span style="background: var(--color-rule)"></span><b>Marrom, linhas</b><code>--color-rule</code><code>#9b7051</code></li><li class="ds-cor"><span style="background: var(--color-accent)"></span><b>Laranja, ação</b><code>--color-accent</code><code>#ef7f2e</code></li><li class="ds-cor"><span style="background: var(--color-accent-ink)"></span><b>Texto sobre ação</b><code>--color-accent-ink</code><code>#2b0b09</code></li><li class="ds-cor"><span style="background: var(--color-ciano)"></span><b>Ciano, etapa atual</b><code>--color-ciano</code><code>#2edff0</code></li><li class="ds-cor"><span style="background: var(--color-azul)"></span><b>Azul, sublinhado</b><code>--color-azul</code><code>#2e79f0</code></li><li class="ds-cor"><span style="background: var(--color-ambar)"></span><b>Âmbar, caixinhas</b><code>--color-ambar</code><code>#e59f1c</code></li><li class="ds-cor"><span style="background: var(--color-orb)"></span><b>Amarelo, orb</b><code>--color-orb</code><code>#f3b82a</code></li><li class="ds-cor"><span style="background: var(--color-veu)"></span><b>Véu do chat</b><code>--color-veu</code><code>rgb(43 11 9 / 0.45)</code></li><li class="ds-cor"><span style="background: var(--color-vermelho)"></span><b>Vermelho, marca</b><code>--color-vermelho</code><code>#f0462e</code></li><li class="ds-cor"><span style="background: var(--color-atraso)"></span><b>Laranja, atraso</b><code>--color-atraso</code><code>#ef7f2e</code></li><li class="ds-cor"><span style="background: var(--color-atraso-fundo)"></span><b>Fundo de atraso</b><code>--color-atraso-fundo</code><code>#fce3cf</code></li><li class="ds-cor"><span style="background: var(--color-focus)"></span><b>Foco</b><code>--color-focus</code><code>#2e79f0</code></li><li class="ds-cor"><span style="background: var(--color-card)"></span><b>Superfície</b><code>--color-card</code><code>#fffbf6</code></li><li class="ds-cor"><span style="background: var(--color-alerta)"></span><b>Vermelho, golpe</b><code>--color-alerta</code><code>#f0462e</code></li><li class="ds-cor"><span style="background: var(--color-alerta-fundo)"></span><b>Fundo de golpe</b><code>--color-alerta-fundo</code><code>#fcdcd6</code></li></ul>
+  </section>
+  <section id="tipografia" class="ds-secao">
+  <h2>Tipografia</h2>
+  <p class="saldo-valor">R$ 1.250,00</p>
+  <p class="quando">Cai em 18/11/2026</p>
+  <p>Texto corrido em Proxima Nova, com Montserrat de reserva.</p>
+  <p class="notas">Texto de apoio e fonte da informação</p>
+  </section>
+  <section id="acoes" class="ds-secao">
+  <h2>Ações</h2>
+  <div class="ds-linha"><button class="primario" type="button">Enviar</button><button class="botao-forte" type="button">Bloquear acesso agora</button><button class="base-pessoa" type="button">Falar com uma pessoa</button></div>
+  <div class="chips"><button class="chip" type="button">Quando cai meu resgate?</button><button class="chip" type="button">O que é liquidez diária?</button></div>
+  </section>
+  <section id="orb" class="ds-secao">
+  <h2>Orb</h2>
+  <button class="orb ds-orb" type="button" aria-label="Abrir conversa"><svg viewBox="-63 -67.2 406 406" width="60" height="60" aria-hidden="true"><circle cx="140" cy="135.8" r="203" fill="currentColor"/><g class="orb-raios"><path d="M218.02,187.97c-2.33-.17-47.28-28.98-47.78-39.3-.54-11.28,43.79,24.86,44.12,25.2,2.44,2.57,15.25,14.95,3.66,14.1Z"/><path d="M186.63,219.97c-2.17-.86-36.49-41.76-33.88-51.76,2.85-10.93,34.38,36.79,34.59,37.21,1.56,3.18,10.1,18.82-.71,14.55Z"/><path d="M62.34,187.97c2.33-.17,47.28-28.98,47.78-39.3.54-11.28-43.79,24.86-44.12,25.2-2.44,2.57-15.25,14.95-3.66,14.1Z"/><path d="M93.73,219.97c2.17-.86,36.49-41.76,33.88-51.76-2.85-10.93-34.38,36.79-34.59,37.21-1.56,3.18-10.1,18.82.71,14.55Z"/><path d="M218.02,83.69c-2.33.17-47.28,28.98-47.78,39.3-.54,11.28,43.79-24.86,44.12-25.2,2.44-2.57,15.25-14.95,3.66-14.1Z"/><path d="M186.63,51.69c-2.17.86-36.49,41.76-33.88,51.76,2.85,10.93,34.38-36.79,34.59-37.21,1.56-3.18,10.1-18.82-.71-14.55Z"/><path d="M62.34,83.69c2.33.17,47.28,28.98,47.78,39.3.54,11.28-43.79-24.86-44.12-25.2-2.44-2.57-15.25-14.95-3.66-14.1Z"/><path d="M93.73,51.69c2.17.86,36.49,41.76,33.88,51.76-2.85,10.93-34.38-36.79-34.59-37.21-1.56-3.18-10.1-18.82.71-14.55Z"/></g></svg></button>
+  </section>
+  <section id="caixinhas" class="ds-secao">
+  <h2>Caixinhas</h2>
+  <div class="quadros"><article class="quadro"><div class="quadro-topo"><span class="quadro-nome">CDB Caqui Liquidez Diária 110</span><span class="quadro-valor">R$ 40.791,24</span><span class="quadro-taxa">110% do CDI</span></div></article><article class="quadro"><div class="quadro-topo"><span class="quadro-nome">LCI Caqui 92</span><span class="quadro-valor">R$ 20.229,91</span><span class="quadro-taxa">92% do CDI</span></div></article></div>
+  </section>
+  <section id="rastreio" class="ds-secao">
+  <h2>Rastreio de entrega</h2>
+  <article class="ficha"><h3>Resgate CDB Caqui Liquidez Diária 110</h3><p class="quando">Cai em 18/11/2026</p><div class="ficha-meta"><span>Em processamento</span><span class="dinheiro">R$ 40.000,00</span></div>
+  <ol class="rastreio"><li class="feita"><span class="marco"></span><span class="passo">Pedido</span><time>17/11/2026</time></li><li class="agora" aria-current="step"><span class="marco"></span><span class="passo">Dia-base, hoje</span><time>18/11/2026</time><span class="nota">depois das 16h</span></li><li><span class="marco"></span><span class="passo">Dinheiro na conta</span><time>18/11/2026</time></li></ol></article>
+  </section>
+  <section id="avisos" class="ds-secao">
+  <h2>Avisos</h2>
+  <div class="aviso"><strong>Segurança da Caqui acionada, sem fila</strong></div>
+  <article class="ficha atrasada"><h3>Pedido atrasado</h3><p class="quando">Previsto para 10/11/2026</p></article>
+  </section>
+</main>
+<script type="module" src="design-system.js"></script>
+</body>
+</html>

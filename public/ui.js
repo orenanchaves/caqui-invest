@@ -75,4 +75,19 @@ export function caixinha(i) {
   </article>`;
 }
 
+const COR_CLASSE = { CDB: 'accent', LCI: 'ciano', LCA: 'azul', TESOURO: 'ambar', FUNDO: 'rule', ACOES: 'vermelho' };
+
+// Gráfico de setores da carteira, por classe de investimento.
+export function setores(lista) {
+  let acumulado = 0;
+  const fatias = lista.map((s) => {
+    const inicio = acumulado;
+    acumulado += s.pct;
+    return `var(--color-${COR_CLASSE[s.tipo]}) ${inicio}% ${acumulado}%`;
+  }).join(', ');
+  const legenda = lista.map((s) => `<li><span class="setor-cor" style="background: var(--color-${COR_CLASSE[s.tipo]})"></span><span>${esc(s.nome)}, ${String(s.pct).replace('.', ',')}%</span><span class="valor">${esc(s.valor)}</span></li>`).join('');
+  const descricao = lista.map((s) => `${s.nome} ${String(s.pct).replace('.', ',')}%`).join(', ');
+  return `<div class="setores"><div class="pizza" role="img" aria-label="${esc(descricao)}" style="background: conic-gradient(${fatias})"></div><ul class="setores-legenda">${legenda}</ul></div>`;
+}
+
 export const FILAS = { seguranca: 'Segurança, sem fila', prioritaria: 'Prioritária', especialista: 'Especialista em investimentos', reclamacao: 'Reclamações e encerramento', geral: 'Atendimento' };

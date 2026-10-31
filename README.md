@@ -1,11 +1,12 @@
 # Atendimento da Caqui Invest
 
-**URL pública:** https://caqui-cade.ond-jarvis.workers.dev **Spec:** [SPEC.md](SPEC.md).
+**URL pública:** https://caqui.pages.dev **Spec:** [SPEC.md](SPEC.md).
 
 O atendimento responde a pergunta que mais chega à Caqui, "onde está meu dinheiro?", com data calculada, fonte em toda resposta e uma pessoa a um toque. Quem atende recebe o caso com protocolo, histórico e dados conferidos.
 
 - `/`: conversa do cliente. Escolha cliente e hora na barra de demonstração.
 - `/atendente.html`: fila e caso como chegam à equipe.
+- `/design-system.html`: tokens e componentes do front-end. Regras em [DESIGN.md](DESIGN.md).
 
 O motor é determinístico e roda no servidor. Sem modelo de linguagem em produção: prazo, imposto e poupança saem de cálculo, e o resto sai de trecho literal da base. Se não entender, diz que não entendeu e leva a uma pessoa.
 
@@ -19,6 +20,8 @@ npm test
 npm run perguntas
 wrangler dev --port 8799
 ```
+
+Publicar: `npm run publicar`.
 
 ## Como foi verificado
 

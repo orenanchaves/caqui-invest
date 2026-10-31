@@ -7,6 +7,7 @@
     "test": "node --test test/motor.test.mjs",
     "perguntas": "node scripts/rodar-perguntas.mjs && python ferramentas/checar_respostas.py respostas.jsonl",
     "dev": "wrangler dev --port 8799",
-    "guardas": "git config core.hooksPath .githooks"
+    "guardas": "git config core.hooksPath .githooks",
+    "publicar": "node scripts/montar-pages.mjs && cd pages && wrangler pages deploy --project-name caqui --branch main"
   }
 }
