@@ -1,4 +1,4 @@
-// No desktop mostra um slide por vez; no celular os slides seguem em rolagem.
+// Mostra um slide por vez, em qualquer tela.
 const slides = [...document.querySelectorAll('.slide')];
 const contador = document.querySelector('#contador');
 const anterior = document.querySelector('#anterior');
@@ -43,6 +43,12 @@ document.addEventListener('fullscreenchange', () => {
   expandir.setAttribute('aria-pressed', cheia);
   expandir.setAttribute('aria-label', cheia ? 'Sair da tela inteira' : 'Expandir a tela');
 });
+// O palco é sempre wide, 1440 por 810; a tela só define a escala.
+function escalar() {
+  document.documentElement.style.setProperty('--escala', Math.min(innerWidth / 1440, innerHeight / 810));
+}
+escalar();
+window.addEventListener('resize', escalar);
 window.addEventListener('resize', encaixar);
 ir(Number(location.hash.slice(1)) - 1 || 0);
 
