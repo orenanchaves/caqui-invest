@@ -131,6 +131,16 @@ async function aguardar(tarefa) {
   }
 }
 
+// Aplicar e Resgatar orientam com o artigo da base: a demonstração não executa operações.
+async function guia(rotulo) {
+  conversa(true);
+  adicionar(`<p>${esc(rotulo)}</p>`, 'cliente');
+  const r = await fetch('/api/artigo/KB-006');
+  if (!r.ok) return adicionar('<div class="aviso">Não consegui abrir a orientação agora. Tente de novo.</div>');
+  const a = await r.json();
+  adicionar(`<div class="corpo"><p><strong>${esc(a.titulo)}</strong></p>${md(a.corpo)}<p>Esta demonstração não faz aplicações nem resgates.</p></div>${blocoFontes([{ tipo: 'kb', id: a.id, revisado: a.revisado ?? a.revisado_em }])}`);
+}
+
 async function falar(texto) {
   texto = texto.trim();
   if (!texto) return;
@@ -186,6 +196,7 @@ async function iniciar() {
       <div class="home-linha"><span class="avatar">${ICONES.pessoa}</span><h1 class="home-ola">${esc(r.cliente.nome)}</h1><button class="icone" data-valores aria-pressed="false" aria-label="Ocultar valores">${ICONES.olho}</button></div>
       <p class="topo-rotulo">Seu dinheiro na Caqui</p>
       <p class="topo-total"><span class="valor">${esc(r.total)}</span></p>
+      <div class="modelo-acoes"><button class="botao-contorno" data-guia="Aplicar">Aplicar</button><button class="botao-contorno" data-guia="Resgatar">Resgatar</button></div>
     </div></div>
     <div class="home-dentro home-corpo">
       ${primeiro ? `<div class="destaque">${cartao(primeiro)}</div>` : ''}
@@ -216,6 +227,7 @@ document.addEventListener('click', async (e) => {
     b.setAttribute('aria-expanded', !oculta);
     try { localStorage.setItem('demo', oculta ? 'oculta' : 'visivel'); } catch {}
   }
+  if (b.dataset.guia) guia(b.dataset.guia);
   if ('abrir' in b.dataset) conversa(true);
   if ('fechar' in b.dataset) conversa(false);
   if ('valores' in b.dataset) {
