@@ -62,5 +62,5 @@ A partir de 60rem, a home tem barra no topo com busca, menu e perfil; faixa de s
 | Microfone | `.microfone` | Transcreve no campo, e o cliente confere antes de enviar |
 | Rastreio de entrega | `.rastreio` | Etapas `feita` e `agora`, com data em cada uma |
 | Orb | `.orb` | Fica na barra de menu, pulsa e abre a caquIA. O ícone do navegador usa só as sementes |
-| Chat | `.chat` | Popup no centro da tela, com o símbolo e o nome caquIA no topo. Ao passar para a equipe, `.humano` troca símbolo, nome e fundo |
+| Chat | `.chat` | Altura total da tela: tela cheia no celular e painel à direita no desktop, com o símbolo e o nome caquIA no topo. Ao passar para a equipe, `.humano` troca símbolo, nome e fundo |
 | Aviso | `.aviso` | Interrompe o fluxo em golpe |
