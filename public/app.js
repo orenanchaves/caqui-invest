@@ -137,4 +137,7 @@ $('#hora').addEventListener('change', iniciar);
 const demo = await fetch('/api/demo').then((x) => x.json());
 $('#cliente').innerHTML = demo.clientes.map((c) => `<option value="${esc(c.id)}">${esc(c.nome)}</option>`).join('');
 $('#hora').innerHTML = demo.horarios.map((h) => `<option value="${esc(h)}">18/11, ${h.slice(11, 13)}h</option>`).join('');
-iniciar();
+await Promise.all([iniciar(), new Promise((ok) => setTimeout(ok, 900))]);
+const abertura = $('#carregando');
+abertura.classList.add('fim');
+setTimeout(() => abertura.remove(), 300);

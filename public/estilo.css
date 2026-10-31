@@ -50,14 +50,18 @@ html { scrollbar-color: var(--color-muted) var(--color-paper); }
 textarea { caret-color: var(--color-accent); }
 :focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
 
+/* carregamento */
+.carregando { position: fixed; inset: 0; z-index: 10; display: grid; place-items: center; background: var(--color-ink); transition: opacity 240ms; }
+.carregando img { display: block; width: min(80vw, 28rem); height: auto; }
+.carregando.fim { opacity: 0; pointer-events: none; }
+
 /* topo */
 .topo { background: var(--color-ink); color: var(--color-paper); }
 .topo a { color: var(--color-paper); }
 .topo-dentro { max-width: var(--largura); margin: 0 auto; padding: 0.625rem 1rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; }
 .painel-pagina .topo-dentro { max-width: 76rem; }
-.marca { display: flex; align-items: center; gap: 0.25rem; line-height: 1; }
-.logo { display: block; height: 60px; width: auto; margin-left: -1rem; }
-.marca small { font-size: var(--text-sm); color: var(--color-paper); }
+.marca { font-family: var(--font-display); font-weight: 800; font-size: var(--text-lg); line-height: 1; }
+.marca small { font-family: var(--font-body); font-weight: 400; font-size: var(--text-sm); margin-left: 0.5rem; }
 .demo { margin-left: auto; display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
 .demo label { font-size: var(--text-sm); color: var(--color-paper); display: flex; gap: 0.375rem; align-items: center; }
 .demo select { min-height: 36px; max-width: 11rem; padding: 0 0.375rem; color: var(--color-ink); background: var(--color-card); border: 1px solid var(--color-rule); border-radius: var(--radius); }
