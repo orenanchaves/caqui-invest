@@ -53,6 +53,6 @@ Inclua `estilo.css` na página e use os tokens. Cor, fonte e raio nunca são esc
 | Gráfico de setores | `.setores` | Carteira por classe, sempre com legenda em texto |
 | Microfone | `.microfone` | Transcreve no campo, e o cliente confere antes de enviar |
 | Rastreio de entrega | `.rastreio` | Etapas `feita` e `agora`, com data em cada uma |
-| Orb | `.orb` | Flutua, pulsa, pode ser arrastado e abre a caquIA. Também é o ícone do navegador |
+| Orb | `.orb` | Flutua, pulsa, pode ser arrastado e abre a caquIA. O ícone do navegador usa só as sementes |
 | Chat | `.chat` | Popup no centro da tela, com o símbolo e o nome caquIA no topo. Ao passar para a equipe, `.humano` troca símbolo, nome e fundo |
 | Aviso | `.aviso` | Interrompe o fluxo em golpe |

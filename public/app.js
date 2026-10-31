@@ -257,7 +257,7 @@ if (Reconhecimento) {
     ouvindo = null;
     microfone.setAttribute('aria-pressed', 'false');
     microfone.setAttribute('aria-label', 'Falar por áudio');
-    campo.placeholder = 'Escreva sua dúvida';
+    campo.placeholder = 'Sua dúvida';
   };
   microfone.addEventListener('click', () => {
     if (ouvindo) return ouvindo.stop();

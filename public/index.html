@@ -36,8 +36,10 @@
     <main class="fio" id="fio" aria-live="polite"></main>
     <div class="chat-base">
       <form class="campo" id="form">
-        <textarea id="texto" rows="1" aria-label="Sua mensagem" placeholder="Escreva sua dúvida"></textarea>
-        <button class="microfone" id="microfone" type="button" aria-label="Falar por áudio" aria-pressed="false" hidden><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15a3.5 3.5 0 0 0 3.5-3.5v-5a3.5 3.5 0 1 0-7 0v5A3.5 3.5 0 0 0 12 15Z"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3"/></svg></button>
+          <div class="campo-texto">
+            <textarea id="texto" rows="1" aria-label="Sua mensagem" placeholder="Sua dúvida"></textarea>
+            <button class="microfone" id="microfone" type="button" aria-label="Falar por áudio" aria-pressed="false" hidden><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15a3.5 3.5 0 0 0 3.5-3.5v-5a3.5 3.5 0 1 0-7 0v5A3.5 3.5 0 0 0 12 15Z"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3"/></svg></button>
+          </div>
           <button class="primario" id="enviar" type="submit">Enviar</button>
       </form>
       <details class="mais">

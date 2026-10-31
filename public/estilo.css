@@ -180,7 +180,8 @@ a.atalho { text-decoration: none; }
 .destaque .ficha:not(.atrasada) .marco { background: var(--color-accent); border-color: var(--color-ink); }
 .destaque .ficha:not(.atrasada) .feita .marco { background: var(--color-ink); }
 .destaque .ficha:not(.atrasada) .agora .marco { background: var(--color-ciano); }
-.carteira-total { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 0.75rem; }
+.carteira-total { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 0.75rem; margin-top: 0.375rem; padding: 0.625rem 0.75rem; border-radius: 10px; background: var(--color-paper-2); }
+.carteira > .notas { padding: 0.375rem 0.75rem 0; }
 .carteira-total .valor { font-weight: 800; color: var(--color-ink); }
 
 .home-corpo > *, .ds > h1, .ds > p, .ds > .ds-nav { animation: entra 420ms ease-out both; }
@@ -248,7 +249,7 @@ a.atalho { text-decoration: none; }
 
 .aviso { background: var(--color-alerta-fundo); color: var(--color-ink); box-shadow: inset 0 0 0 1px var(--color-alerta); border-radius: var(--radius); padding: 0.875rem 1rem; display: flex; flex-direction: column; gap: 0.625rem; align-items: flex-start; }
 .aviso strong { font-weight: 600; }
-.botao-forte { min-height: 44px; padding: 0.25rem 1rem; background: var(--color-alerta); color: var(--color-ink); border: 0; border-radius: var(--radius); }
+.botao-forte { min-height: 44px; padding: 0.25rem 1rem; font-weight: 800; background: var(--color-alerta); color: var(--color-ink); border: 0; border-radius: var(--radius); }
 .botao-forte:hover { background: var(--color-atraso); }
 .botao-forte:disabled { background: var(--color-paper-2); color: var(--color-muted); cursor: default; }
 
@@ -283,12 +284,14 @@ a.atalho { text-decoration: none; }
 .chat .ficha { box-shadow: none; border-radius: var(--radius); }
 .chat .fio { scrollbar-width: thin; }
 .campo { display: flex; gap: 0.5rem; }
-.microfone { flex: none; width: 44px; height: 44px; align-self: flex-end; display: grid; place-items: center; border: 1px solid var(--color-rule); border-radius: 50%; background: var(--color-card); color: var(--color-ink); transition: background-color 200ms; }
+.microfone { position: absolute; right: 2px; bottom: 2px; width: 40px; height: 40px; display: grid; place-items: center; border: 0; border-radius: 50%; background: none; color: var(--color-ink); transition: background-color 200ms; }
 .microfone[hidden] { display: none; }
 .microfone:hover { background: var(--color-paper-2); }
 .microfone[aria-pressed="true"] { background: var(--color-alerta); border-color: var(--color-alerta); }
-.campo textarea { flex: 1; min-width: 0; min-height: 44px; max-height: 7rem; resize: none; padding: 0.5625rem 0.75rem; background: var(--color-card); border: 1px solid var(--color-rule); border-radius: var(--radius); }
-.primario { min-height: 44px; padding: 0 1rem; background: var(--color-accent); color: var(--color-accent-ink); border: 0; border-radius: var(--radius); transition: background-color var(--dur); }
+.campo-texto { position: relative; flex: 1; min-width: 0; display: flex; }
+.campo textarea { flex: 1; min-width: 0; min-height: 44px; max-height: 7rem; resize: none; overflow-y: hidden; padding: 0.5625rem 3rem 0.5625rem 0.75rem; background: var(--color-card); border: 1px solid var(--color-rule); border-radius: var(--radius); }
+.campo textarea::placeholder { white-space: nowrap; }
+.primario { min-height: 44px; padding: 0 1rem; font-weight: 800; background: var(--color-accent); color: var(--color-accent-ink); border: 0; border-radius: var(--radius); transition: background-color var(--dur); }
 .primario:hover { background: var(--color-ciano); }
 .primario:disabled { background: var(--color-paper-2); color: var(--color-muted); cursor: default; }
 .saidas { display: flex; flex-wrap: wrap; gap: 0 0.875rem; align-items: center; font-size: var(--text-sm); }
@@ -329,6 +332,9 @@ a.atalho { text-decoration: none; }
   .quadro:not(.aberta) .quadro-topo { aspect-ratio: auto; min-height: 9rem; }
   .painel { grid-template-columns: 20rem minmax(0, 1fr); }
   .colunas { grid-template-columns: minmax(0, 1fr) 22rem; }
+}
+@media (max-width: 22.5rem) {
+  .chat-topo .base-pessoa { white-space: normal; line-height: 1.15; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
