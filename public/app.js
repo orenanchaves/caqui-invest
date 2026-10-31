@@ -188,8 +188,7 @@ async function iniciar() {
     </div></div>
     <div class="home-dentro home-corpo">
       ${primeiro ? `<div class="destaque">${cartao(primeiro)}</div>` : ''}
-      <div class="saldo"><span>Disponível na conta</span><p class="saldo-valor"><span class="valor">${esc(r.conta)}</span></p></div>
-      <div class="carteira" data-vista="${vista}"><div class="carteira-titulo"><h2 class="caixinhas-titulo">Onde está meu dinheiro</h2>${r.investimentos.length ? `<select class="vista-seletor" id="vista" aria-label="Forma de ver">${VISTAS.map(([id, rotulo]) => `<option value="${id}"${id === vista ? ' selected' : ''}>${rotulo}</option>`).join('')}</select>` : ''}</div>${vistas}<p class="carteira-total"><span>Total investido, antes do imposto</span><span class="valor">${esc(r.carteira)}</span></p><span class="notas">Fonte: posições da sua conta em ${esc(r.data)}</span></div>
+      <div class="carteira" data-vista="${vista}"><div class="carteira-titulo"><h2 class="caixinhas-titulo">Onde está meu dinheiro</h2>${r.investimentos.length ? `<select class="vista-seletor" id="vista" aria-label="Forma de ver">${VISTAS.map(([id, rotulo]) => `<option value="${id}"${id === vista ? ' selected' : ''}>${rotulo}</option>`).join('')}</select>` : ''}</div>${vistas}<p class="carteira-total"><span>Total investido, antes do imposto</span><span class="valor">${esc(r.carteira)}</span></p><p class="carteira-total"><span>Disponível na conta</span><span class="valor">${esc(r.conta)}</span></p><span class="notas">Fonte: posições da sua conta em ${esc(r.data)}</span></div>
       <div class="atalhos">${atalhos}</div>
       <div class="perguntas"><h2 class="caixinhas-titulo">Dúvidas comuns</h2>${chipsSugestoes()}</div>
       ${demais.map(cartao).join('')}
