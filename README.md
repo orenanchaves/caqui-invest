@@ -45,7 +45,9 @@ Claude Code com Claude Opus 5.5 em leitura do case, spec, código, testes e inte
 
 ### Harness
 
-`CLAUDE.md` global do autor, skills `conferir-entrega` (medição em 375 e 1440) e `hallmark` (piso visual e `sloplint`), navegador embutido para testar a tela. Os arquivos do harness ficam fora deste repositório. Ficam aqui `test/motor.test.mjs`, `test/cego.jsonl`, `test/cego2.jsonl` e os scripts em `scripts/`.
+No repositório: [AGENTS.md](AGENTS.md) com as instruções do projeto, hook de commit em [.githooks/pre-commit](.githooks/pre-commit) e [scripts/guarda-commit.mjs](scripts/guarda-commit.mjs), que barra CPF sem máscara e chave de API (ligar com `npm run guardas`), e os testes em `test/motor.test.mjs`, `test/cego.jsonl` e `test/cego2.jsonl`. O `AGENTS.md` e o hook entraram depois da solução pronta, ao reler a apresentação de fundamentos: o motor não foi feito com eles.
+
+Fora do repositório: `CLAUDE.md` global do autor, skills `conferir-entrega` (medição em 375 e 1440) e `hallmark` (piso visual e `sloplint`), navegador embutido para testar a tela.
 
 ### Verificado na mão
 
