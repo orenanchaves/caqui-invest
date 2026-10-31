@@ -220,6 +220,9 @@ body:not(:has(.home)) .ds-lado { background: var(--color-paper); }
 .qr-botao { display: flex; align-items: center; justify-content: center; min-height: 48px; margin-top: auto; padding: 0.25rem 1rem; border-radius: var(--radius); background: var(--color-accent); color: var(--color-ink); font-weight: 800; text-decoration: none; transition: background-color 180ms; }
 .slide .qr-botao { color: var(--color-ink); text-decoration: none; }
 .qr-botao:hover { background: var(--color-destaque); }
+.equipe-links { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+.equipe-links .qr-botao { flex: 1 1 7rem; font-size: 1rem; }
+.equipe-links .qr-botao:hover { background: var(--color-card); }
 .fecho-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
 .fecho-links a { text-decoration: none; }
 .identidade { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; }
