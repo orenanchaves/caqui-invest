@@ -14,6 +14,7 @@
   --color-ciano: #2edff0;
   --color-azul: #2e79f0;
   --color-ambar: #e59f1c;
+  --color-orb: #e1bd87;
   --color-vermelho: #f0462e;
   --color-atraso: #ef7f2e;
   --color-atraso-fundo: #fce3cf;
@@ -168,6 +169,12 @@ textarea { caret-color: var(--color-accent); }
 .base-dentro { max-width: var(--largura); margin: 0 auto; padding: 0.5rem 1rem calc(0.25rem + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 0.25rem; }
 .base-fechada { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
 .base-fechada[hidden], .base-aberta[hidden] { display: none; }
+.orb { position: fixed; z-index: 3; right: max(1rem, calc(50% - 21rem)); bottom: calc(4.5rem + env(safe-area-inset-bottom)); width: 60px; height: 60px; padding: 0; border: 0; border-radius: 50%; background: none; color: var(--color-orb); box-shadow: var(--sombra); transition: transform var(--dur); }
+.orb[hidden] { display: none; }
+.orb svg { display: block; }
+.orb-raios { fill: var(--color-vermelho); }
+.orb:hover { transform: scale(1.06); }
+.orb:active { transform: scale(0.96); }
 .base-pessoa { min-height: 44px; padding: 0; border: 0; background: none; color: var(--color-ink); font-weight: 600; text-decoration: underline; text-decoration-color: var(--color-azul); text-underline-offset: 2px; }
 .base-aberta { display: flex; flex-direction: column; gap: 0.25rem; }
 .campo { display: flex; gap: 0.5rem; }

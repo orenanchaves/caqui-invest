@@ -14,6 +14,7 @@ function rodape(aberto) {
   $('#base-aberta').hidden = !aberto;
   $('#base-fechada').hidden = aberto;
   $('[data-abrir]').setAttribute('aria-expanded', aberto);
+  $('[data-abrir]').hidden = aberto;
   if (aberto) campo.focus({ preventScroll: true });
 }
 

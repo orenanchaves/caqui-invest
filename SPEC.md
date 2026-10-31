@@ -61,7 +61,7 @@ Total: **cerca de 4.026 h por mês, 42% das 9.560 h**.
 - **Caminho do dinheiro:** linha do tempo com pedido, dia-base, cotização e pagamento, com as datas e o motivo de cada salto ("depois das 16h", "02/11 é feriado").
 - **Fonte em toda resposta:** artigo com data de revisão, ou operação da conta. Tocar na fonte abre o artigo.
 - **Nada gerado:** resposta factual sai de cálculo ou de trecho literal da base. Não há modelo de linguagem em produção, portanto não há como inventar prazo.
-- **Saída fixa na tela:** "Falar com uma pessoa" fica visível em qualquer passo. "Reclamar", "Encerrar", "Suspeita de golpe" e o horário ficam a um toque, em "Conversar". Golpe escrito na conversa interrompe o fluxo do mesmo jeito.
+- **Saída fixa na tela:** "Falar com uma pessoa" fica visível em qualquer passo. "Reclamar", "Encerrar", "Suspeita de golpe" e o horário ficam a um toque, no orb que abre a conversa. Golpe escrito na conversa interrompe o fluxo do mesmo jeito.
 - **Diz quando não sabe:** e na segunda vez já oferece uma pessoa.
 
 ## 5. O que fica de fora?
@@ -114,7 +114,7 @@ Itens de "O que vale para qualquer caminho" que não se aplicam: nenhum.
 | 31/10 | KB-007 fora do índice, por lista e por teste | Artigo de 2024 com corte de 15h, superado pelo KB-006 |
 | 31/10 | Tela inicial com saldo, atalhos e pedidos antes da conversa | O cliente vê a data sem precisar perguntar. Os atalhos enviam a mesma pergunta ao motor, sem caminho novo de resposta |
 | 31/10 | Identidade da Caqui com o logo oficial e Montserrat no lugar da Proxima Nova | A Proxima Nova é licenciada e não há arquivo da fonte no projeto. Basta servir o arquivo para ela assumir, porque já é a primeira da lista |
-| 31/10 | Rodapé fechado por padrão, só com "Conversar" e "Falar com uma pessoa" | A tela estava poluída. A saída para humano segue visível, como o case pede, e as outras saídas abrem com um toque |
+| 31/10 | Rodapé fechado por padrão, só com o orb e "Falar com uma pessoa" | A tela estava poluída. A saída para humano segue visível, como o case pede, e as outras saídas abrem com um toque |
 | 31/10 | Caixinha abre ao toque, com a timeline, e as caixinhas ficam uma embaixo da outra | A tela fechada mostra só nome, valor e taxa. Aplicação, hoje, pedido em aberto e vencimento aparecem quando o cliente pede |
 | 31/10 | Sem nome próprio para a solução | O cliente fala com a Caqui, não com um produto à parte |
 | 31/10 | Medir com teste cego escrito por um agente que não viu o código | 40/40 no teste oficial não dizia nada: a primeira rodada cega deu 46/70, com golpes passando |
