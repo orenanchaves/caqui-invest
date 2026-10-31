@@ -8,7 +8,7 @@ const VISTAS = [['caixinhas', 'Caixinhas'], ['lista', 'Lista'], ['grafico', 'Gr�
 let vista = 'caixinhas';
 try { vista = VISTAS.some(([id]) => id === localStorage.getItem('vista')) ? localStorage.getItem('vista') : vista; } catch {}
 const ATALHOS = [
-  ['carteira', 'Meu dinheiro', 'Onde está meu dinheiro?'],
+  ['carteira', 'Portfólio', 'Onde está meu dinheiro?'],
   ['calculadora', 'Quanto vou receber', 'Quanto vou receber se resgatar tudo hoje?'],
   ['rendimento', 'Comparar poupança', 'Meu CDB rendeu menos que a poupança?'],
   ['extrato', 'Extrato', ''],

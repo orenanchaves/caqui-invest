@@ -48,7 +48,7 @@ Inclua `estilo.css` na página e use os tokens. Cor, fonte e raio nunca são esc
 | Caixinha | `.quadro` | Ficam lado a lado, e a aberta alarga e empurra as outras |
 | Faixa de demonstração | `.demo-faixa` | Ferramenta de teste, em azul, fora do app. Abre para trocar cliente e horário |
 | Extrato | `.lista-extrato` | Página própria, fora do chat |
-| Menu inferior | `.menu-base` | Início, Meu dinheiro, Extrato e o orb, sempre visível |
+| Menu inferior | `.menu-base` | Início, Portfólio, Extrato e o orb, sempre visível |
 | Cor por status | `data-situacao` | Andamento laranja suave, análise rosa, atrasado laranja forte, concluído creme, recusado salmão. Sempre com botão de fechar |
 | Aviso de golpe | `.pare` | Tela inteira "Pare agora." quando a caquIA detecta golpe, sem logo |
 | Configurações | `configuracoes.html` | Abre pelo perfil: nome, valores ocultos e forma de ver |

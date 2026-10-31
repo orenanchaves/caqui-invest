@@ -23,7 +23,7 @@ if (!r.ok) {
     <ul class="lista-extrato">
       <li class="linha-extrato"><span>Nome</span><strong>${esc(e.cliente)}</strong></li>
       <li class="linha-extrato"><label for="valores">Abrir com valores ocultos</label><input class="chave" type="checkbox" role="switch" id="valores"${ler('valores') === 'ocultos' ? ' checked' : ''}></li>
-      <li class="linha-extrato"><label for="vista">Forma de ver meu dinheiro</label><select class="vista-seletor" id="vista">${VISTAS.map(([id, rotulo]) => `<option value="${id}"${id === vista ? ' selected' : ''}>${rotulo}</option>`).join('')}</select></li>
+      <li class="linha-extrato"><label for="vista">Forma de ver o portfólio</label><select class="vista-seletor" id="vista">${VISTAS.map(([id, rotulo]) => `<option value="${id}"${id === vista ? ' selected' : ''}>${rotulo}</option>`).join('')}</select></li>
     </ul>`;
   area.querySelector('#valores').addEventListener('change', (ev) => guardar('valores', ev.target.checked ? 'ocultos' : 'visiveis'));
   area.querySelector('#vista').addEventListener('change', (ev) => guardar('vista', ev.target.value));
