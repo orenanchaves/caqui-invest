@@ -26,6 +26,7 @@
   --color-status-recusado: #f4a99c;
   --font-display: "Proxima Nova", "Montserrat", system-ui, sans-serif;
   --font-body: "Proxima Nova", "Montserrat", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
   --text-sm: 0.875rem;
   --text-base: 1rem;
   --text-lg: 1.25rem;

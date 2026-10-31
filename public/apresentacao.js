@@ -57,9 +57,12 @@ document.addEventListener('fullscreenchange', () => {
 });
 // O palco é sempre wide, 1440 por 810; a tela só define a escala.
 function escalar() {
-  const topo = document.fullscreenElement ? 0 : document.querySelector('.deck-topo').offsetHeight;
-  document.documentElement.style.setProperty('--topo', `${topo}px`);
-  document.documentElement.style.setProperty('--escala', Math.min(innerWidth / 1440, (innerHeight - topo) / 810));
+  const cheia = !!document.fullscreenElement;
+  const barra = document.querySelector('.deck-topo').offsetHeight;
+  const topo = cheia || !barra ? 0 : barra + 12;
+  const base = cheia ? 0 : document.querySelector('.deck-controles').offsetHeight + 24;
+  document.documentElement.style.setProperty('--deslocar', `${(topo - base) / 2}px`);
+  document.documentElement.style.setProperty('--escala', Math.min(innerWidth / 1440, (innerHeight - topo - base) / 810));
 }
 escalar();
 window.addEventListener('resize', escalar);
@@ -79,6 +82,57 @@ mostrarMenu.addEventListener('click', () => recolherMenu(false));
 try { if (localStorage.getItem('menu-apresentacao') === 'recolhido') recolherMenu(true); } catch {}
 window.addEventListener('resize', encaixar);
 ir(Number(location.hash.slice(1)) - 1 || 0);
+
+// Guia do produto: cada botão aciona a função na tela real, dentro do slide.
+const telaGuia = document.querySelector('#guia-tela');
+const botoesGuia = [...document.querySelectorAll('[data-guia]')];
+let telaSuja = false;
+
+async function telaPronta() {
+  for (let i = 0; i < 100; i += 1) {
+    const doc = telaGuia.contentDocument;
+    if (doc?.querySelector('[data-ir="caquia"]') && !doc.querySelector('#carregando')) return doc;
+    await new Promise((pronto) => setTimeout(pronto, 150));
+  }
+  return null;
+}
+
+async function telaLimpa() {
+  const emUso = telaSuja || !telaGuia.contentDocument?.querySelector('[data-ir="caquia"]');
+  if (emUso) telaGuia.src = '/';
+  telaSuja = false;
+  if (emUso) await new Promise((pronto) => telaGuia.addEventListener('load', pronto, { once: true }));
+  return telaPronta();
+}
+
+function falarNaTela(doc, texto) {
+  doc.querySelector('[data-ir="caquia"]').click();
+  const botao = doc.createElement('button');
+  botao.dataset.fala = texto;
+  botao.hidden = true;
+  doc.body.append(botao);
+  botao.click();
+  botao.remove();
+}
+
+const acoesGuia = {
+  inicio: (doc) => doc.querySelector('[data-ir="inicio"]').click(),
+  portfolio: (doc) => doc.querySelector('[data-ir="dinheiro"]').click(),
+  caquia: (doc) => falarNaTela(doc, 'Quando cai meu resgate?'),
+  pessoa: (doc) => { telaSuja = true; falarNaTela(doc, 'Quero falar com uma pessoa'); },
+  golpe: (doc) => { telaSuja = true; falarNaTela(doc, 'Um rapaz ligou dizendo ser da segurança da Caqui e pediu meu código'); },
+  extrato: (doc) => doc.querySelector('#menu-extrato').click(),
+};
+
+botoesGuia.forEach((botao) => botao.addEventListener('click', async () => {
+  botoesGuia.forEach((b) => b.setAttribute('aria-pressed', b === botao));
+  const doc = await telaLimpa();
+  if (doc) acoesGuia[botao.dataset.guia](doc);
+}));
+
+// A amostra da abertura repete enquanto o slide está na tela.
+const logoAnimado = document.querySelector('[data-anima-logo]');
+setInterval(() => logoAnimado.classList.toggle('pronto'), 2600);
 
 // Abertura com o logo completo, igual à do app, só ao começar do primeiro slide.
 const abertura = document.querySelector('#carregando');
