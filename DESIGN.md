@@ -50,7 +50,7 @@ Inclua `estilo.css` na página e use os tokens. Cor, fonte e raio nunca são esc
 | Extrato | `.lista-extrato` | Página própria, fora do chat |
 | Formas de ver | `.vista-seletor` | Ao lado do título: Caixinhas, Lista e Gráfico, com a escolha salva |
 | Lista | `.linha-dinheiro` | Mostra cada investimento com o rastreio aberto |
-| Pedido em destaque | `.destaque` | Primeiro pedido em aberto, em laranja, logo abaixo do topo |
+| Pedido em destaque | `.destaque` | Faixa "Resgate em andamento" em laranja suave, logo abaixo do topo, com botão de fechar |
 | Gráfico de setores | `.setores` | Carteira por classe, sempre com legenda em texto |
 | Microfone | `.microfone` | Transcreve no campo, e o cliente confere antes de enviar |
 | Rastreio de entrega | `.rastreio` | Etapas `feita` e `agora`, com data em cada uma |

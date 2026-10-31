@@ -199,7 +199,7 @@ async function iniciar() {
       <div class="modelo-acoes"><button class="botao-contorno" data-guia="Aplicar">Aplicar</button><button class="botao-contorno" data-guia="Resgatar">Resgatar</button></div>
     </div></div>
     <div class="home-dentro home-corpo">
-      ${primeiro ? `<div class="destaque">${cartao(primeiro)}</div>` : ''}
+      ${primeiro ? `<div class="destaque"><div class="destaque-topo"><strong>${esc(primeiro.titulo.split(' ')[0])} ${primeiro.atrasada ? 'atrasado' : 'em andamento'}</strong><button class="destaque-fechar" data-fechar-destaque aria-label="Fechar aviso"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>${cartao(primeiro)}</div>` : ''}
       <div class="carteira" data-vista="${vista}"><div class="carteira-titulo"><h2 class="caixinhas-titulo">Onde está meu dinheiro</h2>${r.investimentos.length ? `<select class="vista-seletor" id="vista" aria-label="Forma de ver">${VISTAS.map(([id, rotulo]) => `<option value="${id}"${id === vista ? ' selected' : ''}>${rotulo}</option>`).join('')}</select>` : ''}</div>${vistas}<p class="carteira-total"><span>Total investido, antes do imposto</span><span class="valor">${esc(r.carteira)}</span></p><p class="carteira-total"><span>Disponível na conta</span><span class="valor">${esc(r.conta)}</span></p><span class="notas">Fonte: posições da sua conta em ${esc(r.data)}</span></div>
       <div class="atalhos">${atalhos}</div>
       <div class="perguntas"><h2 class="caixinhas-titulo">Dúvidas comuns</h2>${chipsSugestoes()}</div>
@@ -227,6 +227,7 @@ document.addEventListener('click', async (e) => {
     b.setAttribute('aria-expanded', !oculta);
     try { localStorage.setItem('demo', oculta ? 'oculta' : 'visivel'); } catch {}
   }
+  if ('fecharDestaque' in b.dataset) b.closest('.destaque').remove();
   if (b.dataset.guia) guia(b.dataset.guia);
   if ('abrir' in b.dataset) conversa(true);
   if ('fechar' in b.dataset) conversa(false);

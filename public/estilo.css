@@ -184,10 +184,16 @@ a.atalho { text-decoration: none; }
 .linha-topo .valor { flex: none; font-weight: 800; color: var(--color-ink); }
 .topo-rotulo { margin-top: 0.75rem; color: var(--color-paper); }
 .topo-total { font-family: var(--font-display); font-weight: 800; font-size: 2.25rem; line-height: 1.15; letter-spacing: -0.02em; color: var(--color-paper); }
-.destaque .ficha:not(.atrasada) { background: var(--color-destaque); box-shadow: none; }
+.destaque { padding: 0.75rem 1rem 0.25rem; border-radius: var(--radius); background: var(--color-accent); color: var(--color-ink); }
+.destaque-topo { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+.destaque-fechar { width: 44px; height: 44px; margin: -0.5rem -0.75rem -0.5rem 0; display: grid; place-items: center; border: 0; border-radius: 50%; background: none; color: var(--color-ink); transition: background-color 180ms; }
+.destaque-fechar:hover { background: var(--color-destaque); }
+.destaque .ficha { padding: 0.5rem 0 0.75rem; background: none; box-shadow: none; }
+.destaque .ficha.atrasada { box-shadow: none; background: none; }
+.destaque .ficha h3, .destaque .ficha .ficha-meta, .destaque .ficha .notas { color: var(--color-ink); }
 .destaque .ficha:not(.atrasada) h3, .destaque .ficha:not(.atrasada) .ficha-meta, .destaque .ficha:not(.atrasada) .rastreio li, .destaque .ficha:not(.atrasada) .nota, .destaque .ficha:not(.atrasada) .notas { color: var(--color-ink); }
 .destaque .ficha:not(.atrasada) .rastreio li::after { background: var(--color-ink); }
-.destaque .ficha:not(.atrasada) .marco { background: var(--color-destaque); border-color: var(--color-ink); }
+.destaque .ficha:not(.atrasada) .marco { background: var(--color-accent); border-color: var(--color-ink); }
 .destaque .ficha:not(.atrasada) .feita .marco { background: var(--color-ink); }
 .destaque .ficha:not(.atrasada) .agora .marco { background: var(--color-ciano); }
 .carteira-total { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 0.75rem; margin-top: 0.375rem; padding: 0.625rem 0.75rem; border-radius: 10px; background: var(--color-paper-2); }
