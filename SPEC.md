@@ -129,3 +129,4 @@ Itens de "O que vale para qualquer caminho" que não se aplicam: nenhum.
 | 31/10 | Faixa da home muda de cor com o status: pendente aparece como "em análise", e pedido concluído ou recusado fica na faixa por um dia | Mesma leitura das telas do Figma, usando só os status que existem nos dados |
 | 31/10 | Orb deixa de flutuar e vira item da barra de menu | A barra já é o caminho fixo, e o orb flutuante competia com ela |
 | 31/10 | Home de desktop no formato do Figma, com tabela de produtos e cartões à direita, sem logo e sem "Olá" | Mantém as regras de marca. O valor contra a poupança sai do mesmo cálculo líquido do chat, e o FGC usa o texto do KB-013, que não cita o limite em reais |
+| 31/10 | Logo oficial na barra do desktop, além da abertura | Decisão do Renan: a barra tem espaço e segue o Figma. O celular continua sem logo depois da abertura |

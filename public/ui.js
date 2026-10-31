@@ -107,6 +107,7 @@ export function molduraDesktop(nome, ativo) {
   const orb = document.querySelector('.menu-base .orb-disco').innerHTML;
   const atual = (id) => (id === ativo ? ' aria-current="page"' : '');
   document.querySelector('.topo').insertAdjacentHTML('afterend', `<div class="barra-topo"><div class="barra-dentro">
+    <a class="barra-logo" href="/" aria-label="Caqui, início"><img src="logo/caqui-02.svg" alt="" width="116" height="48"></a>
     <form class="busca-topo" action="/" role="search"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg><input name="q" type="search" placeholder="Buscar na ajuda da Caqui" aria-label="Buscar na ajuda da Caqui" autocomplete="off"></form>
     <nav class="menu-topo" aria-label="Menu principal"><a href="/">Início</a><a href="/#dinheiro">Portfólio</a><a href="extrato.html${esc(qs)}"${atual('extrato')}>Extrato</a><a class="orb-topo" href="/#caquia"><span class="orb-disco">${orb}</span>caquIA</a></nav>
     <span class="barra-nome">${esc(nome)}</span><a class="avatar" href="configuracoes.html${esc(qs)}"${atual('configuracoes')} aria-label="Abrir configurações">${ICONES.pessoa}</a>

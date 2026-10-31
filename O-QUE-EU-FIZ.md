@@ -14,7 +14,7 @@ Página: https://caqui.pages.dev/design-system
 
 - Dinheiro sempre em marrom escuro, e em creme sobre o topo escuro.
 - Texto sobre cor sempre escuro.
-- Logo só na abertura do app. Dentro do produto ficam as sementes.
+- Logo na abertura e na barra do desktop. No celular, depois da abertura, ficam as sementes.
 - Cada cor com uma função: ação, etapa atual, borda da caixinha e golpe.
 - O chat se chama caquIA, com essa grafia.
 
