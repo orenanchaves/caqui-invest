@@ -1,3 +1,64 @@
+# Cadê: atendimento da Caqui Invest
+
+**URL pública:** https://caqui-cade.ond-jarvis.workers.dev **Spec:** [SPEC.md](SPEC.md).
+
+Cadê responde a pergunta que mais chega à Caqui, "onde está meu dinheiro?", com data calculada, fonte em toda resposta e uma pessoa a um toque. Quem atende recebe o caso com protocolo, histórico e dados conferidos.
+
+- `/`: conversa do cliente. Escolha cliente e hora na barra de demonstração.
+- `/atendente.html`: fila e caso como chegam à equipe.
+
+O motor é determinístico e roda no servidor. Sem modelo de linguagem em produção: prazo, imposto e poupança saem de cálculo, e o resto sai de trecho literal da base. Se não entender, diz que não entendeu e leva a uma pessoa.
+
+## Rodar
+
+```bash
+npm run dados
+npm test
+npm run perguntas
+wrangler dev --port 8799
+```
+
+## Como foi verificado
+
+| Verificação | Resultado |
+| --- | --- |
+| `ferramentas/checar_respostas.py`, 40 perguntas | 40/40 nas pistas, com as respostas lidas uma a uma |
+| `scripts/auditar-operacoes.mjs`, datas contra `operacoes.csv` | 62 de 62 batem; 48 datas vazias preenchidas pelo cálculo |
+| `scripts/replay.mjs`, 300 conversas rotuladas | Golpe 20/20 sem falso alarme; recomendação 24/24; injeção 10/10; vulnerável 11/12 |
+| Teste cego 1, 70 frases de um agente que não viu o código | 46/70 na primeira rodada |
+| Teste cego 2, 50 frases novas, depois de ajustar para o 1 | **37/50**, zero falso alarme nas 10 inocentes |
+
+O replay usa frases que vieram antes do código, então mede pouco. **A nota honesta de frases novas é 37/50.** Dos 13 erros, dois golpes ficaram sem encaminhamento, dois foram para humano em vez de segurança, e um é divergência com o gabarito oficial (CPF). Em nenhum caso o motor recomendou produto ou mostrou dado de terceiro. Depois disso as regras foram ajustadas de novo para esses casos, então rodar `test/cego2.jsonl` agora não vale como medida.
+
+Limites conhecidos:
+
+- A contenção da SPEC é hipótese. As mensagens de `conversas.csv` não correspondem às operações de cada cliente, então o replay não a mede.
+- O tempo de espera mostrado é simulado, com rótulo na tela.
+- Login é simulado. O painel do atendente é público na demonstração, com dados fictícios e casos que expiram em 48 horas.
+- A regra por palavra não generaliza. O próximo passo é um classificador que só escolhe a rota.
+
+## Como usamos IA
+
+### Ferramentas
+
+Claude Code com Claude Opus 5.5 em leitura do case, spec, código, testes e interface. Dois subagentes Claude Sonnet escreveram os testes cegos sem acesso ao código. Cloudflare Workers no deploy.
+
+### Harness
+
+`CLAUDE.md` global do autor, skills `conferir-entrega` (medição em 375 e 1440) e `hallmark` (piso visual e `sloplint`), navegador embutido para testar a tela. Os arquivos do harness ficam fora deste repositório. Ficam aqui `test/motor.test.mjs`, `test/cego.jsonl`, `test/cego2.jsonl` e os scripts em `scripts/`.
+
+### Verificado na mão
+
+Leitura das 40 respostas, inclusive as que passaram. PT-06, PT-10 e PT-11 conferidos centavo a centavo contra a `resposta_esperada`. Fluxo na tela: golpe com CPF digitado, mascarado no histórico do painel; pedido de humano às 23h; artigo aberto pela fonte.
+
+### Onde a IA errou
+
+A IA escreveu as regras depois de ler as frases da amostra e chegou a 40/40 no teste oficial e 20/20 em golpe. Parecia pronto. O teste cego deu 46/70: "o rapaz da caqui disse que é só falar os 6 números" caía em "não entendi", e "meu app abriu sozinho e tem um pix que eu não fiz" recebia um artigo sobre transferências. A nota alta media decoreba. Mudou o método: passamos a medir com frases de quem não viu o código, e cada rodada só vale uma vez. Mudou a spec: o classificador virou o próximo passo.
+
+Outro erro: a primeira versão do replay contava qualquer encaminhamento como injeção detectada e deu 43 falsos alarmes. Era a métrica, não o motor.
+
+---
+
 # Caqui Invest: atendimento que escala com confiança
 
 Case aberto do **Hands On com IA: da concepção à produção**, 31/10/2026.

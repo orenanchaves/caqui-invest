@@ -1,0 +1,11 @@
+{
+  "name": "caqui-cade",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dados": "node scripts/gerar-dados.mjs",
+    "test": "node --test test/motor.test.mjs",
+    "perguntas": "node scripts/rodar-perguntas.mjs && python ferramentas/checar_respostas.py respostas.jsonl",
+    "dev": "wrangler dev --port 8799"
+  }
+}

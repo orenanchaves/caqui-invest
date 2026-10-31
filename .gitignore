@@ -19,3 +19,7 @@ dist/
 build/
 .venv/
 __pycache__/
+
+node_modules/
+.wrangler/
+.hallmark/

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cadê, painel do atendente</title>
+<meta name="description" content="Demonstração com dados fictícios: como o caso chega à equipe, com protocolo, histórico e dados conferidos.">
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=sentient@300,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600&display=swap">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body class="painel-pagina">
+<header class="topo">
+  <div class="topo-dentro">
+    <span class="marca">Cadê<small>Painel do atendente, dados fictícios</small></span>
+    <div class="demo"><a href="/">Voltar para a conversa</a></div>
+  </div>
+</header>
+<main class="painel">
+  <section class="fila" aria-label="Fila de casos">
+    <h1>Fila</h1>
+    <div id="lista" class="fila"><div class="esqueleto"></div><div class="esqueleto"></div></div>
+  </section>
+  <section class="caso" id="caso" aria-live="polite"><p class="vazio">Escolha um caso para ver histórico e dados.</p></section>
+</main>
+<script type="module" src="painel.js"></script>
+<noscript><p>O painel precisa de JavaScript.</p></noscript>
+</body>
+</html>

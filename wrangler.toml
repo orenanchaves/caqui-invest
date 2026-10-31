@@ -1,0 +1,12 @@
+name = "caqui-cade"
+main = "src/worker.mjs"
+compatibility_date = "2026-06-01"
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+run_worker_first = ["/api/*"]
+
+[[kv_namespaces]]
+binding = "CASOS"
+id = "08da1b38bc324db1a67d22ed706d31d4"
