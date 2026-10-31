@@ -47,7 +47,7 @@ Inclua `estilo.css` na página e use os tokens. Cor, fonte e raio nunca são esc
 | Caixinha | `.quadro` | Ficam lado a lado, e a aberta alarga e empurra as outras |
 | Faixa de demonstração | `.demo-faixa` | Ferramenta de teste, em azul, fora do app. Abre para trocar cliente e horário |
 | Extrato | `.lista-extrato` | Página própria, fora do chat |
-| Formas de ver | `.vistas` | Caixinhas, Lista e Gráfico, com a escolha salva |
+| Formas de ver | `.vista-seletor` | Ao lado do título: Caixinhas, Lista e Gráfico, com a escolha salva |
 | Lista | `.linha-dinheiro` | Mostra cada investimento com o rastreio aberto |
 | Pedido em destaque | `.destaque` | Primeiro pedido em aberto, em laranja, logo abaixo do topo |
 | Gráfico de setores | `.setores` | Carteira por classe, sempre com legenda em texto |

@@ -178,8 +178,7 @@ async function iniciar() {
   }).join('');
   home.classList.remove('oculto');
   const [primeiro, ...demais] = r.pedidos;
-  const vistas = r.investimentos.length ? `<div class="vistas" role="group" aria-label="Forma de ver">${VISTAS.map(([id, rotulo]) => `<button data-vista="${id}" aria-pressed="${id === vista}">${rotulo}</button>`).join('')}</div>
-      <div data-painel="caixinhas"><div class="quadros">${r.investimentos.map(caixinha).join('')}</div></div>
+  const vistas = r.investimentos.length ? `<div data-painel="caixinhas"><div class="quadros">${r.investimentos.map(caixinha).join('')}</div></div>
       <div data-painel="lista">${r.investimentos.map(linhaDinheiro).join('')}</div>
       <div data-painel="grafico">${setores(r.setores)}</div>` : '';
   home.innerHTML = `<div class="home-topo"><div class="home-dentro">
@@ -190,7 +189,7 @@ async function iniciar() {
     <div class="home-dentro home-corpo">
       ${primeiro ? `<div class="destaque">${cartao(primeiro)}</div>` : ''}
       <div class="saldo"><span>Disponível na conta</span><p class="saldo-valor"><span class="valor">${esc(r.conta)}</span></p></div>
-      <div class="carteira" data-vista="${vista}"><h2 class="caixinhas-titulo">Onde está seu dinheiro?</h2>${vistas}<p class="carteira-total"><span>Total investido, antes do imposto</span><span class="valor">${esc(r.carteira)}</span></p><span class="notas">Fonte: posições da sua conta em ${esc(r.data)}</span></div>
+      <div class="carteira" data-vista="${vista}"><div class="carteira-titulo"><h2 class="caixinhas-titulo">Onde está meu dinheiro</h2>${r.investimentos.length ? `<select class="vista-seletor" id="vista" aria-label="Forma de ver">${VISTAS.map(([id, rotulo]) => `<option value="${id}"${id === vista ? ' selected' : ''}>${rotulo}</option>`).join('')}</select>` : ''}</div>${vistas}<p class="carteira-total"><span>Total investido, antes do imposto</span><span class="valor">${esc(r.carteira)}</span></p><span class="notas">Fonte: posições da sua conta em ${esc(r.data)}</span></div>
       <div class="atalhos">${atalhos}</div>
       <div class="perguntas"><h2 class="caixinhas-titulo">Dúvidas comuns</h2>${chipsSugestoes()}</div>
       ${demais.map(cartao).join('')}
@@ -201,12 +200,6 @@ document.addEventListener('click', async (e) => {
   const b = e.target.closest('button');
   if (!b) return;
   if (b.dataset.fala) ('importante' in b.dataset ? aguardar(() => falar(b.dataset.fala)) : falar(b.dataset.fala));
-  if (b.dataset.vista) {
-    vista = b.dataset.vista;
-    home.querySelector('.carteira').dataset.vista = vista;
-    home.querySelectorAll('[data-vista]:not(.carteira)').forEach((x) => x.setAttribute('aria-pressed', x === b));
-    try { localStorage.setItem('vista', vista); } catch {}
-  }
   if ('caixinha' in b.dataset) {
     const aberta = b.getAttribute('aria-expanded') === 'true';
     b.closest('.quadros').querySelectorAll('[data-caixinha]').forEach((x) => {
@@ -248,6 +241,12 @@ document.addEventListener('click', async (e) => {
   }
 });
 
+document.addEventListener('change', (e) => {
+  if (e.target.id !== 'vista') return;
+  vista = e.target.value;
+  home.querySelector('.carteira').dataset.vista = vista;
+  try { localStorage.setItem('vista', vista); } catch {}
+});
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') conversa(false); });
 // Fala vira texto no campo, e o cliente confere antes de enviar.
 const Reconhecimento = window.SpeechRecognition || window.webkitSpeechRecognition;
