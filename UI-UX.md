@@ -15,7 +15,7 @@ A cliente pede um resgate e não sabe onde o dinheiro está nem quando cai. Sem 
 - **Celular primeiro.** Tudo foi desenhado para 375px e depois adaptado para desktop.
 - **Menos na tela.** Cada versão tirou elementos: o que não ajuda a decisão do momento sai ou fica recolhido.
 - **O dinheiro manda.** Todo valor aparece em marrom escuro, nunca em vermelho ou cinza, e em creme sobre o topo escuro.
-- **Cor com significado.** Ciano é a etapa atual, âmbar é a borda da caixinha, amarelo é o orb, vermelho é golpe e marca.
+- **Cor com significado.** Ciano é a etapa atual, âmbar é a borda da caixinha, o orb é marrom, vermelho é golpe e marca.
 - **Uma pessoa sempre por perto.** "Falar com uma pessoa" fica visível no topo do chat.
 
 ## Identidade
@@ -59,7 +59,7 @@ Todas as faixas têm botão de fechar.
 
 ### caquIA
 
-- O orb amarelo pulsa e abre a conversa em janela.
+- O orb marrom pulsa e abre a conversa em janela.
 - Perguntas sugeridas, campo "Fale aqui", microfone com transcrição e ícone de envio.
 - As respostas mostram a fonte de forma recolhida.
 - A entrega para uma pessoa mostra o motivo e a fila.

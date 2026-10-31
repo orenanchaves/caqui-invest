@@ -18,3 +18,12 @@ document.addEventListener('click', async (e) => {
   }
   setTimeout(() => { b.textContent = 'Copiar'; }, 1600);
 });
+
+// Encaixa cada tela real na largura da moldura.
+function encaixar() {
+  document.querySelectorAll('iframe[data-largura]').forEach((f) => {
+    f.style.transform = `scale(${f.parentElement.clientWidth / Number(f.dataset.largura)})`;
+  });
+}
+encaixar();
+new ResizeObserver(encaixar).observe(document.querySelector('.ds'));

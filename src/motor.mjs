@@ -527,6 +527,15 @@ function setoresCarteira(idCliente) {
   return Object.entries(somas).sort((a, b) => b[1] - a[1]).map(([tipo, valor]) => ({ tipo, nome: CLASSES[tipo], valor: brl(valor), pct: Math.round((valor / total) * 1000) / 10 }));
 }
 
+// Primeira posição tributável contra a poupança, com o mesmo cálculo líquido do chat.
+function comparacaoPoupanca(idCliente, hoje) {
+  const p = D.posicoes.find((x) => x.id_cliente === idCliente && produto(x.produto).pct_cdi && produto(x.produto).tributavel && !x.produto.startsWith('TESOURO'));
+  if (!p) return null;
+  const l = liquidoPosicao(p, hoje);
+  const dif = l.liquidoRend - poupancaEquivalente(p.valor_aplicado_brl, l.dias);
+  return { produto: nomeProd(p.produto), sinal: dif >= 0 ? '+' : '-', diferenca: brl(Math.abs(dif)) };
+}
+
 export function painelInicial(idCliente, agora = AGORA_PADRAO) {
   const cliente = D.clientes.find((c) => c.id === idCliente);
   if (!cliente) return null;
@@ -552,6 +561,7 @@ export function painelInicial(idCliente, agora = AGORA_PADRAO) {
       const andamento = p.vencimento ? Math.min(100, Math.round((diasEntre(p.data_aplicacao, hoje) / Math.max(diasEntre(p.data_aplicacao, p.vencimento), 1)) * 100)) : null;
       return { nome: nomeProd(p.produto), valor: brl(p.saldo_bruto_brl), taxa: p.taxa_contratada === 'n/a' ? '' : p.taxa_contratada, etapas, andamento };
     }),
+    poupanca: comparacaoPoupanca(idCliente, hoje),
     pedidos: abertas.map((o) => cartaoCaminho(o, hoje)),
     recentes: D.operacoes
       .filter((o) => o.id_cliente === idCliente && o.pedido_em.slice(0, 16) <= agora)

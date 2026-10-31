@@ -17,7 +17,7 @@ Inclua `estilo.css` na página e use os tokens. Cor, fonte e raio nunca são esc
 
 - Todo valor em dinheiro usa `--color-ink`, o marrom escuro. Nunca vermelho ou cinza. Sobre o fundo escuro do topo, usa o creme.
 - Texto sobre cor é sempre escuro. Laranja suave é ação, e o tom claro `--color-destaque` marca o pedido em andamento. O laranja forte `#EF7F2E` fica só no logo.
-- Vermelho, ciano, âmbar e amarelo seguem assim: vermelho é golpe e marca, ciano é a etapa atual, âmbar é a borda da caixinha, amarelo é o orb.
+- Vermelho, ciano, âmbar e o orb seguem assim: vermelho é golpe e marca, ciano é a etapa atual, âmbar é a borda da caixinha, o orb é marrom com raios em laranja suave.
 - Azul só em foco e sublinhado, porque texto azul não passa no contraste sobre o creme.
 - Fonte Proxima Nova, com Montserrat de reserva. A Proxima é licenciada e não vai para o repositório.
 - Raio `--radius`, de 14px. Círculo só em orb, avatar, atalho e marco do rastreio.
@@ -28,7 +28,7 @@ Inclua `estilo.css` na página e use os tokens. Cor, fonte e raio nunca são esc
 
 ## Layout no desktop
 
-A partir de 60rem, a home segue o frame "Desktop, Onde está o dinheiro": uma coluna só, sobre `--color-card`.
+A partir de 60rem, a home tem barra no topo com busca, menu e perfil; faixa de status de ponta a ponta; saldo, conta e tabela de produtos à esquerda; cartões de informação à direita; e rodapé com suspeita de golpe. A busca abre a caquIA com a pergunta. O celular segue em coluna, com a barra embaixo.
 
 ## Movimento e texto
 

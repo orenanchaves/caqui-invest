@@ -113,3 +113,10 @@ test('faixa da home muda com o status do pedido', () => {
   assert.equal(painelInicial('C-0030', '2026-11-18T10:00').recentes[0].situacao, 'concluido');
   assert.equal(painelInicial('C-0028', '2026-11-18T10:00').recentes[0].situacao, 'recusado');
 });
+
+test('comparação com a poupança da home vem do cálculo líquido', () => {
+  const c = painelInicial('C-0001', '2026-11-18T10:00').poupanca;
+  assert.ok(c && c.produto.includes('CDB'));
+  assert.match(c.diferenca, /^R\$/);
+  assert.equal(painelInicial('C-0003', '2026-11-18T10:00').poupanca, null);
+});

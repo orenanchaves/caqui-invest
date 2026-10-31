@@ -16,7 +16,7 @@
 <main class="ds">
   <h1>Design system Caqui</h1>
   <p>Tudo aqui usa os mesmos arquivos do app. UI e UX por Renan Chaves.</p>
-  <nav class="ds-nav" aria-label="Seções"><a href="#devs">Para devs</a><a href="#cores">Cores</a><a href="#tipografia">Tipografia</a><a href="#icones">Ícones</a><a href="#acoes">Botões</a><a href="#perguntas">Perguntas sugeridas</a><a href="#menu">Barra de menu</a><a href="#orb">Orb</a><a href="#topo">Topo da home</a><a href="#status">Faixa por status</a><a href="#rastreio">Rastreio do pedido</a><a href="#dinheiro">Onde está meu dinheiro</a><a href="#atalhos">Atalhos</a><a href="#chat">caquIA</a><a href="#sanfona">Mais opções</a><a href="#golpe">Aviso de golpe</a><a href="#avisos">Avisos na conversa</a><a href="#extrato">Extrato</a><a href="#configuracoes">Configurações</a></nav>
+  <nav class="ds-nav" aria-label="Seções"><a href="#devs">Para devs</a><a href="#cores">Cores</a><a href="#tipografia">Tipografia</a><a href="#icones">Ícones</a><a href="#telas">Telas</a><a href="#acoes">Botões</a><a href="#movimento">Movimento</a><a href="#perguntas">Perguntas sugeridas</a><a href="#menu">Barra de menu</a><a href="#orb">Orb</a><a href="#topo">Topo da home</a><a href="#status">Faixa por status</a><a href="#rastreio">Rastreio do pedido</a><a href="#dinheiro">Onde está meu dinheiro</a><a href="#atalhos">Atalhos</a><a href="#chat">caquIA</a><a href="#sanfona">Mais opções</a><a href="#golpe">Aviso de golpe</a><a href="#avisos">Avisos na conversa</a><a href="#extrato">Extrato</a><a href="#configuracoes">Configurações</a></nav>
   <section id="devs" class="ds-secao">
   <h2>Para devs</h2>
 <p>Guia para implementar o atendimento Caqui. UI e UX por Renan Chaves.</p>
@@ -85,11 +85,30 @@ export function FaixaPedido({ pedido, aoFechar }) {
   <p>Em linha e de uma cor, aplicados por máscara com <code>.icone-pacote</code>.</p>
   <ul class="ds-icones"><li><span class="icone-pacote" style="--icone: url(icones/inicio.svg)"></span><code>inicio.svg</code></li><li><span class="icone-pacote" style="--icone: url(icones/carteira.svg)"></span><code>carteira.svg</code></li><li><span class="icone-pacote" style="--icone: url(icones/extrato.svg)"></span><code>extrato.svg</code></li><li><span class="icone-pacote" style="--icone: url(icones/calculadora.svg)"></span><code>calculadora.svg</code></li><li><span class="icone-pacote" style="--icone: url(icones/rendimento.svg)"></span><code>rendimento.svg</code></li></ul>
   </section>
+  <section id="telas" class="ds-secao">
+  <h2>Telas</h2>
+  <p>São as telas reais do app, então mudam junto com ele.</p>
+  <div class="ds-telas"><figure class="ds-tela ds-largo"><figcaption>Home no desktop</figcaption><div class="ds-moldura"><iframe src="/" title="Home no desktop" loading="lazy" data-largura="1440" data-altura="900" width="1440" height="900"></iframe></div></figure><figure class="ds-tela ds-celular"><figcaption>Home no celular</figcaption><div class="ds-moldura"><iframe src="/" title="Home no celular" loading="lazy" data-largura="375" data-altura="760" width="375" height="760"></iframe></div></figure><figure class="ds-tela ds-celular"><figcaption>Extrato</figcaption><div class="ds-moldura"><iframe src="/extrato?cliente=C-0001&agora=2026-11-18T10:00" title="Extrato" loading="lazy" data-largura="375" data-altura="760" width="375" height="760"></iframe></div></figure><figure class="ds-tela ds-celular"><figcaption>Configurações</figcaption><div class="ds-moldura"><iframe src="/configuracoes?cliente=C-0001&agora=2026-11-18T10:00" title="Configurações" loading="lazy" data-largura="375" data-altura="760" width="375" height="760"></iframe></div></figure></div>
+  </section>
   <section id="acoes" class="ds-secao">
   <h2>Botões</h2>
   <p>Uma ação principal por bloco. A ação de segurança só aparece em golpe.</p>
   <div class="ds-amostra"><div class="ds-linha"><button class="primario" type="button">Enviar</button><button class="botao-forte" type="button">Bloquear acesso agora</button><button class="base-pessoa" type="button">Falar com uma pessoa</button></div><div class="ds-escuro"><div class="modelo-acoes"><button class="botao-contorno" type="button"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>Aplicar</button><button class="botao-contorno" type="button"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>Resgatar</button></div></div></div>
   <details class="ds-codigo"><summary>Ver código</summary><div class="ds-codigo-bloco"><button class="ds-copiar" type="button">Copiar</button><pre><code>&lt;div class="ds-linha"&gt;&lt;button class="primario" type="button"&gt;Enviar&lt;/button&gt;&lt;button class="botao-forte" type="button"&gt;Bloquear acesso agora&lt;/button&gt;&lt;button class="base-pessoa" type="button"&gt;Falar com uma pessoa&lt;/button&gt;&lt;/div&gt;&lt;div class="ds-escuro"&gt;&lt;div class="modelo-acoes"&gt;&lt;button class="botao-contorno" type="button"&gt;Aplicar&lt;/button&gt;&lt;button class="botao-contorno" type="button"&gt;Resgatar&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;</code></pre></div></details>
+  </section>
+  <section id="movimento" class="ds-secao">
+  <h2>Movimento</h2>
+  <p>Passe o mouse, toque e use a tecla Tab nos botões acima para ver cada estado. Só <code>opacity</code> e <code>transform</code> são animados, e tudo para com <code>prefers-reduced-motion</code>.</p>
+  <div class="ds-tabela"><table><thead><tr><th>Elemento</th><th>Ao passar o mouse</th><th>Ao tocar</th><th>Tempo</th></tr></thead><tbody>
+  <tr><td>Aplicar e Resgatar</td><td>Fundo creme, texto marrom</td><td>Abre a orientação na caquIA</td><td>180ms</td></tr>
+  <tr><td>Pergunta sugerida</td><td>Fundo <code>--color-destaque</code></td><td>Laranja suave, depois <code>.escolhido</code></td><td>180ms</td></tr>
+  <tr><td>Atalho</td><td>Fundo <code>--color-destaque</code>, borda laranja</td><td>Envia a pergunta</td><td>120ms</td></tr>
+  <tr><td>Orb</td><td>Escala 1,06</td><td>Escala 0,96</td><td>180ms</td></tr>
+  <tr><td>Orb em repouso</td><td colspan="2">Pulso contínuo com <code>pulso</code></td><td>2200ms</td></tr>
+  <tr><td>Mais opções</td><td>Texto marrom</td><td>Seta gira 180 graus</td><td>180ms</td></tr>
+  <tr><td>Entrada de conteúdo</td><td colspan="2">Animação <code>entra</code>: sobe 16px e aparece</td><td>Até 420ms</td></tr>
+  <tr><td>Ações importantes</td><td colspan="2">Sementes em looping antes de concluir</td><td>1s</td></tr>
+  </tbody></table></div>
   </section>
   <section id="perguntas" class="ds-secao">
   <h2>Perguntas sugeridas</h2>

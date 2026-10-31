@@ -8,6 +8,7 @@ Leia `SPEC.md` antes de mudar comportamento. Decisão nova entra em "Decisões" 
 - Log só com protocolo, regra, motivo e ação. CPF sempre mascarado.
 - Todo valor em dinheiro usa `--color-ink`, o marrom escuro da marca, nunca vermelho ou cinza.
 - Front-end segue `DESIGN.md` e os tokens de `public/tokens.css`.
+- Mudou tela, botão ou movimento: atualize `public/design-system.html` no mesmo commit.
 - Só dados sintéticos. Nenhum segredo no repositório.
 - Regra nova vira teste em `test/motor.test.mjs`.
 - Pronto é `npm test` e `npm run perguntas` passando, com as respostas lidas.
