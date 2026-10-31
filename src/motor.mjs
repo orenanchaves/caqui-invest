@@ -526,6 +526,7 @@ export function painelInicial(idCliente, agora = AGORA_PADRAO) {
     conta: brl(cliente.saldo_em_conta_brl),
     carteira: brl(D.posicoes.filter((p) => p.id_cliente === idCliente).reduce((soma, p) => soma + p.saldo_bruto_brl, 0)),
     data: dataBR(hoje),
+    investimentos: D.posicoes.filter((p) => p.id_cliente === idCliente).map((p) => ({ nome: nomeProd(p.produto), valor: brl(p.saldo_bruto_brl), taxa: p.taxa_contratada === 'n/a' ? '' : p.taxa_contratada })),
     pedidos: abertas.map((o) => cartaoCaminho(o, hoje)),
   };
 }

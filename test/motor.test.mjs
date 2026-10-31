@@ -9,6 +9,7 @@ test('painel inicial soma a carteira só do cliente da sessão', () => {
   const p = painelInicial('C-0001', '2026-11-18T10:00');
   assert.equal(p.carteira, 'R$ 61.021,15');
   assert.equal(p.conta, 'R$ 1.250,00');
+  assert.deepEqual(p.investimentos.map((i) => i.valor), ['R$ 40.791,24', 'R$ 20.229,91']);
 });
 
 test('corte das 16h inclui 16h em ponto', () => {

@@ -95,10 +95,10 @@ async function iniciar() {
     </div></div>
     <div class="home-dentro home-corpo">
       <div class="saldo"><span>Disponível na conta</span><p class="saldo-valor"><span class="valor">${esc(r.conta)}</span></p></div>
+      <div class="carteira">${r.investimentos.length ? `<h2 class="caixinhas-titulo">Suas caixinhas</h2><div class="quadros">${r.investimentos.map((i) => `<article class="quadro"><h3>${esc(i.nome)}</h3><p class="quadro-valor"><span class="valor">${esc(i.valor)}</span></p>${i.taxa ? `<p class="quadro-taxa">${esc(i.taxa)}</p>` : ''}</article>`).join('')}</div>` : ''}<p class="carteira-total"><span>Total, antes do imposto</span><span class="valor">${esc(r.carteira)}</span></p><span class="notas">Fonte: posições da sua conta em ${esc(r.data)}</span></div>
       <div class="atalhos">${atalhos}</div>
       <button class="faixa" data-fala="Quero falar com uma pessoa">${ICONES.conversa}<span>Falar com uma pessoa</span></button>
       ${r.pedidos.map(cartao).join('')}
-      <div class="carteira"><span>Sua carteira, antes do imposto</span><p class="saldo-data"><span class="valor">${esc(r.carteira)}</span></p><span class="notas">Fonte: posições da sua conta em ${esc(r.data)}</span></div>
     </div>`;
 }
 
