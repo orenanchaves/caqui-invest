@@ -14,6 +14,8 @@ for (const linha of diff.split('\n')) {
   if (linha.startsWith('+++ ')) { arquivo = linha.slice(6); continue; }
   if (!linha.startsWith('+') || arquivo.startsWith('test/')) continue;
   for (const [nome, re] of TRAVAS) {
+    // Coordenadas de SVG podem ter o formato de um CPF.
+    if (nome === 'CPF sem máscara' && arquivo.endsWith('.svg')) continue;
     if (re.test(linha)) { console.error(`bloqueado: ${nome} em ${arquivo}`); achados++; }
   }
 }

@@ -2,23 +2,67 @@ import { caixinha, cartao, esc, FILAS, ICONES, md } from './ui.js';
 
 const $ = (s) => document.querySelector(s);
 const fio = $('#fio'), home = $('#home'), campo = $('#texto'), enviar = $('#enviar');
+const SUGESTOES = ['Meu resgate não caiu. Sumiu?', 'Apliquei e não aparece no extrato', 'Quando cai meu resgate?', 'O que é liquidez diária?'];
+const chipsSugestoes = () => `<div class="chips">${SUGESTOES.map((t) => `<button class="chip" data-fala="${esc(t)}">${esc(t)}</button>`).join('')}</div>`;
 const ATALHOS = [
-  ['relogio', 'Meu dinheiro', 'Onde está meu dinheiro?'],
-  ['calculo', 'Quanto vou receber', 'Quanto vou receber se resgatar tudo hoje?'],
-  ['grafico', 'Comparar poupança', 'Meu CDB rendeu menos que a poupança?'],
+  ['carteira', 'Meu dinheiro', 'Onde está meu dinheiro?'],
+  ['calculadora', 'Quanto vou receber', 'Quanto vou receber se resgatar tudo hoje?'],
+  ['rendimento', 'Comparar poupança', 'Meu CDB rendeu menos que a poupança?'],
   ['extrato', 'Extrato', 'Quero ver meu extrato'],
 ];
 const sessao = { cliente: null, agora: null, estado: {}, historico: [] };
 
-function rodape(aberto) {
-  $('#base-aberta').hidden = !aberto;
-  $('#base-fechada').hidden = aberto;
-  $('[data-abrir]').setAttribute('aria-expanded', aberto);
-  $('[data-abrir]').hidden = aberto;
-  if (aberto) campo.focus({ preventScroll: true });
+function iniciarOrb() {
+  const orb = $('.orb');
+  let toque = null, arrastou = false;
+  const colocar = (x, y) => {
+    const margem = 8;
+    orb.style.left = `${Math.min(Math.max(x, margem), window.innerWidth - orb.offsetWidth - margem)}px`;
+    orb.style.top = `${Math.min(Math.max(y, margem), window.innerHeight - orb.offsetHeight - margem)}px`;
+    orb.style.right = 'auto';
+    orb.style.bottom = 'auto';
+  };
+  try {
+    const salvo = JSON.parse(localStorage.getItem('orb'));
+    if (salvo) colocar(salvo.x, salvo.y);
+  } catch {}
+  orb.addEventListener('pointerdown', (e) => {
+    const r = orb.getBoundingClientRect();
+    toque = { dx: e.clientX - r.left, dy: e.clientY - r.top, x: e.clientX, y: e.clientY };
+    arrastou = false;
+    orb.setPointerCapture(e.pointerId);
+  });
+  orb.addEventListener('pointermove', (e) => {
+    if (!toque || (!arrastou && Math.hypot(e.clientX - toque.x, e.clientY - toque.y) < 6)) return;
+    arrastou = true;
+    colocar(e.clientX - toque.dx, e.clientY - toque.dy);
+  });
+  orb.addEventListener('pointerup', () => {
+    toque = null;
+    if (!arrastou) return;
+    const r = orb.getBoundingClientRect();
+    try { localStorage.setItem('orb', JSON.stringify({ x: r.left, y: r.top })); } catch {}
+  });
+  orb.addEventListener('click', (e) => {
+    if (!arrastou) return;
+    e.stopPropagation();
+    arrastou = false;
+  });
+  window.addEventListener('resize', () => {
+    if (!orb.style.left) return;
+    const r = orb.getBoundingClientRect();
+    colocar(r.left, r.top);
+  });
 }
 
-const rolar = () => window.scrollTo({ top: document.documentElement.scrollHeight });
+function conversa(aberta) {
+  $('#chat').hidden = !aberta;
+  $('[data-abrir]').hidden = aberta;
+  $('[data-abrir]').setAttribute('aria-expanded', aberta);
+  if (aberta) campo.focus({ preventScroll: true });
+}
+
+const rolar = () => { fio.scrollTop = fio.scrollHeight; };
 
 function adicionar(html, classe = '') {
   const el = document.createElement('div');
@@ -63,6 +107,7 @@ function mostrar(res) {
 async function falar(texto) {
   texto = texto.trim();
   if (!texto) return;
+  conversa(true);
   adicionar(`<p>${esc(texto)}</p>`, 'cliente');
   campo.value = '';
   enviar.disabled = true;
@@ -80,7 +125,7 @@ async function falar(texto) {
     adicionar('<div class="aviso">Não consegui responder agora. Sua mensagem não foi perdida: tente de novo ou ligue para a Caqui.</div>');
   } finally {
     enviar.disabled = false;
-    if (!$('#base-aberta').hidden) campo.focus({ preventScroll: true });
+    campo.focus({ preventScroll: true });
   }
 }
 
@@ -90,21 +135,23 @@ async function iniciar() {
   sessao.estado = {};
   sessao.historico = [];
   fio.innerHTML = '';
+  adicionar(`<div class="corpo"><p>Como posso ajudar?</p></div>${chipsSugestoes()}`);
+  conversa(false);
   const r = await fetch(`/api/inicio?cliente=${sessao.cliente}&agora=${sessao.agora}`).then((x) => x.json());
   document.body.classList.toggle('calmo', r.cliente.idade60);
   $('#horario').textContent = r.humano
     ? 'Pessoas das 8h às 20h, todos os dias: disponível agora.'
     : 'Pessoas das 8h às 20h: agora registramos com protocolo. Segurança a qualquer hora.';
-  const atalhos = ATALHOS.map(([icone, rotulo, fala], i) => `<button class="atalho${i ? '' : ' principal'}" data-fala="${esc(fala)}"><span class="atalho-icone">${ICONES[icone]}</span><span>${esc(rotulo)}</span></button>`).join('');
+  const atalhos = ATALHOS.map(([icone, rotulo, fala], i) => `<button class="atalho${i ? '' : ' principal'}" data-fala="${esc(fala)}"><span class="atalho-icone"><span class="icone-pacote" style="--icone: url(icones/${icone}.svg)"></span></span><span>${esc(rotulo)}</span></button>`).join('');
   home.classList.remove('oculto');
   home.innerHTML = `<div class="home-topo"><div class="home-dentro">
-      <div class="home-linha"><span class="avatar">${ICONES.pessoa}</span><button class="icone" data-valores aria-pressed="false" aria-label="Ocultar valores">${ICONES.olho}</button></div>
-      <h1 class="home-ola">Olá, ${esc(r.cliente.nome)}</h1>
+      <div class="home-linha"><span class="avatar">${ICONES.pessoa}</span><h1 class="home-ola">${esc(r.cliente.nome)}</h1><button class="icone" data-valores aria-pressed="false" aria-label="Ocultar valores">${ICONES.olho}</button></div>
     </div></div>
     <div class="home-dentro home-corpo">
       <div class="saldo"><span>Disponível na conta</span><p class="saldo-valor"><span class="valor">${esc(r.conta)}</span></p></div>
-      <div class="carteira">${r.investimentos.length ? `<h2 class="caixinhas-titulo">Suas caixinhas</h2><div class="quadros">${r.investimentos.map(caixinha).join('')}</div>` : ''}<p class="carteira-total"><span>Total, antes do imposto</span><span class="valor">${esc(r.carteira)}</span></p><span class="notas">Fonte: posições da sua conta em ${esc(r.data)}</span></div>
+      <div class="carteira">${r.investimentos.length ? `<h2 class="caixinhas-titulo">Onde está seu dinheiro?</h2><div class="quadros">${r.investimentos.map(caixinha).join('')}</div>` : ''}<p class="carteira-total"><span>Total, antes do imposto</span><span class="valor">${esc(r.carteira)}</span></p><span class="notas">Fonte: posições da sua conta em ${esc(r.data)}</span></div>
       <div class="atalhos">${atalhos}</div>
+      <div class="perguntas"><h2 class="caixinhas-titulo">Dúvidas comuns</h2>${chipsSugestoes()}</div>
       ${r.pedidos.map(cartao).join('')}
     </div>`;
 }
@@ -115,17 +162,15 @@ document.addEventListener('click', async (e) => {
   if (b.dataset.fala) falar(b.dataset.fala);
   if ('caixinha' in b.dataset) {
     const aberta = b.getAttribute('aria-expanded') === 'true';
-    const grade = b.closest('.quadros');
-    grade.querySelectorAll('[data-caixinha]').forEach((x) => {
+    b.closest('.quadros').querySelectorAll('[data-caixinha]').forEach((x) => {
       const esta = x === b && !aberta;
       x.setAttribute('aria-expanded', esta);
-      x.nextElementSibling.hidden = !esta;
+      x.nextElementSibling.inert = !esta;
       x.closest('.quadro').classList.toggle('aberta', esta);
     });
-    grade.classList.toggle('empilhada', !aberta);
   }
-  if ('abrir' in b.dataset) rodape(true);
-  if ('fechar' in b.dataset) rodape(false);
+  if ('abrir' in b.dataset) conversa(true);
+  if ('fechar' in b.dataset) conversa(false);
   if ('valores' in b.dataset) {
     const oculto = home.classList.toggle('oculto');
     b.setAttribute('aria-pressed', oculto);
@@ -149,6 +194,7 @@ document.addEventListener('click', async (e) => {
   }
 });
 
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') conversa(false); });
 $('#form').addEventListener('submit', (e) => { e.preventDefault(); falar(campo.value); });
 campo.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); falar(campo.value); } });
 $('#cliente').addEventListener('change', iniciar);
@@ -157,7 +203,11 @@ $('#hora').addEventListener('change', iniciar);
 const demo = await fetch('/api/demo').then((x) => x.json());
 $('#cliente').innerHTML = demo.clientes.map((c) => `<option value="${esc(c.id)}">${esc(c.nome)}</option>`).join('');
 $('#hora').innerHTML = demo.horarios.map((h) => `<option value="${esc(h)}">18/11, ${h.slice(11, 13)}h</option>`).join('');
-await Promise.all([iniciar(), new Promise((ok) => setTimeout(ok, 900))]);
+const espera = (ms) => new Promise((ok) => setTimeout(ok, ms));
+await Promise.all([iniciar(), espera(1920)]);
+iniciarOrb();
 const abertura = $('#carregando');
+abertura.classList.add('pronto');
+await espera(900);
 abertura.classList.add('fim');
 setTimeout(() => abertura.remove(), 300);
