@@ -51,6 +51,7 @@ A partir de 60rem, a home tem barra no topo com busca, menu e perfil; faixa de s
 | Menu inferior | `.menu-base` | Início, Portfólio, Extrato e o orb, sempre visível |
 | Cor por status | `data-situacao` | Andamento laranja suave, análise rosa, atrasado laranja forte, concluído creme, recusado salmão. Sempre com botão de fechar |
 | Aviso de golpe | `.pare` | Tela inteira "Pare agora." quando a caquIA detecta golpe, sem logo |
+| Apresentação | `apresentacao.html` | Slides em código com os tokens do design system. Setas do teclado no desktop, rolagem no celular |
 | Configurações | `configuracoes.html` | Abre pelo perfil: nome, valores ocultos e forma de ver. No desktop usa a mesma barra e o mesmo rodapé da home |
 | Formas de ver | `.vista-seletor` | Ao lado do título: Caixinhas, Lista e Gráfico, com a escolha salva |
 | Lista | `.linha-dinheiro` | Mostra cada investimento com o rastreio aberto |
