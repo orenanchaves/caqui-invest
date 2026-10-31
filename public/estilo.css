@@ -40,7 +40,7 @@ textarea { caret-color: var(--color-accent); }
 .busca { display: flex; align-items: center; gap: 0.5rem; min-height: 44px; padding: 0 1rem; border-radius: 22px; background: var(--color-paper); color: var(--color-muted); }
 .modelo-acoes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; margin-top: 0.5rem; }
 .botao-contorno { display: grid; place-items: center; min-height: 44px; border: 1px solid var(--color-paper); border-radius: 22px; font-weight: 600; }
-.faixa-pedido { display: flex; flex-direction: column; gap: 0.25rem; padding: 1rem; background: var(--color-accent); color: var(--color-ink); }
+.faixa-pedido { display: flex; flex-direction: column; gap: 0.25rem; padding: 1rem; background: var(--color-destaque); color: var(--color-ink); }
 .modelo-lista { padding: 1rem; border-radius: 0 0 var(--radius) var(--radius); background: var(--color-card); }
 .modelo-lista h4 { margin: 0.5rem 0 0.25rem; font-weight: 400; color: var(--color-muted); }
 .modelo-lista ul { list-style: none; margin: 0; padding: 0; }
@@ -174,10 +174,10 @@ a.atalho { text-decoration: none; }
 .linha-topo .valor { flex: none; font-weight: 800; color: var(--color-ink); }
 .topo-rotulo { margin-top: 0.75rem; color: var(--color-paper); }
 .topo-total { font-family: var(--font-display); font-weight: 800; font-size: 2.25rem; line-height: 1.15; letter-spacing: -0.02em; color: var(--color-paper); }
-.destaque .ficha:not(.atrasada) { background: var(--color-accent); box-shadow: none; }
+.destaque .ficha:not(.atrasada) { background: var(--color-destaque); box-shadow: none; }
 .destaque .ficha:not(.atrasada) h3, .destaque .ficha:not(.atrasada) .ficha-meta, .destaque .ficha:not(.atrasada) .rastreio li, .destaque .ficha:not(.atrasada) .nota, .destaque .ficha:not(.atrasada) .notas { color: var(--color-ink); }
 .destaque .ficha:not(.atrasada) .rastreio li::after { background: var(--color-ink); }
-.destaque .ficha:not(.atrasada) .marco { background: var(--color-accent); border-color: var(--color-ink); }
+.destaque .ficha:not(.atrasada) .marco { background: var(--color-destaque); border-color: var(--color-ink); }
 .destaque .ficha:not(.atrasada) .feita .marco { background: var(--color-ink); }
 .destaque .ficha:not(.atrasada) .agora .marco { background: var(--color-ciano); }
 .carteira-total { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 0.75rem; margin-top: 0.375rem; padding: 0.625rem 0.75rem; border-radius: 10px; background: var(--color-paper-2); }

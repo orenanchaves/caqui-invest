@@ -14,7 +14,8 @@ Inclua `estilo.css` na página e use os tokens. Cor, fonte e raio nunca são esc
 ## Regras
 
 - Todo valor em dinheiro usa `--color-ink`, o marrom escuro. Nunca vermelho ou cinza. Sobre o fundo escuro do topo, usa o creme.
-- Texto sobre cor é sempre escuro. Laranja é ação, vermelho é golpe e marca, ciano é a etapa atual, âmbar é a borda da caixinha, amarelo é o orb.
+- Texto sobre cor é sempre escuro. Laranja suave é ação, e o tom claro `--color-destaque` marca o pedido em andamento. O laranja forte `#EF7F2E` fica só no logo.
+- Vermelho, ciano, âmbar e amarelo seguem assim: vermelho é golpe e marca, ciano é a etapa atual, âmbar é a borda da caixinha, amarelo é o orb.
 - Azul só em foco e sublinhado, porque texto azul não passa no contraste sobre o creme.
 - Fonte Proxima Nova, com Montserrat de reserva. A Proxima é licenciada e não vai para o repositório.
 - Raio `--radius`, de 14px. Círculo só em orb, avatar, atalho e marco do rastreio.
