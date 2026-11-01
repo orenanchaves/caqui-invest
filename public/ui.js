@@ -16,7 +16,7 @@ export function md(texto) {
 }
 
 // Rastreio no formato de entrega: etapas na horizontal, com a atual em destaque.
-function rastreio(etapas) {
+export function rastreio(etapas) {
   const curta = etapas.length > 3;
   const passos = etapas.map((e) => {
     const classe = e.agora || e.hoje ? 'agora' : e.feita ? 'feita' : '';
@@ -112,5 +112,5 @@ export function molduraDesktop(nome, ativo) {
     <nav class="menu-topo" aria-label="Menu principal"><a href="/">Início</a><a href="/#dinheiro">Portfólio</a><a href="extrato.html${esc(qs)}"${atual('extrato')}>Extrato</a><a class="orb-topo" href="/#caquia"><span class="orb-disco">${orb}</span>caquIA</a></nav>
     <span class="barra-nome">${esc(nome)}</span><a class="avatar" href="configuracoes.html${esc(qs)}"${atual('configuracoes')} aria-label="Abrir configurações">${ICONES.pessoa}</a>
   </div></div>`);
-  document.querySelector('main').insertAdjacentHTML('afterend', '<footer class="rodape-home"><div class="rodape-dentro"><a href="/?q=Acho%20que%20%C3%A9%20golpe">Suspeita de golpe</a><span>Pessoas das 8h às 20h, todos os dias. Segurança a qualquer hora.</span></div></footer>');
+  document.querySelector('main').insertAdjacentHTML('afterend', '<footer class="rodape-home"><div class="rodape-dentro"><a href="/?q=Acho%20que%20%C3%A9%20golpe"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7.5 2.8v5.4c0 4.6-3 8-7.5 9.8-4.5-1.8-7.5-5.2-7.5-9.8V5.8L12 3Z"/></svg>Suspeita de golpe</a><span>Pessoas das 8h às 20h, todos os dias. Segurança a qualquer hora.</span></div></footer>');
 }

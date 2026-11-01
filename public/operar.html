@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aplicar, Caqui Invest</title>
+<meta name="description" content="Simulação de aplicação e resgate com dados fictícios.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<header class="topo"><div class="topo-dentro"><a class="voltar" id="voltar" href="/" aria-label="Voltar para o app"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></a></div></header>
+<div class="carregando aguarde" id="aguarde" role="status" aria-label="Carregando" hidden><svg viewBox="40 40 200 192" aria-hidden="true"><g class="sementes"><path style="--n: 0" d="M186.63,51.69c-2.17.86-36.49,41.76-33.88,51.76,2.85,10.93,34.38-36.79,34.59-37.21,1.56-3.18,10.1-18.82-.71-14.55Z"/><path style="--n: 1" d="M218.02,83.69c-2.33.17-47.28,28.98-47.78,39.3-.54,11.28,43.79-24.86,44.12-25.2,2.44-2.57,15.25-14.95,3.66-14.1Z"/><path style="--n: 2" d="M218.02,187.97c-2.33-.17-47.28-28.98-47.78-39.3-.54-11.28,43.79,24.86,44.12,25.2,2.44,2.57,15.25,14.95,3.66,14.1Z"/><path style="--n: 3" d="M186.63,219.97c-2.17-.86-36.49-41.76-33.88-51.76,2.85-10.93,34.38,36.79,34.59,37.21,1.56,3.18,10.1,18.82-.71,14.55Z"/><path style="--n: 4" d="M93.73,219.97c2.17-.86,36.49-41.76,33.88-51.76-2.85-10.93-34.38,36.79-34.59,37.21-1.56,3.18-10.1,18.82.71,14.55Z"/><path style="--n: 5" d="M62.34,187.97c2.33-.17,47.28-28.98,47.78-39.3.54-11.28-43.79,24.86-44.12,25.2-2.44,2.57-15.25,14.95-3.66,14.1Z"/><path style="--n: 6" d="M62.34,83.69c2.33.17,47.28,28.98,47.78,39.3.54,11.28-43.79-24.86-44.12-25.2-2.44-2.57-15.25-14.95-3.66-14.1Z"/><path style="--n: 7" d="M93.73,51.69c2.17.86,36.49,41.76,33.88,51.76-2.85,10.93-34.38-36.79-34.59-37.21-1.56-3.18-10.1-18.82.71-14.55Z"/></g></svg></div>
+<main class="extrato operar" id="operar"><div class="esqueleto"></div></main>
+<nav class="menu-base" aria-label="Menu principal">
+  <a href="/"><span class="icone-pacote" style="--icone: url(icones/inicio.svg)"></span><span>Início</span></a>
+  <a href="/#dinheiro"><span class="icone-pacote" style="--icone: url(icones/carteira.svg)"></span><span>Portfólio</span></a>
+  <a href="extrato.html" id="menu-extrato"><span class="icone-pacote" style="--icone: url(icones/extrato.svg)"></span><span>Extrato</span></a>
+  <a class="orb" href="/#caquia" aria-label="Abrir conversa com a caquIA"><span class="orb-disco"><svg viewBox="-63 -67.2 406 406" width="40" height="40" aria-hidden="true"><circle cx="140" cy="135.8" r="203" fill="currentColor"/><g class="orb-raios"><path d="M218.02,187.97c-2.33-.17-47.28-28.98-47.78-39.3-.54-11.28,43.79,24.86,44.12,25.2,2.44,2.57,15.25,14.95,3.66,14.1Z"/><path d="M186.63,219.97c-2.17-.86-36.49-41.76-33.88-51.76,2.85-10.93,34.38,36.79,34.59,37.21,1.56,3.18,10.1,18.82-.71,14.55Z"/><path d="M62.34,187.97c2.33-.17,47.28-28.98,47.78-39.3.54-11.28-43.79,24.86-44.12,25.2-2.44,2.57-15.25,14.95-3.66,14.1Z"/><path d="M93.73,219.97c2.17-.86,36.49-41.76,33.88-51.76-2.85-10.93-34.38,36.79-34.59,37.21-1.56,3.18-10.1,18.82.71,14.55Z"/><path d="M218.02,83.69c-2.33.17-47.28,28.98-47.78,39.3-.54,11.28,43.79-24.86,44.12-25.2,2.44-2.57,15.25-14.95,3.66-14.1Z"/><path d="M186.63,51.69c-2.17.86-36.49,41.76-33.88,51.76,2.85,10.93,34.38-36.79,34.59-37.21,1.56-3.18,10.1-18.82-.71-14.55Z"/><path d="M62.34,83.69c2.33.17,47.28,28.98,47.78,39.3.54,11.28-43.79-24.86-44.12-25.2-2.44-2.57-15.25-14.95-3.66-14.1Z"/><path d="M93.73,51.69c2.17.86,36.49,41.76,33.88,51.76-2.85,10.93-34.38-36.79-34.59-37.21-1.56-3.18-10.1-18.82.71-14.55Z"/></g></svg></span><span>caquIA</span></a>
+</nav>
+<script type="module" src="operar.js"></script>
+<noscript><p>Esta tela precisa de JavaScript.</p></noscript>
+</body>
+</html>

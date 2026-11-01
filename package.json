@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dados": "node scripts/gerar-dados.mjs",
-    "test": "node --test test/motor.test.mjs",
+    "test": "node --test test/motor.test.mjs test/operacao.test.mjs",
     "perguntas": "node scripts/rodar-perguntas.mjs && python ferramentas/checar_respostas.py respostas.jsonl",
     "dev": "wrangler dev --port 8799",
     "guardas": "git config core.hooksPath .githooks",

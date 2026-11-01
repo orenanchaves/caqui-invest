@@ -1,6 +1,6 @@
 // Borda HTTP do atendimento. O cliente vem da sessão de demonstração e nunca do texto.
 // Log só com protocolo e rótulos: nenhum texto de cliente vai para o log (regra 10).
-import { AGORA_PADRAO, artigoPublico, extratoCliente, fichaCliente, humanoDisponivel, mascarar, painelInicial, responder } from './motor.mjs';
+import { AGORA_PADRAO, artigoPublico, extratoCliente, fichaCliente, humanoDisponivel, mascarar, opcoesOperacao, painelInicial, responder, simularOperacao } from './motor.mjs';
 
 const DEMO = [
   ['C-0001', 'Dona Marta', 'Resgate caindo hoje'],
@@ -84,6 +84,15 @@ export default {
     if (p === '/api/extrato') {
       const c = clienteValido(url.searchParams.get('cliente'));
       return c ? json(extratoCliente(c, agoraValido(url.searchParams.get('agora')))) : json({ erro: 'cliente inválido' }, 400);
+    }
+    if (p === '/api/operacoes') {
+      const c = clienteValido(url.searchParams.get('cliente'));
+      return c ? json(opcoesOperacao(c, agoraValido(url.searchParams.get('agora')))) : json({ erro: 'cliente inválido' }, 400);
+    }
+    if (p === '/api/simular') {
+      const c = clienteValido(url.searchParams.get('cliente'));
+      const pedido = { tipo: url.searchParams.get('tipo'), ref: url.searchParams.get('ref'), valor: Number(url.searchParams.get('valor')) };
+      return c ? json(simularOperacao(c, agoraValido(url.searchParams.get('agora')), pedido)) : json({ erro: 'cliente inválido' }, 400);
     }
     if (p === '/api/mensagem' && req.method === 'POST') return mensagem(req, env);
     const art = p.match(/^\/api\/artigo\/(KB-\d{3})$/);

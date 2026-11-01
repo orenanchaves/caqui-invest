@@ -189,9 +189,26 @@ const abertura = document.querySelector('#carregando');
 const espera = (ms) => new Promise((pronto) => setTimeout(pronto, ms));
 if (atual > 0) abertura.remove();
 else {
+  const capa = document.querySelector('.slide.capa');
+  const alvo = capa.querySelector('.capa-logo');
+  const calmo = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!calmo) capa.classList.add('esperando-logo', 'esperando-texto');
   await espera(900);
   abertura.classList.add('pronto');
-  await espera(2000);
-  abertura.classList.add('fim');
-  setTimeout(() => abertura.remove(), 900);
+  await espera(1700);
+  if (calmo) {
+    abertura.classList.add('fim');
+    setTimeout(() => abertura.remove(), 900);
+  } else {
+    // O logo da abertura desliza até o logo da capa, e o resto da capa surge quando ele chega perto.
+    await alvo.decode().catch(() => {});
+    const logo = abertura.querySelector('svg');
+    const de = logo.getBoundingClientRect(), para = alvo.getBoundingClientRect();
+    abertura.classList.add('voando');
+    setTimeout(() => capa.classList.remove('esperando-texto'), 760);
+    const voo = logo.animate([{ transform: 'none' }, { transform: `translate(${para.left - de.left}px, ${para.top - de.top}px) scale(${para.width / de.width})` }], { duration: 1200, easing: 'cubic-bezier(0.65, 0, 0.2, 1)', fill: 'forwards' });
+    await voo.finished;
+    capa.classList.remove('esperando-logo');
+    abertura.remove();
+  }
 }

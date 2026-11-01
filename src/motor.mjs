@@ -2,7 +2,7 @@
 // O id do cliente vem sempre da sessão. Texto do cliente é dado, nunca instrução (regra 11).
 import D from './dados.gen.mjs';
 import {
-  aliquotaIR, brl, dataBR, diaBase, diasEntre, liquidoPosicao, pct, poupancaEquivalente, prazoResgate,
+  aliquotaIR, arred, brl, dataBR, diaBase, diasEntre, liquidoPosicao, pct, poupancaEquivalente, prazoAplicacao, prazoResgate,
   produto, pulados, proximoDU, somaCorridos,
 } from './calculo.mjs';
 
@@ -579,6 +579,80 @@ export function extratoCliente(idCliente, agora = AGORA_PADRAO) {
     .sort((a, b) => b.pedido_em.localeCompare(a.pedido_em))
     .map((o) => ({ id: o.id_operacao, data: dataBR(o.pedido_em.slice(0, 10)), titulo: `${TIPOS[o.tipo]} ${nomeProd(o.produto)}`, valor: brl(o.valor_brl), status: STATUS[o.status] }));
   return { cliente: cliente.nome.split(' ')[0], conta: brl(cliente.saldo_em_conta_brl), data: dataBR(agora.slice(0, 10)), itens };
+}
+
+// ---------- aplicar e resgatar ----------
+// A demonstração não executa nada: aqui só se calcula regra, prazo e imposto antes do pedido.
+const FORA_DA_APLICACAO = new Set(['ACOES']); // ações são compradas por quantidade, no home broker
+const SEM_IMPOSTO_NA_BASE = new Set(['FUNDO-MM-01', 'ACOES']);
+const CARENCIA_LCI = 90;
+
+function limiteResgate(p, hoje, agora) {
+  if (SEM_RESGATE.has(p.produto) && p.vencimento <= hoje) return { valor: 0, trava: `Venceu em ${dataBR(p.vencimento)}. Uma pessoa confirma o resgate` };
+  if (SEM_RESGATE.has(p.produto)) return { valor: 0, trava: `Resgate só no vencimento, em ${dataBR(p.vencimento)}` };
+  const carencia = produto(p.produto).carencia_dias ? CARENCIA_LCI : 0;
+  if (diasEntre(p.data_aplicacao, hoje) < carencia) return { valor: 0, trava: `Em carência até ${dataBR(somaCorridos(p.data_aplicacao, carencia))}` };
+  const emPedido = D.operacoes
+    .filter((o) => o.id_cliente === p.id_cliente && o.tipo === 'resgate' && o.produto === p.produto && ['pendente', 'em_processamento'].includes(o.status) && o.pedido_em.slice(0, 16) <= agora)
+    .reduce((soma, o) => soma + o.valor_brl, 0);
+  const valor = arred(Math.max(p.saldo_bruto_brl - emPedido, 0));
+  return { valor, trava: valor > 0 ? null : 'O saldo já está em um resgate em andamento' };
+}
+
+function textoLiquidez(p) {
+  if (p.liquidez === 'diaria') return 'Liquidez diária';
+  if (p.liquidez === 'diaria_apos_carencia') return `Carência de ${p.carencia_dias} dias, depois liquidez diária`;
+  if (p.liquidez === 'no_vencimento') return 'Resgate só no vencimento';
+  if (p.liquidez.startsWith('diaria, ')) return p.liquidez.replace('diaria', 'Liquidez diária');
+  return p.liquidez[0].toUpperCase() + p.liquidez.slice(1);
+}
+
+export function opcoesOperacao(idCliente, agora = AGORA_PADRAO) {
+  const cliente = D.clientes.find((c) => c.id === idCliente);
+  if (!cliente) return null;
+  const hoje = agora.slice(0, 10);
+  return {
+    cliente: cliente.nome.split(' ')[0],
+    conta: brl(cliente.saldo_em_conta_brl),
+    contaValor: cliente.saldo_em_conta_brl,
+    data: dataBR(hoje),
+    fontes: { resgatar: ['KB-005', 'KB-006', 'KB-011'], aplicar: ['KB-005', 'KB-006', 'KB-011', ...(cliente.origem === 'parceria_varejista' ? ['KB-023'] : [])] },
+    resgates: D.posicoes.filter((p) => p.id_cliente === idCliente).map((p) => {
+      const { valor, trava } = limiteResgate(p, hoje, agora);
+      return { ref: p.id_posicao, nome: nomeProd(p.produto), taxa: p.taxa_contratada === 'n/a' ? '' : p.taxa_contratada, bruto: brl(p.saldo_bruto_brl), disponivel: brl(valor), limite: valor, trava };
+    }),
+    aplicacoes: D.taxas.produtos
+      .filter((p) => !FORA_DA_APLICACAO.has(p.codigo) && (p.codigo !== 'CDB-LD-110' || cliente.origem === 'parceria_varejista'))
+      .map((p) => ({ ref: p.codigo, nome: nomeProd(p.codigo), taxa: p.pct_cdi ? `${pct(p.pct_cdi)} do CDI` : '', liquidez: textoLiquidez(p), isento: !p.tributavel, minimo: brl(p.aplicacao_minima) })),
+  };
+}
+
+const etapasBR = (etapas) => etapas.map((e, i) => ({ rotulo: e.rotulo, br: dataBR(e.data), nota: e.nota, feita: i === 0 }));
+
+export function simularOperacao(idCliente, agora, { tipo, ref, valor }) {
+  const cliente = D.clientes.find((c) => c.id === idCliente);
+  if (!cliente || !['aplicar', 'resgatar'].includes(tipo)) return { erro: 'Operação inválida.' };
+  if (!(valor > 0)) return { erro: 'Informe um valor.' };
+  const hoje = agora.slice(0, 10), hora = agora.slice(11, 16);
+  if (tipo === 'aplicar') {
+    const p = produto(ref);
+    if (!p || !opcoesOperacao(idCliente, agora).aplicacoes.some((a) => a.ref === ref)) return { erro: 'Produto não encontrado.' };
+    if (valor < p.aplicacao_minima) return { erro: `O mínimo deste produto é ${brl(p.aplicacao_minima)}.` };
+    if (valor > cliente.saldo_em_conta_brl) return { erro: `Você tem ${brl(cliente.saldo_em_conta_brl)} disponíveis na conta.` };
+    const prazo = prazoAplicacao(ref, hoje, hora);
+    return { tipo, nome: nomeProd(ref), valor: brl(valor), previsto: prazo.liquidacao ? dataBR(prazo.liquidacao) : null, etapas: etapasBR(prazo.etapas), fontes: ['KB-006', ...(ref === 'TESOURO-SELIC-2029' ? ['KB-015'] : []), ...(ref === 'LCI-90D-92' ? ['KB-011'] : []), ...(ref === 'CDB-LD-110' ? ['KB-023'] : [])] };
+  }
+  const p = D.posicoes.find((x) => x.id_posicao === ref && x.id_cliente === idCliente);
+  if (!p) return { erro: 'Investimento não encontrado.' };
+  const { valor: limite, trava } = limiteResgate(p, hoje, agora);
+  if (trava) return { erro: `${trava}.` };
+  if (valor > limite) return { erro: `Disponível para resgate agora: ${brl(limite)}.` };
+  const prazo = prazoResgate(p.produto, hoje, hora);
+  const base = { tipo, nome: nomeProd(p.produto), valor: brl(valor), previsto: dataBR(prazo.pagamento), etapas: etapasBR(prazo.etapas) };
+  if (SEM_IMPOSTO_NA_BASE.has(p.produto)) return { ...base, imposto: null, liquido: null, fontes: ['KB-006'] };
+  const l = liquidoPosicao(p, hoje);
+  const imposto = arred(l.ir * valor / p.saldo_bruto_brl);
+  return { ...base, isento: l.isento, imposto: brl(imposto), liquido: brl(valor - imposto), fontes: l.isento ? ['KB-006', 'KB-011'] : ['KB-006', 'KB-010'] };
 }
 
 export function fichaCliente(idCliente, agora = AGORA_PADRAO) {

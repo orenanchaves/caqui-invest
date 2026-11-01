@@ -57,6 +57,14 @@ export function prazoResgate(codigo, data, hora) {
   return null;
 }
 
+// Na aplicação, só CDB, LCI e Tesouro têm liquidação na base. Nos demais, o prazo para no dia-base.
+export function prazoAplicacao(codigo, data, hora) {
+  const { base, motivo } = diaBase(data, hora);
+  const etapas = [{ rotulo: 'Pedido', data }, { rotulo: 'Dia-base', data: base, nota: motivo }];
+  const fim = ['CDB-LD-100', 'CDB-LD-85', 'CDB-LD-110', 'LCI-90D-92'].includes(codigo) ? base : codigo === 'TESOURO-SELIC-2029' ? somaDU(base, 1) : null;
+  return { etapas: fim ? [...etapas, { rotulo: 'Aplicação liquidada', data: fim }] : etapas, liquidacao: fim };
+}
+
 export function aliquotaIR(dias) {
   if (dias <= 180) return 0.225;
   if (dias <= 360) return 0.2;
@@ -65,7 +73,7 @@ export function aliquotaIR(dias) {
 }
 export const pct = (a) => String(+(a * 100).toFixed(1)).replace('.', ',') + '%';
 
-const arred = (v) => Math.round(v * 100 + 1e-9) / 100;
+export const arred = (v) => Math.round(v * 100 + 1e-9) / 100;
 
 export function liquidoPosicao(p, data) {
   const prod = produto(p.produto);

@@ -159,14 +159,9 @@ function ir(destino) {
   if (destino === 'dinheiro') home.querySelector(matchMedia('(min-width: 60rem)').matches ? '.tabela-produtos' : '.carteira')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-// Aplicar e Resgatar orientam com o artigo da base: a demonstração não executa operações.
-async function guia(rotulo) {
-  conversa(true);
-  adicionar(`<p>${esc(rotulo)}</p>`, 'cliente');
-  const r = await fetch('/api/artigo/KB-006');
-  if (!r.ok) return adicionar('<div class="aviso">Não consegui abrir a orientação agora. Tente de novo.</div>');
-  const a = await r.json();
-  adicionar(`<div class="corpo"><p><strong>${esc(a.titulo)}</strong></p>${md(a.corpo)}<p>Esta demonstração não faz aplicações nem resgates.</p></div>${blocoFontes([{ tipo: 'kb', id: a.id, revisado: a.revisado ?? a.revisado_em }])}`);
+// Aplicar e Resgatar abrem a tela própria, que calcula prazo e imposto antes do pedido.
+function operar(tipo) {
+  location.href = `operar.html?tipo=${tipo}&cliente=${encodeURIComponent(sessao.cliente)}&agora=${encodeURIComponent(sessao.agora)}`;
 }
 
 async function falar(texto) {
@@ -258,16 +253,16 @@ async function iniciar() {
       <div class="home-linha"><a class="avatar" href="configuracoes.html?cliente=${encodeURIComponent(sessao.cliente)}&agora=${encodeURIComponent(sessao.agora)}" aria-label="Abrir configurações">${ICONES.pessoa}</a><h1 class="home-ola">${esc(r.cliente.nome)}</h1><button class="icone" data-valores aria-pressed="${ocultos}" aria-label="${ocultos ? 'Mostrar valores' : 'Ocultar valores'}">${ICONES.olho}</button></div>
       <p class="topo-rotulo">Seu dinheiro na Caqui</p>
       <p class="topo-total"><span class="valor">${esc(r.total)}</span></p>
-      <div class="modelo-acoes"><button class="botao-contorno" data-guia="Aplicar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>Aplicar</button><button class="botao-contorno" data-guia="Resgatar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>Resgatar</button></div>
+      <div class="modelo-acoes"><button class="botao-contorno" data-operar="aplicar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>Aplicar</button><button class="botao-contorno" data-operar="resgatar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>Resgatar</button></div>
     </div></div>
     ${primeiro ? `<div class="destaque" data-situacao="${esc(primeiro.situacao)}"><div class="destaque-topo"><strong>${esc(rotuloSituacao(primeiro))}</strong><button class="destaque-fechar" data-fechar-destaque aria-label="Fechar aviso"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>${cartao(primeiro)}</div>` : ''}
     <div class="home-dentro home-corpo">
       <div class="painel-desktop">
         <div class="painel-principal">
-          <div class="saldo-card"><div><p class="topo-rotulo">Seu dinheiro na Caqui</p><p class="topo-total"><span class="valor">${esc(r.total)}</span></p></div><div class="modelo-acoes"><button class="botao-contorno" data-guia="Aplicar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>Aplicar</button><button class="botao-contorno" data-guia="Resgatar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>Resgatar</button></div></div>
+          <div class="saldo-card"><div><p class="topo-rotulo">Seu dinheiro na Caqui</p><p class="topo-total"><span class="valor">${esc(r.total)}</span></p></div><div class="modelo-acoes"><button class="botao-contorno" data-operar="aplicar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>Aplicar</button><button class="botao-contorno" data-operar="resgatar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>Resgatar</button></div></div>
           <a class="conta-linha" href="extrato.html?cliente=${encodeURIComponent(sessao.cliente)}&agora=${encodeURIComponent(sessao.agora)}"><span class="linha-icone"><span class="icone-pacote" style="--icone: url(icones/carteira.svg)"></span></span><span class="conta-texto"><b>Disponível na conta</b><small>Pronto para sacar ou aplicar</small></span><span class="valor">${esc(r.conta)}</span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
           ${r.investimentos.length ? `<div class="tabela-produtos"><table><thead><tr><th>Produto</th><th>Taxa</th><th>Saldo bruto</th><th>Status</th><th><span class="so-leitor">Abrir</span></th></tr></thead><tbody>${r.investimentos.map(linhaProduto).join('')}</tbody></table></div>` : ''}
-          <button class="novo-produto" type="button" data-guia="Aplicar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Aplicar em um novo produto</button>
+          <button class="novo-produto" type="button" data-operar="aplicar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Aplicar em um novo produto</button>
         </div>
         <aside class="painel-lateral" aria-label="Informações">
           ${r.poupanca ? `<article class="lateral-card"><h3><span class="icone-pacote" style="--icone: url(icones/rendimento.svg)"></span>Contra a poupança</h3><p class="lateral-valor"><span class="valor">${esc(r.poupanca.sinal)} ${esc(r.poupanca.diferenca)}</span></p><p class="notas">No ${esc(r.poupanca.produto)}, já líquido, no mesmo período. Valores líquidos com as taxas da Caqui. KB-012</p></article>` : ''}
@@ -309,7 +304,7 @@ document.addEventListener('click', async (e) => {
     $('#pare').hidden = true;
     if (b.dataset.pare === 'voltar') conversa(false);
   }
-  if (b.dataset.guia) guia(b.dataset.guia);
+  if (b.dataset.operar) operar(b.dataset.operar);
   if ('abrir' in b.dataset) conversa(true);
   if ('fechar' in b.dataset) conversa(false);
   if ('valores' in b.dataset) {

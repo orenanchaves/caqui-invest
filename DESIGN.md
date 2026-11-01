@@ -21,7 +21,7 @@ Inclua `estilo.css` na página e use os tokens. Cor, fonte e raio nunca são esc
 - Azul só em foco e sublinhado, porque texto azul não passa no contraste sobre o creme.
 - Fonte Proxima Nova, com Montserrat de reserva. A Proxima é licenciada e não vai para o repositório.
 - Raio `--radius`, de 14px. Círculo só em orb, avatar, atalho e marco do rastreio.
-- O logo aparece na abertura e na barra do desktop. No celular, depois da abertura, fica só o orb. Abertura: as sementes giram no centro e deslizam para revelar o nome. Na interface fica o texto "Caqui".
+- O logo aparece na abertura e na barra do desktop. No celular, depois da abertura, fica só o orb. Abertura: as sementes giram no centro e deslizam para revelar o nome. Na apresentação, o logo da abertura desliza até o logo da capa. Na interface fica o texto "Caqui".
 - Ações importantes (reclamar, encerrar, golpe e bloqueio) mostram as sementes em looping por 1 segundo.
 - O chat se chama caquIA, sempre com essa grafia.
 - Ícones em linha, de uma cor, com `currentColor` ou máscara. Nada que imite marca real.
@@ -51,7 +51,8 @@ A partir de 60rem, a home tem barra no topo com busca, menu e perfil; faixa de s
 | Menu inferior | `.menu-base` | Início, Portfólio, Extrato e o orb, sempre visível |
 | Cor por status | `data-situacao` | Andamento laranja suave, análise rosa, atrasado laranja forte, concluído creme, recusado salmão. Sempre com botão de fechar |
 | Aviso de golpe | `.pare` | Tela inteira "Pare agora." quando a caquIA detecta golpe, sem logo |
-| Apresentação | `apresentacao.html` | 33 slides em código com os tokens do design system, em palco wide 16:9 de 1440 por 810 no desktop e em rolagem vertical com menu hambúrguer abaixo de 60rem, com as telas em `telas/`. Transição em que o slide entra na direção da navegação, com o conteúdo em sequência, menu flutuante que encolhe no lugar, com seções e links, rodapé com os controles alinhados ao logo, setas do teclado e tela cheia |
+| Apresentação | `apresentacao.html` | 34 slides em código com os tokens do design system, em palco wide 16:9 de 1440 por 810 no desktop e em rolagem vertical com menu hambúrguer abaixo de 60rem, com as telas em `telas/`. Transição em que o slide entra na direção da navegação, com o conteúdo em sequência, menu flutuante que encolhe no lugar, com seções e links, rodapé com os controles alinhados ao logo, setas do teclado e tela cheia |
+| Aplicar e resgatar | `operar.html` | Tela própria, aberta pelos botões Aplicar e Resgatar e por "Aplicar em um novo produto": troca de operação, `.opcao` para escolher, campo de valor e `.operar-resumo` com data, imposto e fonte vindos do motor. Só simula, diz isso no topo e mantém "Falar com uma pessoa" à vista |
 | Configurações | `configuracoes.html` | Abre pelo perfil: nome, valores ocultos e forma de ver. No desktop usa a mesma barra e o mesmo rodapé da home |
 | Formas de ver | `.vista-seletor` | Ao lado do título: Caixinhas, Lista e Gráfico, com a escolha salva |
 | Lista | `.linha-dinheiro` | Mostra cada investimento com o rastreio aberto |

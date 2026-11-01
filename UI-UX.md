@@ -35,7 +35,7 @@ As sementes da marca aparecem na abertura e voltam em looping nas ações import
 
 ### Home
 
-- Topo escuro com perfil, saldo total, opção de ocultar valores e os botões Aplicar e Resgatar.
+- Topo escuro com perfil, saldo total, opção de ocultar valores e os botões Aplicar e Resgatar, que abrem uma tela própria de simulação com prazo, imposto e fonte.
 - Faixa de pedido logo abaixo do topo, com o rastreio das etapas e botão de fechar.
 - Seção "Onde está meu dinheiro" com três formas de ver: Caixinhas, Lista e Gráfico. A escolha fica salva.
 - Caixinhas lado a lado que abrem empurrando as outras, com a linha do tempo do investimento.
