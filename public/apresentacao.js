@@ -32,6 +32,7 @@ function ir(n) {
   secoes.forEach((s) => (s === secao ? s.botao.setAttribute('aria-current', 'true') : s.botao.removeAttribute('aria-current')));
   slides.forEach((s, i) => s.classList.toggle('atual', i === atual));
   contador.textContent = `${atual + 1} de ${slides.length}`;
+  document.querySelector('#rodape').dataset.tom = slides[atual].classList.contains('escuro') ? 'escuro' : 'claro';
   anterior.disabled = atual === 0;
   proximo.disabled = atual === slides.length - 1;
   history.replaceState(null, '', `#${atual + 1}`);
@@ -87,9 +88,8 @@ function escalar() {
   const cheia = !!document.fullscreenElement;
   const barra = document.querySelector('.deck-topo').offsetHeight;
   const topo = cheia ? 0 : barra + 12;
-  const base = cheia ? 0 : document.querySelector('.deck-controles').offsetHeight + 24;
-  document.documentElement.style.setProperty('--deslocar', `${(topo - base) / 2}px`);
-  document.documentElement.style.setProperty('--escala', Math.min(innerWidth / 1440, (innerHeight - topo - base) / 810));
+  document.documentElement.style.setProperty('--deslocar', `${topo / 2}px`);
+  document.documentElement.style.setProperty('--escala', Math.min(innerWidth / 1440, (innerHeight - topo) / 810));
 }
 escalar();
 window.addEventListener('resize', escalar);

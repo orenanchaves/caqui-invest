@@ -327,9 +327,11 @@ a.icone-link:hover { background: var(--color-card); }
 .tabela-slide thead th { font-size: 1rem; }
 .tabela-slide tbody tr:last-child > * { border-bottom: 0; }
 
-.deck-controles { position: fixed; z-index: 4; left: 50%; bottom: 0.75rem; transform: translateX(-50%); display: none; align-items: center; gap: 0.25rem; padding: 0.25rem; border-radius: var(--radius); background: var(--color-card); color: var(--color-ink); box-shadow: var(--sombra); font-size: var(--text-sm); font-weight: 600; font-variant-numeric: tabular-nums; }
-.deck-controles button { width: 44px; height: 44px; display: grid; place-items: center; border: 0; border-radius: var(--radius); background: none; color: var(--color-ink); transition: background-color 180ms; }
-.deck-controles button:hover:not(:disabled) { background: var(--color-destaque); }
+.deck-rodape { position: absolute; z-index: 3; right: max(1.25rem, calc(50% - 38rem)); bottom: 0; left: max(1.25rem, calc(50% - 38rem)); display: flex; align-items: center; justify-content: space-between; height: 3.5rem; border-top: 1px solid var(--color-rule); color: var(--color-ink); font-size: 1rem; font-weight: 600; transition: color 320ms; }
+.deck-rodape[data-tom="escuro"] { color: var(--color-paper); }
+.deck-controles { display: flex; align-items: center; gap: 0.25rem; font-variant-numeric: tabular-nums; }
+.deck-controles button { width: 44px; height: 44px; display: grid; place-items: center; border: 0; border-radius: var(--radius); background: none; color: inherit; transition: background-color 180ms, color 180ms, opacity 180ms; }
+.deck-controles button:hover:not(:disabled) { background: var(--color-destaque); color: var(--color-ink); }
 .deck-links summary { min-height: 44px; display: flex; align-items: center; padding: 0 0.75rem; border-radius: var(--radius); color: var(--color-ink); font-weight: 800; cursor: pointer; list-style: none; transition: background-color 180ms; }
 .deck-links summary::-webkit-details-marker { display: none; }
 .deck-links summary:hover, .deck-links[open] summary { background: var(--color-destaque); color: var(--color-ink); }
@@ -351,10 +353,9 @@ html:fullscreen .deck-topo { display: none; }
 .deck-secoes button { flex: none; min-height: 44px; padding: 0 0.75rem; border: 0; border-radius: var(--radius); background: none; color: var(--color-ink); font-weight: 600; transition: background-color 180ms, color 180ms; }
 .deck-secoes button:hover, .deck-secoes button[aria-current] { background: var(--color-destaque); color: var(--color-ink); }
 .deck-controles button[hidden] { display: none; }
-.deck-controles button:disabled { background: var(--color-paper-2); color: var(--color-muted); cursor: not-allowed; }
+.deck-controles button:disabled { opacity: 0.35; cursor: not-allowed; }
 
 /* palco wide: tamanho fixo, a tela só muda a escala */
-.deck-controles { display: flex; }
 .qr-slide.grande { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .slide:not(.capa) { padding-top: 2.5rem; }
 .slide-assinatura { top: 1.75rem; width: 9rem; }
@@ -364,7 +365,7 @@ html:fullscreen .deck-topo { display: none; }
 .paleta span { aspect-ratio: 2 / 1; }
 .identidade-lista { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 1.5rem; font-size: 1.125rem; }
 .telas-slide { grid-template-columns: repeat(4, minmax(0, 1fr)); justify-items: start; }
-.telas-slide figure { width: min(100%, calc((810px - 15rem) * 0.46)); }
+.telas-slide figure { width: min(100%, calc((810px - 16rem) * 0.46)); }
 .largas-slide { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .largas-slide figure { max-width: calc((810px - 18rem) * 1.62); }
 .conta-slide { grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); }
@@ -375,7 +376,7 @@ html:fullscreen .deck-topo { display: none; }
 .cartoes-slide.quatro, .escopo-slide, .tabela-slide, .conta-slide .cartao-laranja { font-size: 1.125rem; }
 .cartoes-slide.cinco { font-size: 1.1875rem; }
 .cartoes-slide.tres { font-size: 1.25rem; }
-.slide { display: none; height: 810px; padding-top: 2rem; padding-bottom: 3.5rem; overflow: hidden; }
+.slide { display: none; height: 810px; padding-top: 2rem; padding-bottom: 4.5rem; overflow: hidden; }
 .slide.atual { display: flex; }
 .slide { font-size: 1.375rem; }
 .slide-nota { font-size: 1.125rem; }
@@ -823,7 +824,7 @@ a.atalho { text-decoration: none; }
   .slide h1 { font-size: 2.75rem; }
   .slide h2 { font-size: 2rem; }
   .slide-assinatura { top: 1.125rem; right: auto; left: 1.25rem; width: 5.5rem; }
-  .deck-controles { display: none; }
+  .deck-rodape { display: none; }
   .deck-topo { top: 0.75rem; right: 0.75rem; left: auto; flex-direction: column; align-items: stretch; width: auto; max-width: calc(100vw - 1.5rem); max-height: calc(100svh - 1.5rem); overflow-y: auto; transform: none; }
   .deck-hamburguer { display: grid; place-items: center; align-self: flex-end; width: 44px; height: 44px; border: 0; border-radius: var(--radius); background: none; color: var(--color-ink); }
   .deck-recolher { display: none; }
