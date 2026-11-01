@@ -24,8 +24,9 @@ function ir(n) {
   atual = Math.min(Math.max(n, 0), slides.length - 1);
   if (anterior !== slides[atual]) {
     slides.forEach((s) => s.classList.remove('saindo'));
+    document.querySelector('.palco').dataset.sentido = slides.indexOf(anterior) < atual ? 'frente' : 'tras';
     anterior.classList.add('saindo');
-    setTimeout(() => anterior.classList.remove('saindo'), 460);
+    setTimeout(() => anterior.classList.remove('saindo'), 660);
   }
   const secao = secoes.filter((s) => s.inicio <= atual).pop();
   secoes.forEach((s) => (s === secao ? s.botao.setAttribute('aria-current', 'true') : s.botao.removeAttribute('aria-current')));
@@ -112,6 +113,13 @@ ir(Number(location.hash.slice(1)) - 1 || 0);
 // Guia do produto: cada botão aciona a função na tela real, dentro do slide.
 const telaGuia = document.querySelector('#guia-tela');
 const botoesGuia = [...document.querySelectorAll('[data-guia]')];
+// A tela do guia fica sem barras de rolagem, para caber limpa na moldura.
+telaGuia.addEventListener('load', () => {
+  const estilo = telaGuia.contentDocument?.createElement('style');
+  if (!estilo) return;
+  estilo.textContent = 'html, body, .chat, .chat .fio { scrollbar-width: none; }';
+  telaGuia.contentDocument.head.append(estilo);
+});
 let telaSuja = false;
 
 async function telaPronta() {
