@@ -16,7 +16,7 @@
 <noscript><style>.carregando { display: none; } .deck { height: auto; overflow: auto; } .palco { position: static; height: auto; transform: none; } .slide { display: flex; }</style></noscript>
 <header class="deck-topo">
   <button type="button" class="deck-hamburguer" id="menu-movel" aria-label="Abrir o menu" aria-expanded="false"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
-  <nav class="deck-secoes" aria-label="Seções"><button type="button" data-slide="Capa">Início</button><button type="button" data-slide="Identidade visual">Marca</button><button type="button" data-slide="O problema">Problema</button><button type="button" data-slide="Teste o produto">Produto</button><button type="button" data-slide="Dois sistemas no ar">Técnica</button><button type="button" data-slide="Onde a IA errou">Aprendizados</button><button type="button" data-slide="Equipe">Equipe</button><button type="button" data-slide="Obrigado">QR codes</button></nav>
+  <nav class="deck-secoes" aria-label="Seções"><button type="button" data-slide="Capa">Início</button><button type="button" data-slide="Identidade visual">Marca</button><button type="button" data-slide="Componentes">Design system</button><button type="button" data-slide="O problema">Problema</button><button type="button" data-slide="Teste o produto">Produto</button><button type="button" data-slide="Dois sistemas no ar">Técnica</button><button type="button" data-slide="Onde a IA errou">Aprendizados</button><button type="button" data-slide="Equipe">Equipe</button><button type="button" data-slide="Obrigado">QR codes</button></nav>
   <details class="deck-links"><summary>Links</summary><div class="deck-links-lista"><a href="https://caqui.pages.dev/" target="_blank" rel="noopener">Plataforma</a><a href="https://caquia-141549116326.southamerica-east1.run.app/" target="_blank" rel="noopener">Tela do cliente</a><a href="https://copiloto-caqui-141549116326.southamerica-east1.run.app/" target="_blank" rel="noopener">Copiloto - Visão do atendente</a><a href="https://caqui.pages.dev/design-system" target="_blank" rel="noopener">Design system</a><a href="https://www.figma.com/design/kv0JmnR0TQfIP7PlsuUWmw/?node-id=16-1008" target="_blank" rel="noopener">UX no Figma</a><a href="https://github.com/orenanchaves/caqui-invest/blob/solucao-cade/UI-UX.md" target="_blank" rel="noopener">Documento de UI e UX</a><a href="https://github.com/vlrosa-dev/caqui-wallstreet-juniors/tree/feature/atendimento-caqui" target="_blank" rel="noopener">Código no GitHub</a></div></details>
   <button type="button" class="deck-recolher" id="recolher" aria-label="Recolher o menu" aria-expanded="true" title="Recolher o menu (M)"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg></button>
 </header>
@@ -50,6 +50,15 @@
     </ul>
   </section>
 
+  <section class="slide" aria-label="Onde o logo aparece">
+    <h2>Onde o logo aparece</h2>
+    <div class="logo-usos">
+      <article><span class="fundo-escuro"><img src="logo/caqui-02.svg" alt="Logo completo"></span><h3>Abertura e desktop</h3><p>Logo completo na abertura do app e na barra do topo.</p></article>
+      <article><span class="fundo-claro"><img src="favicon.svg" alt="Sementes"></span><h3>Celular e navegador</h3><p>Depois da abertura, só as sementes, no orb e no ícone da aba.</p></article>
+      <article><span class="fundo-golpe"><strong>Pare agora.</strong></span><h3>Golpe</h3><p>Tela inteira sem logo. A mensagem vem antes da marca.</p></article>
+    </div>
+  </section>
+
   <section class="slide" aria-label="Cores e tipografia">
     <h2>Cores e tipografia</h2>
     <div class="marca-detalhe">
@@ -72,6 +81,45 @@
     </div>
   </section>
 
+  <section class="slide" aria-label="Cor com função">
+    <h2>Cor com função</h2>
+    <div class="cor-funcao">
+      <ul class="status-faixas" aria-label="Cor por status do pedido">
+        <li style="background: var(--color-accent)"><strong>Em andamento</strong><code>#F6AC78</code></li>
+        <li style="background: var(--color-alerta-fundo)"><strong>Em análise</strong><code>#FCDCD6</code></li>
+        <li style="background: var(--color-status-atraso)"><strong>Atrasado</strong><code>#F0883E</code></li>
+        <li style="background: var(--color-paper-2)"><strong>Concluído</strong><code>#FBE6D3</code></li>
+        <li style="background: var(--color-status-recusado)"><strong>Recusado</strong><code>#F4A99C</code></li>
+      </ul>
+      <dl class="cor-regras">
+        <div><dt>Dinheiro é marrom</dt><dd>Todo valor usa o marrom escuro, nunca vermelho ou cinza.</dd></div>
+        <div><dt>Texto sobre cor é escuro</dt><dd>Vale para botão e faixa.</dd></div>
+        <div><dt>Laranja forte só no logo</dt><dd><code>#EF7F2E</code> não vira cor de interface.</dd></div>
+        <div><dt>Azul só em foco e sublinhado</dt><dd>Texto azul não passa no contraste sobre o creme.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="slide" aria-label="Escala, forma e ícones">
+    <h2>Escala, forma e ícones</h2>
+    <div class="cartoes-slide tres base-sistema">
+      <article><h3>Escala de texto</h3>
+        <p class="escala" style="font-size: var(--text-xl); font-weight: 800">Título 28</p>
+        <p class="escala" style="font-size: var(--text-lg); font-weight: 600">Destaque 20</p>
+        <p class="escala" style="font-size: var(--text-base)">Texto 16</p>
+        <p class="escala" style="font-size: var(--text-sm)">Apoio 14</p>
+      </article>
+      <article><h3>Forma</h3>
+        <div class="forma-amostras"><span class="forma-raio"></span><span class="forma-circulo"></span></div>
+        <p>Raio de 14px em tudo. Círculo só em orb, avatar, atalho e marco do rastreio.</p>
+      </article>
+      <article><h3>Ícones</h3>
+        <div class="icones-amostra" aria-hidden="true"><span class="icone-pacote" style="--icone: url(icones/inicio.svg)"></span><span class="icone-pacote" style="--icone: url(icones/carteira.svg)"></span><span class="icone-pacote" style="--icone: url(icones/extrato.svg)"></span><span class="icone-pacote" style="--icone: url(icones/calculadora.svg)"></span><span class="icone-pacote" style="--icone: url(icones/rendimento.svg)"></span></div>
+        <p>Em linha, de uma cor, sem imitar marca real.</p>
+      </article>
+    </div>
+  </section>
+
   <section class="slide escuro" aria-label="A identidade nas telas">
     <h2>A identidade nas telas</h2>
     <div class="telas-slide">
@@ -79,6 +127,37 @@
       <figure><img src="telas/id-cor.jpg" alt="Home com topo marrom, fundo creme e faixa laranja de resgate atrasado" width="750" height="1624"><figcaption>Cor: marrom e creme na base, laranja no que pede atenção</figcaption></figure>
       <figure><img src="telas/id-tipografia.jpg" alt="Extrato com os valores em Proxima Nova" width="750" height="1624"><figcaption>Tipografia: Proxima Nova nos textos e nos valores</figcaption></figure>
       <figure><img src="telas/id-movimento.jpg" alt="Abertura do app com o logo completo" width="750" height="1624"><figcaption>Movimento: a abertura revela o logo a partir das sementes</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="slide" aria-label="Componentes">
+    <h2>Componentes</h2>
+    <div class="componentes-slide" inert>
+      <article><h3>Ações</h3><div class="ds-linha"><button class="primario" type="button">Enviar</button><button class="botao-forte" type="button">Bloquear acesso agora</button><button class="base-pessoa" type="button">Falar com uma pessoa</button></div><p>Uma ação principal por bloco. A de segurança só aparece em golpe.</p></article>
+      <article><h3>Perguntas sugeridas</h3><div class="chips"><button class="chip" type="button">Quando cai meu resgate?</button><button class="chip" type="button">O que é liquidez diária?</button></div><p>Sempre uma embaixo da outra.</p></article>
+      <article><h3>Atalhos</h3><div class="atalhos"><button class="atalho principal" data-fala="Onde está meu dinheiro?"><span class="atalho-icone"><span class="icone-pacote" style="--icone: url(icones/carteira.svg)"></span></span><span>Portfólio</span></button><button class="atalho" data-fala="Quanto vou receber se resgatar tudo hoje?"><span class="atalho-icone"><span class="icone-pacote" style="--icone: url(icones/calculadora.svg)"></span></span><span>Quanto vou receber</span></button><button class="atalho" data-fala="Meu CDB rendeu menos que a poupança?"><span class="atalho-icone"><span class="icone-pacote" style="--icone: url(icones/rendimento.svg)"></span></span><span>Comparar poupança</span></button><a class="atalho" href="extrato.html?cliente=C-0001&amp;agora=2026-11-18T10%3A00"><span class="atalho-icone"><span class="icone-pacote" style="--icone: url(icones/extrato.svg)"></span></span><span>Extrato</span></a></div><p>Quatro por linha.</p></article>
+      <article><h3>Rastreio</h3><div class="ficha componentes-ficha"><p class="quando">Cai em 18/11/2026</p><ol class="rastreio"><li class="feita"><span class="marco"></span><span class="passo">Pedido</span><time>17/11/2026</time></li><li class="agora" aria-current="step"><span class="marco"></span><span class="passo">Dia-base, hoje</span><time>18/11/2026</time></li><li><span class="marco"></span><span class="passo">Dinheiro na conta</span><time>18/11/2026</time></li></ol></div><p>A data final é a maior coisa do cartão.</p></article>
+    </div>
+  </section>
+
+  <section class="slide escuro" aria-label="Do token à tela">
+    <h2>Do token à tela</h2>
+    <div class="token-slide">
+      <ol class="token-fluxo">
+        <li><code>tokens.css</code><span>Fonte única de cor, fonte, tamanho e raio.</span></li>
+        <li><code>estilo.css</code><span>Componentes usam só os tokens. Nada de cor escrita direto.</span></li>
+        <li><strong>Telas</strong><span>Home, extrato, chat e esta apresentação usam os mesmos arquivos.</span></li>
+        <li><code>/design-system</code><span>Referência viva, atualizada no mesmo commit de toda mudança de tela, botão ou movimento.</span></li>
+      </ol>
+      <div class="token-lado">
+        <div class="codigo-slide"><figure><figcaption>public/tokens.css</figcaption><pre><code>--color-ink: #2b0b09;
+--color-paper: #fff4e9;
+--color-accent: #f6ac78;
+--text-base: 1rem;
+--radius: 14px;</code></pre></figure></div>
+        <p class="slide-nota">Para outro time usar: <code>tokens.json</code> e <code>PARA-DEVS.md</code>.</p>
+        <a class="qr-botao" href="https://caqui.pages.dev/design-system" target="_blank" rel="noopener">Abrir o design system</a>
+      </div>
     </div>
   </section>
 

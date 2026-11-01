@@ -341,7 +341,7 @@ a.icone-link:hover { background: var(--color-card); }
 .deck-topo { position: fixed; z-index: 5; top: 0.375rem; left: 50%; display: flex; align-items: center; gap: 0.25rem; width: max-content; max-width: calc(100vw - 1rem); padding: 0.25rem; border-radius: var(--radius); background: var(--color-card); box-shadow: var(--sombra); color: var(--color-ink); transform: translateX(-50%); }
 html:fullscreen .deck-topo { display: none; }
 .deck-secoes, .deck-links { transition: max-width 320ms ease-in-out, opacity 220ms ease-in-out; }
-.deck-secoes { max-width: 48rem; }
+.deck-secoes { max-width: 58rem; }
 .deck-links { max-width: 6rem; }
 .topo-recolhido .deck-secoes, .topo-recolhido .deck-links { max-width: 0; overflow: hidden; opacity: 0; visibility: hidden; }
 .deck-hamburguer { display: none; }
@@ -376,6 +376,43 @@ html:fullscreen .deck-topo { display: none; }
 .cartoes-slide.quatro, .escopo-slide, .tabela-slide, .conta-slide .cartao-laranja { font-size: 1.125rem; }
 .cartoes-slide.cinco { font-size: 1.1875rem; }
 .cartoes-slide.tres { font-size: 1.25rem; }
+.logo-usos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; font-size: 1.125rem; }
+.logo-usos article { display: flex; flex-direction: column; gap: 0.5rem; min-width: 0; }
+.logo-usos h3 { margin: 0.25rem 0 0; font-size: 1.375rem; font-weight: 800; }
+.logo-usos span { position: relative; display: grid; place-items: center; aspect-ratio: 16 / 9; border-radius: var(--radius); }
+.logo-usos img { position: absolute; inset: 1.5rem; display: block; width: calc(100% - 3rem); height: calc(100% - 3rem); object-fit: contain; }
+.logo-usos .fundo-claro { background: var(--color-destaque); }
+.logo-usos .fundo-escuro { background: var(--color-ink); }
+.logo-usos .fundo-golpe { background: var(--color-vermelho); color: var(--color-ink); font-size: 1.75rem; font-family: var(--font-display); }
+.cor-funcao { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 3rem; align-items: center; }
+.status-faixas { display: flex; flex-direction: column; gap: 0.5rem; margin: 0; padding: 0; list-style: none; color: var(--color-ink); font-size: 1.125rem; }
+.status-faixas li { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 4rem; padding: 0.5rem 1.25rem; border-radius: var(--radius); }
+.status-faixas code, .cor-regras code, .token-fluxo code, .slide-nota code { font-family: var(--font-mono); font-size: 0.9em; letter-spacing: 0; }
+.cor-regras { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; margin: 0; font-size: 1.125rem; line-height: 1.3; }
+.cor-regras dt { margin-bottom: 0.25rem; font-weight: 800; }
+.cor-regras dd { margin: 0; text-wrap: balance; }
+.base-sistema article { gap: 0.75rem; }
+.base-sistema .escala { line-height: 1.2; }
+.forma-amostras, .icones-amostra { display: flex; align-items: center; gap: 1rem; min-height: 6rem; }
+.forma-raio, .forma-circulo { display: block; width: 6rem; height: 6rem; background: var(--color-accent); }
+.forma-raio { border-radius: var(--radius); }
+.forma-circulo { border-radius: 50%; }
+.icones-amostra .icone-pacote { flex: none; width: 3rem; height: 3rem; }
+.componentes-slide { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 1rem; font-size: 1rem; }
+.componentes-slide article { display: flex; flex-direction: column; gap: 0.5rem; min-width: 0; padding: 1rem 1.25rem; border-radius: var(--radius); background: var(--color-destaque); }
+.componentes-slide h3 { margin: 0; font-size: 1.25rem; font-weight: 800; }
+.componentes-slide .ds-linha { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.componentes-ficha { padding: 0; background: none; box-shadow: none; }
+.token-slide { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 3rem; align-items: start; }
+.token-fluxo { display: flex; flex-direction: column; gap: 1rem; margin: 0; padding: 0; list-style: none; font-size: 1.125rem; }
+.token-fluxo li { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--color-rule); line-height: 1.3; }
+.token-fluxo li:last-child { padding-bottom: 0; border-bottom: 0; }
+.token-fluxo code, .token-fluxo strong { font-weight: 800; }
+.token-fluxo span { text-wrap: balance; }
+.token-lado { display: flex; flex-direction: column; gap: 1rem; }
+.token-lado .codigo-slide { grid-template-columns: minmax(0, 1fr); }
+.token-lado pre { font-size: 1rem; }
+.token-lado .qr-botao { margin-top: 0; }
 .slide { display: none; height: 810px; padding-top: 2rem; padding-bottom: 4.5rem; overflow: hidden; }
 .slide.atual { display: flex; }
 .slide { font-size: 1.375rem; }
@@ -815,6 +852,10 @@ a.atalho { text-decoration: none; }
 
 /* apresentação no celular: slides em rolagem, com menu hambúrguer */
 @media (max-width: 59.99rem) {
+  .logo-usos { grid-template-columns: minmax(0, 1fr); }
+  .cor-funcao, .componentes-slide, .token-slide { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+  .cor-regras { grid-template-columns: minmax(0, 1fr); }
+  .token-fluxo li { grid-template-columns: minmax(0, 1fr); gap: 0.25rem; }
   .deck { height: auto; overflow: visible; }
   .palco { position: static; width: auto; height: auto; overflow: visible; transform: none; }
   .slide, .slide.atual, .slide.saindo { position: relative; inset: auto; display: flex; height: auto; padding: 4.75rem 1.25rem 2.5rem; overflow: visible; font-size: 1.0625rem; animation: none; scroll-margin-top: 0; }
