@@ -919,7 +919,7 @@ a.atalho { text-decoration: none; }
   .token-fluxo li { grid-template-columns: minmax(0, 1fr); gap: 0.25rem; }
   .deck { height: auto; overflow: visible; }
   .palco { position: static; width: auto; height: auto; overflow: visible; transform: none; }
-  .slide, .slide.atual, .slide.saindo { position: relative; inset: auto; display: flex; height: auto; padding: 4.75rem 1.25rem 2.5rem; overflow: visible; font-size: 1.0625rem; animation: none; scroll-margin-top: 0; }
+  .slide, .slide.atual, .slide.saindo { position: relative; inset: auto; display: flex; height: auto; padding: 4.75rem 1.25rem 6.5rem; overflow: visible; font-size: 1.0625rem; animation: none; scroll-margin-top: 0; }
   .slide.capa { min-height: 100svh; justify-content: center; }
   .slide:not(.capa) { padding-top: 4.75rem; }
   .slide:not(.capa) > h2 { margin-bottom: 0; }
